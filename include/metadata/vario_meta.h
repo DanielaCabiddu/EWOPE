@@ -7,17 +7,18 @@
 #include <cereal/archives/json.hpp>
 #include <cereal/types/vector.hpp>
 
-#include <geostatslib/statistics/variogram.h>
+// #include <geostatslib/statistics/variogram.h>
 
-#include "muselib/geostatistics/fitvario.h"
+#include "metadata/metadata.h"
+// #include "muselib/geostatistics/fitvario.h"
 
-#include "muselib/metadata/vario_methods.h"
-#include "muselib/metadata/fitvario_methods.h"
+#include "metadata/vario_methods.h"
+#include "metadata/fitvario_methods.h"
 
-#include "muselib/data_structures/project.h"
+#include "data_structures/project.h"
 //#include "muselib/data_structures/dependency.h"
-#include "muselib/data_structures/info_data.h"
-#include "muselib/data_structures/rotation.h"
+#include "data_structures/info_data.h"
+#include "data_structures/rotation.h"
 
 
 namespace MUSE
@@ -25,7 +26,7 @@ namespace MUSE
     class VarioMeta;
 }
 
-class MUSE::VarioMeta
+class MUSE::VarioMeta : public MUSE::Metadata
 {
 public:
 
@@ -240,10 +241,10 @@ public:
 
 private:
 
-    MUSE::Project project;
+    // MUSE::Project project;
 
-    std::vector<std::string> commands;
-    std::vector<std::string> dependencies;
+    // std::vector<std::string> commands;
+    // std::vector<std::string> dependencies;
 
     MUSE::InfoData infodata;
     MUSE::Rotation rotation;

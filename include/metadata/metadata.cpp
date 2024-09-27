@@ -3,10 +3,6 @@
 #include <iostream>
 #include <fstream>
 
-
-namespace MUSE
-{
-
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -22,7 +18,6 @@ bool Metadata::write(const std::string filename)
 
 bool Metadata::readConfFileJSON(const std::string filename)
 {
-#ifdef MUSE_USES_CEREAL
     std::ifstream ss (filename.c_str(), std::ifstream::in);
 
     if (!ss.is_open())
@@ -37,10 +32,6 @@ bool Metadata::readConfFileJSON(const std::string filename)
     ss.close();
 
     return true;
-#else
-    std::cerr << "CEREAL Library is required to load an instrument from file." << std::endl;
-    return false;
-#endif
 }
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -48,7 +39,6 @@ bool Metadata::readConfFileJSON(const std::string filename)
 
 bool Metadata::writeConfFileJSON (const std::string filename)
 {
-#ifdef MUSE_USES_CEREAL
     std::ofstream ss (filename.c_str(), std::ofstream::out);
 
     if (!ss.is_open())
@@ -65,10 +55,4 @@ bool Metadata::writeConfFileJSON (const std::string filename)
     ss.close();
 
     return true;
-#else
-    std::cerr << "CEREAL Library is required to save an instrument on file." << std::endl;
-    return false;
-#endif
-}
-
 }

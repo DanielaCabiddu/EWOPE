@@ -7,13 +7,13 @@
 #include <cereal/archives/json.hpp>
 #include <cereal/types/vector.hpp>
 
-#include <geostatslib/statistics/variogram.h>
+// #include <geostatslib/statistics/variogram.h>
 
 
 namespace MUSE
 {
 
-class exp_variog_methods : public exp_variog
+class exp_variog_methods /*: public exp_variog*/
 {
     public:
 
@@ -21,14 +21,14 @@ class exp_variog_methods : public exp_variog
     void setDirection       (const double d)                {degree_direction = d; }
     void setExpVariog_gamma (const std::vector<double> g)   {gamma = g; }
     void setExpVariog_h     (const std::vector<double> g)   {h = g; }
-    void setExpVariog_N     (const std::vector<uint> g)     {N = g; }
+    void setExpVariog_N     (const std::vector<unsigned int> g)     {N = g; }
 
 
     // Get Methods
     double              getDirection        ()  const       {return degree_direction;}
     std::vector<double> getExpVariog_gamma  ()  const       {return gamma;}
     std::vector<double> getExpVariog_h      ()  const       {return h;}
-    std::vector<uint>   getExpVariog_N      ()  const       {return N;}
+    std::vector<unsigned int>   getExpVariog_N      ()  const       {return N;}
 
 
 
@@ -55,6 +55,10 @@ class exp_variog_methods : public exp_variog
 private:
 
     double degree_direction;
+
+    std::vector<double> gamma;
+    std::vector<double> h;
+    std::vector<unsigned int> N;
 };
 
 }

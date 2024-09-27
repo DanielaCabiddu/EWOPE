@@ -7,8 +7,8 @@
 #include <cereal/archives/json.hpp>
 #include <cereal/types/vector.hpp>
 
-#include "muselib/data_structures/project.h"
-#include "muselib/data_structures/info_data.h"
+#include "data_structures/project.h"
+#include "data_structures/info_data.h"
 
 
 namespace MUSE

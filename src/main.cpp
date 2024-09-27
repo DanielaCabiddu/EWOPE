@@ -1,14 +1,10 @@
-#include <iostream>
 #include <filesystem>
+#include <iostream>
 #include <string>
 
-#include <data_structures/project.h>
-
 #include <metadata/metadata.h>
-#include <metadata/data_meta.h>
 
-#include <metadata/vario_meta.h>
-#include <metadata/vario_methods.h>
+#include <tclap/CmdLine.h>
 
 //for filesystem
 #ifdef __APPLE__
@@ -19,64 +15,72 @@
 
 int main(int argc, char **argv)
 {
-    MUSE::Project project;
 
-    project.setName("name");
-    project.setFolder("folder");
+    // std::string proj_name = "proj";
+    // std::string proj_path = std::filesystem::current_path().string();
+    std::vector<std::string> command_lines;
+    std::vector<std::string> inputs ;
 
-    project.write("project.json");
+    std::vector<std::string> outputs;
 
-    // add data to project
+    // Wrap everything in a try block.  Do this every time,
+    // because exceptions will be thrown for problems.
+    try {
 
-    // input data
-    MUSE::DataMeta metadata;
-    metadata.setProject(project);
+        // Define the command line object, and insert a message
+        // that describes the program. The "Command description message"
+        // is printed last in the help text. The second argument is the
+        // delimiter (usually space) and the last one is the version number.
+        // The CmdLine object parses the argv array based on the Arg objects
+        // that it contains.
+        TCLAP::CmdLine cmd("Command description message", ' ', "0.9");
 
-    MUSE::DataMeta::CSVFile csv_file;
-    csv_file.setFilename("name.csv");
-    csv_file.setDelimiter(" ");
+        // Define a value argument and add it to the command line.
+        // A value arg defines a flag and a type of value that it expects,
+        // such as "-n Bishop".
+        TCLAP::MultiArg<std::string> commandsArg("c","command","Command line",true, "string");
+        TCLAP::MultiArg<std::string> inputsArg("i", "in", "Dependencies (inputs)", true, "string" );
+        TCLAP::MultiArg<std::string> outputsArg("o", "out", "Outputs", true, "string" );
 
-    metadata.setCSVFile(csv_file);
+        // Add the argument nameArg to the CmdLine object. The CmdLine object
+        // uses this Arg to parse the command line.
+        cmd.add( commandsArg );
+        cmd.add( inputsArg );
+        cmd.add( outputsArg );
 
-    // /// check data and validation - input: metadata
-    // update metadata
-    // generate var_metadata
+        // Parse the argv array.
+        cmd.parse( argc, argv );
 
-    std::vector<MUSE::Metadata> var_metadata;
+        command_lines = commandsArg.getValue();
+        inputs = inputsArg.getValue();
+        outputs = outputsArg.getValue();
 
-    metadata.write("metadata.json");
+    }
+    catch (TCLAP::ArgException &e)  // catch exceptions
+    {
+        std::cerr << e.error() << ": " << e.what() << std::endl;
+        exit(1);
+    }
 
-    for (unsigned int v=0; v < var_metadata.size(); v++)
-        var_metadata.at(v).write("var_meta_[v].json");
+    std::vector<std::string> deps;
 
+    for (const std::string s : inputs)
+    {
+        deps.push_back(s.substr(0, s.find_last_of(".")) + ".json");
 
-    // vario
-    MUSE::VarioMeta vario_metadata;
-    vario_metadata.setProject(project);
+        // check di esistenza e del caso di uno a molti
+    }
 
-    vario_metadata.setInfoData(metadata.getInfoData());
+    for (const std::string o : outputs)
+    {
 
-    MUSE::VarioMeta::Processing vario_process_metadata;
+        Metadata metadata;
 
-    vario_process_metadata.v_name = "VAR_NAME";
-    vario_process_metadata.declustering = "NO";
-    vario_process_metadata.normal_score = "YES";
+        metadata.setCommands(command_lines);
+        metadata.setDependencies(deps);
 
-    vario_metadata.setProcessing(vario_process_metadata);
-
-    MUSE::VarioMeta::InfoVariogram vario_setting_info;
-    vario_setting_info.dimension = "2D";
-    vario_setting_info.direction = "DIR";
-    vario_setting_info.n_directions = 5;
-    //....
-
-    vario_metadata.setInfoVariogram(vario_setting_info);
-
-    // run vario -
-    //// INPUT vario_metadata
-    /// OUTPUT update vario_metadata
-
-    vario_metadata.write("vario_meta.json");
+        metadata.write(o.substr(0, o.find_last_of(".")) + ".json");
+    }
 
 
 }

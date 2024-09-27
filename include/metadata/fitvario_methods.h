@@ -7,13 +7,13 @@
 #include <cereal/archives/json.hpp>
 #include <cereal/types/vector.hpp>
 
-#include <geostatslib/statistics/data_structures.h>
-#include <geostatslib/statistics/variogram.h>
+// #include <geostatslib/statistics/data_structures.h>
+// #include <geostatslib/statistics/variogram.h>
 
 namespace MUSE
 {
 
-class variogram_methods : public variogram
+class variogram_methods /*: public variogram*/
 {
     public:
 
@@ -61,6 +61,15 @@ class variogram_methods : public variogram
 private:
 
     double degree_direction = 0.0;
+
+    double nugget;
+    double sill;
+    double range;
+
+    std::string type;
+
+    double range_min;
+    double range_max;
 };
 
 }
