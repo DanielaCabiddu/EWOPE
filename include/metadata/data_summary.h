@@ -7,7 +7,7 @@
 #include <cereal/archives/json.hpp>
 #include <cereal/types/vector.hpp>
 
-#include "muselib/data_structures/data.h"
+#include "data_structures/data.h"
 
 namespace MUSE
 {

@@ -20,7 +20,6 @@ int main(int argc, char **argv)
     // std::string proj_path = std::filesystem::current_path().string();
     std::vector<std::string> command_lines;
     std::vector<std::string> inputs ;
-
     std::vector<std::string> outputs;
 
     // Wrap everything in a try block.  Do this every time,

@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ENABLE_LANGUAGE(C)
 
-add_definitions(-DMUSE_USES_CEREAL)
+# add_definitions(-DMUSE_USES_CEREAL)
 
 include_directories(BEFORE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 

@@ -10,12 +10,12 @@
 
 //#include "muselib/reference_system/coordinate_systems.h"
 
-#include "muselib/input/load_csv.h"
+#include "load_csv.h"
 
-#include "muselib/utils.h"
+#include "utils.h"
 #include "metadata/metadata.h"
 #include "metadata/data_meta.h"
-#include "muselib/metadata/data_summary_meta.h"
+// #include "muselib/metadata/data_summary_meta.h"
 #include "metadata/data_summary.h"
 #include "metadata/data_statistics.h"
 
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
         // SwitchArg projectCreation           ("N", "new_project", "Creation new project", cmd, false); //booleano
         // ValueArg<std::string> projectFolder ("p", "pdir", "Project directory", true, "Directory", "path", cmd);
 
-        TCLAP::MultiArg<std::string> inputsArg("i", "in", "Inputs", true, "string" );
+        TCLAP::MultiArg<std::string> inputsArg("i", "in", "Inputs", true, "string", cmd);
 
         // Option 0a. Project creation - optional: setting project EPSG
         ValueArg<std::string> setEPSG       ("", "setEPSG", "Set project EPSG", false, "Unknown", "authority", cmd);
@@ -112,6 +112,8 @@ int main(int argc, char** argv)
 
         // Parse the argv array.
         cmd.parse(argc, argv);
+
+        list_csv = inputsArg.getValue();
 
 
         // ---------------------------------------------------------------------------------------------------------
@@ -179,15 +181,15 @@ int main(int argc, char** argv)
                 csv_delimiter = ',';
 
 
-            // Check on input files (.csv)
-            if(filesystem::is_empty(in_folder))
+            // // Check on input files (.csv)
+            // if(filesystem::is_empty(in_folder))
+            // {
+            //     std::cerr << "\033[0;31mInput ERROR: Insert file.csv \033[0m" << std::endl;
+            //     exit(1);
+            // }
+            // else
             {
-                std::cerr << "\033[0;31mInput ERROR: Insert file.csv into: "<< in_folder << "\033[0m" << std::endl;
-                exit(1);
-            }
-            else
-            {
-                std::vector<std::string> list_csv = get_files(in_folder, ".csv");
+                // std::vector<std::string> list_csv = get_files(in_folder, ".csv");
 
                 MUSE::InfoData info;
 
@@ -216,17 +218,17 @@ int main(int argc, char** argv)
 
                     if(list_csv.size() > 1)
                     {
-                        std::string out_frame = out_folder + "/" + csv.filename;
-                        if(!filesystem::exists(out_frame))
-                            filesystem::create_directory(out_frame);
+                        // std::string out_frame = out_folder + "/" + csv.filename;
+                        // if(!filesystem::exists(out_frame))
+                        //     filesystem::create_directory(out_frame);
 
-                        datameta.write(out_frame + "/" + csv.filename + ".json");
-                        std::cout << "\033[0;32mUpdating JSON file: "<< out_frame + "/" + csv.filename << ".json \033[0m" << std::endl;
+                        datameta.write(csv.filename + ".json");
+                        std::cout << "\033[0;32mUpdating JSON file: "<< csv.filename << ".json \033[0m" << std::endl;
                     }
                     else
                     {
-                        datameta.write(out_folder + "/" + csv.filename + ".json");
-                        std::cout << "\033[0;32mUpdating JSON file: "<< out_folder + "/" + csv.filename << ".json \033[0m" << std::endl;
+                        datameta.write(csv.filename + ".json");
+                        std::cout << "\033[0;32mUpdating JSON file: "<< csv.filename << ".json \033[0m" << std::endl;
                     }
                 }
             }
@@ -255,15 +257,8 @@ int main(int argc, char** argv)
                 std::string filename = list_csv.at(i);
                 int n_rows_header = 6;
 
-                if(list_csv.size() > 1)
-                {
-                    out_folder.clear();
-                    out_folder =  Project.folder + "/out/" + app_name + "/" + get_basename(get_filename(filename));
-                    std::cout << "### MULTIFRAME DATA ANALYSIS ..." << std::endl;
-                }
-
                 MUSE::DataMeta datameta;
-                datameta.read(out_folder + "/" + get_basename(get_filename(filename)) + ".json");
+                datameta.read(get_basename(get_filename(filename)) + ".json");
 
 
                 // Reading csv and storing into matrix_header/data
@@ -275,7 +270,7 @@ int main(int argc, char** argv)
                 size_t n_files = 0; //numero file creati in formato MUSE
 
                 // Active flag table
-                std::vector<Flag> table;
+                std::vector<MUSE::Flag> table;
                 flagsTable(table);
 
                 int flag_row = 3; //riga della matrice (contando da 1) dove si trova il flag
@@ -407,400 +402,400 @@ int main(int argc, char** argv)
 
 
         // Option 2. Reading MUSE format
-        if(readFunction.isSet() && Variable.getValue().compare("ALL_INPUT") != 0)
-        {
-            std::string path = get_path(Variable.getValue());
-            std::string json_basename = get_basename(get_filename(Variable.getValue()));
-
-            // Reading json file
-            MUSE::Metadata data;
-            data.read(Variable.getValue());
-
-            PlotStruct dataplot;
-            std::vector<MUSE::Data> vec_data = data.getMultiData();
-
-            if(setNrealization.isSet())
-            {
-                MUSE::Data d = vec_data.at(setNrealization.getValue());
-                d.setType(d.flag);
-
-                std::vector<std::string> textValues;
-                readTextValues(get_basename(Variable.getValue()) + "_" + d.getDescription() + ext, textValues);
-                d.setTextValues(textValues);
-
-                DataSummaryMeta datasum_meta;
-                datasum_meta.setData(d);
-
-                DataSummary sum;
-                sum.setSummary(d);
-                datasum_meta.setSummary(sum);
-
-                if(d.type == NUMBER)
-                {
-                    dataplot.x.clear();
-
-                    size_t n_sample = d.text_values.size();
-
-                    // Active flag table
-                    std::vector<Flag> table;
-                    flagsTable(table);
-
-                    // String-double conversion
-                    for(size_t i =0 ; i<n_sample; i++)
-                    {
-                        //vedo che flag è e faccio il check per entrambi i vettori x e y
-                        double val = 0.0;
-                        std::string val_tmp = d.text_values.at(i);
-
-                        if(!val_tmp.empty() && val_tmp.compare("nd") !=0) //se la stringa non è vuota ed è diversa da nd
-                        {
-                            if(val_tmp.compare("*")!=0)
-                            {
-                                if(val_tmp.compare("NA")!=0)
-                                {
-                                    flagActivation(table, d.getFlag());
-                                    int n_activeFlag = count_activeFlag(table); //conta il numero di flag attivi
-                                    for(size_t i=0; i<table.size(); i++) //ho una tabella aggiornata con i flag attivi (relativi alla variabile)
-                                    {
-                                        if(table.at(i).activeFlag == true)
-                                            table.at(i).check = getCheck(table.at(i).charFlag, val_tmp);
-                                    }
-                                    int n_passedCheck = count_passedCheck(table);
-                                    restoreTable(table);
-
-                                    if(n_activeFlag == n_passedCheck)
-                                    {
-                                        val = std::stod(val_tmp);
-                                        dataplot.x.push_back(val);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    int n_conv_samples = dataplot.x.size(); //numero campioni convertiti da stringa a double
-                    if(n_conv_samples == 0)
-                        std::cerr << "\033[0;31mERROR: All values are invalid! No statistical data summary.\033[0m" << std::endl;
-                    else
-                    {
-                        std::cout << "Statistical data summary ..." << std::endl;
-                        summary(dataplot.x);
-
-                        Statistics stats;
-                        stats.setStatistics(dataplot.x);
-                        datasum_meta.setStatistics(stats);
-
-                        if(getHistogram.isSet())
-                        {
-                            if(n_conv_samples >= setNMaxValues.getValue()) //numero di punti sufficiente per creare un grafico
-                            {
-                                hist_plot(dataplot, Project.name, d.getName() + " [" + d.getUnit() + "]", "Frequency", setNbins.getValue(), setNbins.isSet());
-                                matplot::save(get_basename(Variable.getValue()), "jpeg");
-                                matplot::cla();
-                                std::cout << std::endl;
-                            }
-                            else
-                                std::cerr << "\033[0;31mERROR: Not created histogram! Number of samples is < " << setNMaxValues.getValue() << ".\033[0m" << std::endl;
-                        }
-                    }
-                }
-
-                else
-                    std::cout << "\033[0;33mWARNING: Histogram plot is irrelevant for data type.\033[0m" << std::endl;
-
-                datasum_meta.write(get_basename(Variable.getValue()) + "_summ.json");
-            }
-            else
-            {
-                for(MUSE::Data &d:vec_data)
-                {
-                    d.setType(d.flag);
-
-                    std::vector<std::string> textValues;
-                    readTextValues(get_basename(Variable.getValue()) + "_" + d.getDescription() + ext, textValues);
-                    d.setTextValues(textValues);
-
-                    DataSummaryMeta datasum_meta;
-                    datasum_meta.setData(d);
-
-                    DataSummary sum;
-                    sum.setSummary(d);
-                    datasum_meta.setSummary(sum);
-
-                    if(d.type == NUMBER)
-                    {
-                        dataplot.x.clear();
-
-                        size_t n_sample = d.text_values.size();
-
-                        // Active flag table
-                        std::vector<Flag> table;
-                        flagsTable(table);
-
-                        // String-double conversion
-                        for(size_t i =0 ; i<n_sample; i++)
-                        {
-                            //vedo che flag è e faccio il check per entrambi i vettori x e y
-                            double val = 0.0;
-                            std::string val_tmp = d.text_values.at(i);
-
-                            if(!val_tmp.empty() && val_tmp.compare("nd") !=0) //se la stringa non è vuota ed è diversa da nd
-                            {
-                                if(val_tmp.compare("*")!=0)
-                                {
-                                    if(val_tmp.compare("NA")!=0)
-                                    {
-                                        flagActivation(table, d.getFlag());
-                                        int n_activeFlag = count_activeFlag(table); //conta il numero di flag attivi
-                                        for(size_t i=0; i<table.size(); i++) //ho una tabella aggiornata con i flag attivi (relativi alla variabile)
-                                        {
-                                            if(table.at(i).activeFlag == true)
-                                                table.at(i).check = getCheck(table.at(i).charFlag, val_tmp);
-                                        }
-                                        int n_passedCheck = count_passedCheck(table);
-                                        restoreTable(table);
-
-                                        if(n_activeFlag == n_passedCheck)
-                                        {
-                                            val = std::stod(val_tmp);
-                                            dataplot.x.push_back(val);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        int n_conv_samples = dataplot.x.size(); //numero campioni convertiti da stringa a double
-                        if(n_conv_samples == 0)
-                            std::cerr << "\033[0;31mERROR: All values are invalid! No statistical data summary.\033[0m" << std::endl;
-                        else
-                        {
-                            std::cout << "Statistical data summary ..." << std::endl;
-                            summary(dataplot.x);
-
-                            Statistics stats;
-                            stats.setStatistics(dataplot.x);
-                            datasum_meta.setStatistics(stats);
-
-                            if(getHistogram.isSet())
-                            {
-                                if(n_conv_samples >= setNMaxValues.getValue()) //numero di punti sufficiente per creare un grafico
-                                {
-                                    hist_plot(dataplot, Project.name, d.getName() + " [" + d.getUnit() + "]", "Frequency", setNbins.getValue(), setNbins.isSet());
-                                    matplot::save(get_basename(Variable.getValue()), "jpeg");
-                                    matplot::cla();
-                                    std::cout << std::endl;
-                                }
-                                else
-                                    std::cerr << "\033[0;31mERROR: Not created histogram! Number of samples is < " << setNMaxValues.getValue() << ".\033[0m" << std::endl;
-                            }
-                        }
-                    }
-
-                    else
-                        std::cout << "\033[0;33mWARNING: Histogram plot is irrelevant for data type.\033[0m" << std::endl;
-
-                    datasum_meta.write(get_basename(Variable.getValue()) + "_summ.json");
-                }
-            }
-
-            std::cout << std::endl;
-            std::cout << "\033[0;32mReading MUSE format and data analysis... COMPLETED.\033[0m" << std::endl;
-
-        }
-
-
-
-        // Option 2. Reading MUSE format
-        if(readFunction.isSet() && Variable.getValue().compare("ALL_INPUT") == 0)
-        {
-            std::string abs_datadir = out_folder;
-            std::vector<std::string> list_dir = get_directories(abs_datadir);
-            if(list_dir.empty())
-                list_dir.push_back(abs_datadir);
-
-            int count_frame = 0;
-            for(const std::string &l:list_dir)
-            {
-                count_frame++;
-
-                filesystem::path dir = l;
-                filesystem::path rel_datadir = filesystem::relative(dir, abs_datadir);
-
-                std::string sum_folder = out_folder;
-                if(rel_datadir.string().compare(".") != 0)
-                {
-                    sum_folder += "/"+ rel_datadir.string();
-
-                    std::cout << std::endl;
-                    std::cout << "###########################" << std::endl;
-                    std::cout << "### NUMBER OF TIME FRAMES: " << list_dir.size() << std::endl;
-                    std::cout << "### TIME FRAME N° " << count_frame << " ON " << list_dir.size() << std::endl;
-                    std::cout << "### TIME FRAME NAME: " << rel_datadir.string() << std::endl;
-                    std::cout << std::endl;
-                }
-                sum_folder += "/summary";
-
-                if(!filesystem::exists(sum_folder))
-                    filesystem::create_directory(sum_folder);
-
-                std::vector<std::string> list_proj_json = get_files(l, ".json");
-                if(list_proj_json.size() > 1)
-                {
-                    std::cerr << "ERROR. Only a file JSON is expected!" << std::endl;
-                    exit(1);
-                }
-
-                // Definition of coordinate variables
-                MUSE::DataMeta datameta;
-                datameta.read(list_proj_json.at(0));
-
-
-                // Creation of data structure
-                std::vector<Data> dataset; //struttura dati
-                std::vector<std::string> list_json = get_files(l + "/metadata", ".json"); //gli devo passare la json_dir
-
-                size_t n_var = list_json.size();
-                for(size_t i=0; i< n_var; i++)
-                {
-                    // Funzioni per estrarre la lista dei file contenuti in una cartella: utile per lavorare su tutti i file
-                    // Apertura multipla: gli devo dare la cartella dei json
-
-                    // Defining paths (json and data file)
-                    std::string json_path = list_json.at(i);
-
-                    std::string json_filename;
-                    json_filename = json_path.substr(json_path.find_last_of("/")+1, json_path.length());
-
-                    std::string basename = get_basename(json_filename);
-
-                    std::string data_filename = basename +".dat";
-                    std::string data_path = l +"/data/"+ data_filename;
-
-                    // Reading json file
-                    MUSE::Metadata data;
-                    data.read(json_path);
-
-                    std::vector<MUSE::Data> vec_data = data.getMultiData();
-
-                    if(!filesystem::exists(sum_folder + "/" + basename +".json"))
-                        filesystem::copy(json_path, sum_folder + "/"+ basename +".json");
-
-                    for(MUSE::Data &d:vec_data)
-                    {
-                        d.setType(d.flag);
-
-                        // Set id
-                        if(d.getName() == datameta.getInfoData().id_name)
-                            d.type = ID;
-
-                        // Set coordinates
-                        if(d.getName() == datameta.getInfoData().x_name || d.getName() == datameta.getInfoData().y_name || d.getName() == datameta.getInfoData().z_name)
-                            d.type = COORDINATE; //settare quando leggo l'epsg!!
-
-                        std::vector<std::string> textValues;
-                        readTextValues(data_path, textValues);
-                        d.setTextValues(textValues);
-
-                        dataset.push_back(d);
-                    }
-
-                }
-
-                std::cout << "\033[0;32mCreating data stucture... COMPLETED.\033[0m"<< std::endl;
-                std::cout << std::endl;
-
-                PlotStruct dataplot;
-                std::cout << "Reading MUSE format and data analysis ..." << std::endl;
-                for(size_t i=0; i<dataset.size(); i++)
-                {
-                    DataSummaryMeta datasum_meta;
-
-                    Data var = dataset.at(i);
-                    datasum_meta.setData(var);
-
-                    DataSummary sum;
-                    sum.setSummary(var);
-                    datasum_meta.setSummary(sum);
-
-
-                    if(var.type == NUMBER)
-                    {
-                        dataplot.x.clear();
-
-                        size_t n_sample = var.text_values.size();
-
-                        // Active flag table
-                        std::vector<Flag> table;
-                        flagsTable(table);
-
-                        // String-double conversion
-                        for(size_t i =0 ; i<n_sample; i++)
-                        {
-                            //vedo che flag è e faccio il check per entrambi i vettori x e y
-                            double val = 0.0;
-                            std::string val_tmp = var.text_values.at(i);
-
-                            if(!val_tmp.empty() && val_tmp.compare("nd") !=0) //se la stringa non è vuota ed è diversa da nd
-                            {
-                                if(val_tmp.compare("*")!=0)
-                                {
-                                    if(val_tmp.compare("NA")!=0)
-                                    {
-                                        flagActivation(table, var.getFlag());
-                                        int n_activeFlag = count_activeFlag(table); //conta il numero di flag attivi
-                                        for(size_t i=0; i<table.size(); i++) //ho una tabella aggiornata con i flag attivi (relativi alla variabile)
-                                        {
-                                            if(table.at(i).activeFlag == true)
-                                                table.at(i).check = getCheck(table.at(i).charFlag, val_tmp);
-                                        }
-                                        int n_passedCheck = count_passedCheck(table);
-                                        restoreTable(table);
-
-                                        if(n_activeFlag == n_passedCheck)
-                                        {
-                                            val = std::stod(val_tmp);
-                                            dataplot.x.push_back(val);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        int n_conv_samples = dataplot.x.size(); //numero campioni convertiti da stringa a double
-                        if(n_conv_samples == 0)
-                            std::cerr << "\033[0;31mERROR: All values are invalid! No statistical data summary.\033[0m" << std::endl;
-                        else
-                        {
-                            std::cout << "Statistical data summary ..." << std::endl;
-                            summary(dataplot.x);
-
-                            Statistics stats;
-                            stats.setStatistics(dataplot.x);
-                            datasum_meta.setStatistics(stats);
-
-                            if(getHistogram.isSet() && n_conv_samples >= setNMaxValues.getValue()) //numero di punti sufficiente per creare un grafico
-                            {
-                                hist_plot(dataplot, Project.name, var.getName() + " [" + var.getUnit() + "]", "Frequency", setNbins.getValue(), setNbins.isSet());
-                                matplot::save(sum_folder + "/" + var.getName(), "jpeg");
-                                matplot::cla();
-                                std::cout << std::endl;
-                            }
-                            else
-                                std::cerr << "\033[0;31mERROR: Not created histogram! Number of samples is < " << setNMaxValues.getValue() << ".\033[0m" << std::endl;
-                        }
-                    }
-
-                    else
-                        std::cout << "\033[0;33mWARNING: Histogram plot is irrelevant for data type.\033[0m" << std::endl;
-
-                    datasum_meta.write(sum_folder + "/"+ var.getName() + ".json");
-                }
-
-                std::cout << std::endl;
-                std::cout << "\033[0;32mReading MUSE format and data analysis... COMPLETED.\033[0m" << std::endl;
-            }
-        }
+        // if(readFunction.isSet() && Variable.getValue().compare("ALL_INPUT") != 0)
+        // {
+        //     std::string path = get_path(Variable.getValue());
+        //     std::string json_basename = get_basename(get_filename(Variable.getValue()));
+
+        //     // Reading json file
+        //     MUSE::Metadata data;
+        //     data.read(Variable.getValue());
+
+        //     PlotStruct dataplot;
+        //     std::vector<MUSE::Data> vec_data = data.getMultiData();
+
+        //     if(setNrealization.isSet())
+        //     {
+        //         MUSE::Data d = vec_data.at(setNrealization.getValue());
+        //         d.setType(d.flag);
+
+        //         std::vector<std::string> textValues;
+        //         readTextValues(get_basename(Variable.getValue()) + "_" + d.getDescription() + ext, textValues);
+        //         d.setTextValues(textValues);
+
+        //         DataSummaryMeta datasum_meta;
+        //         datasum_meta.setData(d);
+
+        //         DataSummary sum;
+        //         sum.setSummary(d);
+        //         datasum_meta.setSummary(sum);
+
+        //         if(d.type == NUMBER)
+        //         {
+        //             dataplot.x.clear();
+
+        //             size_t n_sample = d.text_values.size();
+
+        //             // Active flag table
+        //             std::vector<Flag> table;
+        //             flagsTable(table);
+
+        //             // String-double conversion
+        //             for(size_t i =0 ; i<n_sample; i++)
+        //             {
+        //                 //vedo che flag è e faccio il check per entrambi i vettori x e y
+        //                 double val = 0.0;
+        //                 std::string val_tmp = d.text_values.at(i);
+
+        //                 if(!val_tmp.empty() && val_tmp.compare("nd") !=0) //se la stringa non è vuota ed è diversa da nd
+        //                 {
+        //                     if(val_tmp.compare("*")!=0)
+        //                     {
+        //                         if(val_tmp.compare("NA")!=0)
+        //                         {
+        //                             flagActivation(table, d.getFlag());
+        //                             int n_activeFlag = count_activeFlag(table); //conta il numero di flag attivi
+        //                             for(size_t i=0; i<table.size(); i++) //ho una tabella aggiornata con i flag attivi (relativi alla variabile)
+        //                             {
+        //                                 if(table.at(i).activeFlag == true)
+        //                                     table.at(i).check = getCheck(table.at(i).charFlag, val_tmp);
+        //                             }
+        //                             int n_passedCheck = count_passedCheck(table);
+        //                             restoreTable(table);
+
+        //                             if(n_activeFlag == n_passedCheck)
+        //                             {
+        //                                 val = std::stod(val_tmp);
+        //                                 dataplot.x.push_back(val);
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+        //             }
+
+        //             int n_conv_samples = dataplot.x.size(); //numero campioni convertiti da stringa a double
+        //             if(n_conv_samples == 0)
+        //                 std::cerr << "\033[0;31mERROR: All values are invalid! No statistical data summary.\033[0m" << std::endl;
+        //             else
+        //             {
+        //                 std::cout << "Statistical data summary ..." << std::endl;
+        //                 summary(dataplot.x);
+
+        //                 Statistics stats;
+        //                 stats.setStatistics(dataplot.x);
+        //                 datasum_meta.setStatistics(stats);
+
+        //                 if(getHistogram.isSet())
+        //                 {
+        //                     if(n_conv_samples >= setNMaxValues.getValue()) //numero di punti sufficiente per creare un grafico
+        //                     {
+        //                         hist_plot(dataplot, Project.name, d.getName() + " [" + d.getUnit() + "]", "Frequency", setNbins.getValue(), setNbins.isSet());
+        //                         matplot::save(get_basename(Variable.getValue()), "jpeg");
+        //                         matplot::cla();
+        //                         std::cout << std::endl;
+        //                     }
+        //                     else
+        //                         std::cerr << "\033[0;31mERROR: Not created histogram! Number of samples is < " << setNMaxValues.getValue() << ".\033[0m" << std::endl;
+        //                 }
+        //             }
+        //         }
+
+        //         else
+        //             std::cout << "\033[0;33mWARNING: Histogram plot is irrelevant for data type.\033[0m" << std::endl;
+
+        //         datasum_meta.write(get_basename(Variable.getValue()) + "_summ.json");
+        //     }
+        //     else
+        //     {
+        //         for(MUSE::Data &d:vec_data)
+        //         {
+        //             d.setType(d.flag);
+
+        //             std::vector<std::string> textValues;
+        //             readTextValues(get_basename(Variable.getValue()) + "_" + d.getDescription() + ext, textValues);
+        //             d.setTextValues(textValues);
+
+        //             DataSummaryMeta datasum_meta;
+        //             datasum_meta.setData(d);
+
+        //             DataSummary sum;
+        //             sum.setSummary(d);
+        //             datasum_meta.setSummary(sum);
+
+        //             if(d.type == NUMBER)
+        //             {
+        //                 dataplot.x.clear();
+
+        //                 size_t n_sample = d.text_values.size();
+
+        //                 // Active flag table
+        //                 std::vector<Flag> table;
+        //                 flagsTable(table);
+
+        //                 // String-double conversion
+        //                 for(size_t i =0 ; i<n_sample; i++)
+        //                 {
+        //                     //vedo che flag è e faccio il check per entrambi i vettori x e y
+        //                     double val = 0.0;
+        //                     std::string val_tmp = d.text_values.at(i);
+
+        //                     if(!val_tmp.empty() && val_tmp.compare("nd") !=0) //se la stringa non è vuota ed è diversa da nd
+        //                     {
+        //                         if(val_tmp.compare("*")!=0)
+        //                         {
+        //                             if(val_tmp.compare("NA")!=0)
+        //                             {
+        //                                 flagActivation(table, d.getFlag());
+        //                                 int n_activeFlag = count_activeFlag(table); //conta il numero di flag attivi
+        //                                 for(size_t i=0; i<table.size(); i++) //ho una tabella aggiornata con i flag attivi (relativi alla variabile)
+        //                                 {
+        //                                     if(table.at(i).activeFlag == true)
+        //                                         table.at(i).check = getCheck(table.at(i).charFlag, val_tmp);
+        //                                 }
+        //                                 int n_passedCheck = count_passedCheck(table);
+        //                                 restoreTable(table);
+
+        //                                 if(n_activeFlag == n_passedCheck)
+        //                                 {
+        //                                     val = std::stod(val_tmp);
+        //                                     dataplot.x.push_back(val);
+        //                                 }
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+
+        //                 int n_conv_samples = dataplot.x.size(); //numero campioni convertiti da stringa a double
+        //                 if(n_conv_samples == 0)
+        //                     std::cerr << "\033[0;31mERROR: All values are invalid! No statistical data summary.\033[0m" << std::endl;
+        //                 else
+        //                 {
+        //                     std::cout << "Statistical data summary ..." << std::endl;
+        //                     summary(dataplot.x);
+
+        //                     Statistics stats;
+        //                     stats.setStatistics(dataplot.x);
+        //                     datasum_meta.setStatistics(stats);
+
+        //                     if(getHistogram.isSet())
+        //                     {
+        //                         if(n_conv_samples >= setNMaxValues.getValue()) //numero di punti sufficiente per creare un grafico
+        //                         {
+        //                             hist_plot(dataplot, Project.name, d.getName() + " [" + d.getUnit() + "]", "Frequency", setNbins.getValue(), setNbins.isSet());
+        //                             matplot::save(get_basename(Variable.getValue()), "jpeg");
+        //                             matplot::cla();
+        //                             std::cout << std::endl;
+        //                         }
+        //                         else
+        //                             std::cerr << "\033[0;31mERROR: Not created histogram! Number of samples is < " << setNMaxValues.getValue() << ".\033[0m" << std::endl;
+        //                     }
+        //                 }
+        //             }
+
+        //             else
+        //                 std::cout << "\033[0;33mWARNING: Histogram plot is irrelevant for data type.\033[0m" << std::endl;
+
+        //             datasum_meta.write(get_basename(Variable.getValue()) + "_summ.json");
+        //         }
+        //     }
+
+        //     std::cout << std::endl;
+        //     std::cout << "\033[0;32mReading MUSE format and data analysis... COMPLETED.\033[0m" << std::endl;
+
+        // }
+
+
+
+        // // Option 2. Reading MUSE format
+        // if(readFunction.isSet() && Variable.getValue().compare("ALL_INPUT") == 0)
+        // {
+        //     std::string abs_datadir = out_folder;
+        //     std::vector<std::string> list_dir = get_directories(abs_datadir);
+        //     if(list_dir.empty())
+        //         list_dir.push_back(abs_datadir);
+
+        //     int count_frame = 0;
+        //     for(const std::string &l:list_dir)
+        //     {
+        //         count_frame++;
+
+        //         filesystem::path dir = l;
+        //         filesystem::path rel_datadir = filesystem::relative(dir, abs_datadir);
+
+        //         std::string sum_folder = out_folder;
+        //         if(rel_datadir.string().compare(".") != 0)
+        //         {
+        //             sum_folder += "/"+ rel_datadir.string();
+
+        //             std::cout << std::endl;
+        //             std::cout << "###########################" << std::endl;
+        //             std::cout << "### NUMBER OF TIME FRAMES: " << list_dir.size() << std::endl;
+        //             std::cout << "### TIME FRAME N° " << count_frame << " ON " << list_dir.size() << std::endl;
+        //             std::cout << "### TIME FRAME NAME: " << rel_datadir.string() << std::endl;
+        //             std::cout << std::endl;
+        //         }
+        //         sum_folder += "/summary";
+
+        //         if(!filesystem::exists(sum_folder))
+        //             filesystem::create_directory(sum_folder);
+
+        //         std::vector<std::string> list_proj_json = get_files(l, ".json");
+        //         if(list_proj_json.size() > 1)
+        //         {
+        //             std::cerr << "ERROR. Only a file JSON is expected!" << std::endl;
+        //             exit(1);
+        //         }
+
+        //         // Definition of coordinate variables
+        //         MUSE::DataMeta datameta;
+        //         datameta.read(list_proj_json.at(0));
+
+
+        //         // Creation of data structure
+        //         std::vector<Data> dataset; //struttura dati
+        //         std::vector<std::string> list_json = get_files(l + "/metadata", ".json"); //gli devo passare la json_dir
+
+        //         size_t n_var = list_json.size();
+        //         for(size_t i=0; i< n_var; i++)
+        //         {
+        //             // Funzioni per estrarre la lista dei file contenuti in una cartella: utile per lavorare su tutti i file
+        //             // Apertura multipla: gli devo dare la cartella dei json
+
+        //             // Defining paths (json and data file)
+        //             std::string json_path = list_json.at(i);
+
+        //             std::string json_filename;
+        //             json_filename = json_path.substr(json_path.find_last_of("/")+1, json_path.length());
+
+        //             std::string basename = get_basename(json_filename);
+
+        //             std::string data_filename = basename +".dat";
+        //             std::string data_path = l +"/data/"+ data_filename;
+
+        //             // Reading json file
+        //             MUSE::Metadata data;
+        //             data.read(json_path);
+
+        //             std::vector<MUSE::Data> vec_data = data.getMultiData();
+
+        //             if(!filesystem::exists(sum_folder + "/" + basename +".json"))
+        //                 filesystem::copy(json_path, sum_folder + "/"+ basename +".json");
+
+        //             for(MUSE::Data &d:vec_data)
+        //             {
+        //                 d.setType(d.flag);
+
+        //                 // Set id
+        //                 if(d.getName() == datameta.getInfoData().id_name)
+        //                     d.type = ID;
+
+        //                 // Set coordinates
+        //                 if(d.getName() == datameta.getInfoData().x_name || d.getName() == datameta.getInfoData().y_name || d.getName() == datameta.getInfoData().z_name)
+        //                     d.type = COORDINATE; //settare quando leggo l'epsg!!
+
+        //                 std::vector<std::string> textValues;
+        //                 readTextValues(data_path, textValues);
+        //                 d.setTextValues(textValues);
+
+        //                 dataset.push_back(d);
+        //             }
+
+        //         }
+
+        //         std::cout << "\033[0;32mCreating data stucture... COMPLETED.\033[0m"<< std::endl;
+        //         std::cout << std::endl;
+
+        //         PlotStruct dataplot;
+        //         std::cout << "Reading MUSE format and data analysis ..." << std::endl;
+        //         for(size_t i=0; i<dataset.size(); i++)
+        //         {
+        //             DataSummaryMeta datasum_meta;
+
+        //             Data var = dataset.at(i);
+        //             datasum_meta.setData(var);
+
+        //             DataSummary sum;
+        //             sum.setSummary(var);
+        //             datasum_meta.setSummary(sum);
+
+
+        //             if(var.type == NUMBER)
+        //             {
+        //                 dataplot.x.clear();
+
+        //                 size_t n_sample = var.text_values.size();
+
+        //                 // Active flag table
+        //                 std::vector<Flag> table;
+        //                 flagsTable(table);
+
+        //                 // String-double conversion
+        //                 for(size_t i =0 ; i<n_sample; i++)
+        //                 {
+        //                     //vedo che flag è e faccio il check per entrambi i vettori x e y
+        //                     double val = 0.0;
+        //                     std::string val_tmp = var.text_values.at(i);
+
+        //                     if(!val_tmp.empty() && val_tmp.compare("nd") !=0) //se la stringa non è vuota ed è diversa da nd
+        //                     {
+        //                         if(val_tmp.compare("*")!=0)
+        //                         {
+        //                             if(val_tmp.compare("NA")!=0)
+        //                             {
+        //                                 flagActivation(table, var.getFlag());
+        //                                 int n_activeFlag = count_activeFlag(table); //conta il numero di flag attivi
+        //                                 for(size_t i=0; i<table.size(); i++) //ho una tabella aggiornata con i flag attivi (relativi alla variabile)
+        //                                 {
+        //                                     if(table.at(i).activeFlag == true)
+        //                                         table.at(i).check = getCheck(table.at(i).charFlag, val_tmp);
+        //                                 }
+        //                                 int n_passedCheck = count_passedCheck(table);
+        //                                 restoreTable(table);
+
+        //                                 if(n_activeFlag == n_passedCheck)
+        //                                 {
+        //                                     val = std::stod(val_tmp);
+        //                                     dataplot.x.push_back(val);
+        //                                 }
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+
+        //                 int n_conv_samples = dataplot.x.size(); //numero campioni convertiti da stringa a double
+        //                 if(n_conv_samples == 0)
+        //                     std::cerr << "\033[0;31mERROR: All values are invalid! No statistical data summary.\033[0m" << std::endl;
+        //                 else
+        //                 {
+        //                     std::cout << "Statistical data summary ..." << std::endl;
+        //                     summary(dataplot.x);
+
+        //                     Statistics stats;
+        //                     stats.setStatistics(dataplot.x);
+        //                     datasum_meta.setStatistics(stats);
+
+        //                     if(getHistogram.isSet() && n_conv_samples >= setNMaxValues.getValue()) //numero di punti sufficiente per creare un grafico
+        //                     {
+        //                         hist_plot(dataplot, Project.name, var.getName() + " [" + var.getUnit() + "]", "Frequency", setNbins.getValue(), setNbins.isSet());
+        //                         matplot::save(sum_folder + "/" + var.getName(), "jpeg");
+        //                         matplot::cla();
+        //                         std::cout << std::endl;
+        //                     }
+        //                     else
+        //                         std::cerr << "\033[0;31mERROR: Not created histogram! Number of samples is < " << setNMaxValues.getValue() << ".\033[0m" << std::endl;
+        //                 }
+        //             }
+
+        //             else
+        //                 std::cout << "\033[0;33mWARNING: Histogram plot is irrelevant for data type.\033[0m" << std::endl;
+
+        //             datasum_meta.write(sum_folder + "/"+ var.getName() + ".json");
+        //         }
+
+        //         std::cout << std::endl;
+        //         std::cout << "\033[0;32mReading MUSE format and data analysis... COMPLETED.\033[0m" << std::endl;
+        //     }
+        // }
 
     }
     catch (ArgException &e)  // catch exceptions
