@@ -1,4 +1,5 @@
 #include "data_summary.h"
+#include "flag/check.h"
 
 #include <fstream>
 #include <iostream>

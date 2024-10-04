@@ -1,6 +1,7 @@
 #ifndef METADATA_H
 #define METADATA_H
 
+#include "data_structures/data.h"
 #include <string>
 #include <vector>
 
@@ -28,7 +29,7 @@ public:
     // void setProject     (const MUSE::Project &d)            { project = d; }
     void setCommands    (const std::vector<std::string> &d) { commands = d; }
     void setDependencies(const std::vector<std::string> &d) { dependencies = d; }
-    // void setMultiData   (const std::vector<MUSE::Data> &d)  { data = d; }
+    void setMultiData   (const std::vector<MUSE::Data> &d)  { data = d; }
 
 
     // Additional Methods
@@ -60,7 +61,7 @@ protected:
     std::vector<std::string> commands;
     std::vector<std::string> dependencies;
 
-    // std::vector<MUSE::Data> data;
+    std::vector<MUSE::Data> data;
 
 
     bool readConfFileJSON   (const std::string filename);

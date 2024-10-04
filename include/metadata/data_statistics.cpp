@@ -14,10 +14,10 @@ namespace MUSE
 void Statistics::setStatistics(const std::vector<double> &values)
 {
     this->n_val = values.size();
-    this->mean_val = mean(values);
-    this->var_val = variance(values);
-    this->stdev_val = stdev(values);
-    this->median_val = median(values);
+    // this->mean_val = mean(values);
+    // this->var_val = variance(values);
+    // this->stdev_val = stdev(values);
+    // this->median_val = median(values);
     this->min_val = *min_element(values.begin(),values.end());
     this->max_val = *max_element(values.begin(),values.end());
 }

@@ -339,9 +339,9 @@ int main(int argc, char** argv)
                         std::vector<MUSE::Data> multidata;
                         multidata.push_back(data);
 
-                        MUSE::Metadata meta_input;
+                        Metadata meta_input;
                         meta_input.setMultiData(multidata);
-                        meta_input.setProject(Project);
+                        // meta_input.setProject(Project);
 
                         std::vector<std::string> excommands;
                         excommands.push_back(command);
@@ -352,12 +352,12 @@ int main(int argc, char** argv)
                         deps.push_back(realpath);
                         meta_input.setDependencies(deps);
 
-                        filesystem::create_directory(out_folder + "/metadata");
-                        meta_input.write(out_folder + "/metadata/" + header_variable.at(0) + ".json");
+                        // filesystem::create_directory(out_folder + "/metadata");
+                        meta_input.write(/*out_folder + "/metadata/" + */header_variable.at(0) + ".json");
                         //data.write(out_folder + "/metadata/" + header_variable.at(0) + ".json");
 
-                        filesystem::create_directory(out_folder + "/data");
-                        save_data(out_folder + "/data/" + header_variable.at(0) + ".dat", data_variable);
+                        // filesystem::create_directory(out_folder + "/data");
+                        save_data(/*out_folder + "/data/" + */header_variable.at(0) + ".dat", data_variable);
 
                         std::cout << "\033[0;32mAll checks are passed. Creation of MUSE format for variable: " << header_variable.at(0) << "\033[0m" << std::endl;
                         std::cout << std::endl;
@@ -391,8 +391,8 @@ int main(int argc, char** argv)
                 excommands.push_back(command);
                 datameta.setCommands(excommands);
 
-                datameta.write(out_folder + "/" + get_basename(get_filename(filename)) + ".json");
-                std::cout << "\033[0;32mUpdating JSON file: "<< out_folder + "/" + get_basename(get_filename(filename)) << ".json\033[0m" << std::endl;
+                datameta.write(/*out_folder + "/" + */get_basename(get_filename(filename)) + ".json");
+                std::cout << "\033[0;32mUpdating JSON file: "<< /*out_folder + "/" +*/ get_basename(get_filename(filename)) << ".json\033[0m" << std::endl;
 
                 matrix_data.clear();
                 matrix_header.clear();

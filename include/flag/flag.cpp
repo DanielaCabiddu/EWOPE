@@ -129,7 +129,7 @@ void flagActivation (std::vector<MUSE::Flag> &table, const std::string &str_flag
         if((str_flag[i] == '+' && str_flag[i-1] == 'D') || (str_flag[i] == '-' && str_flag[i-1] == 'D'))
         {
             i++;
-            std::cout << FYEL("### +/--WARNING: checks are not provided in combination with D flag.") << std::endl;
+            std::cout << "### +/--WARNING: checks are not provided in combination with D flag." << std::endl;
             //non attivo il + o il - come flag da verificare! non hanno lo stesso significato di R+/R-!!!
         }
         else
@@ -487,13 +487,13 @@ bool checkProbability (const std::vector<std::string> &values, const double &inf
 
 bool checkDepth (const std::vector<std::string> &values)
 {
-    std::cout << FYEL("### D-WARNING: The variable D is checked as REAL ('R' flag).") << std::endl;
+    std::cout << "### D-WARNING: The variable D is checked as REAL ('R' flag)." << std::endl;
     return checkReal(values);
 }
 
 bool checkAbsHeight (const std::vector<std::string> &values)
 {
-    std::cout << FYEL("### A-WARNING: The variable A is checked as REAL ('R' flag).") << std::endl;
+    std::cout << "### A-WARNING: The variable A is checked as REAL ('R' flag)." << std::endl;
     return checkReal(values);
 }
 
