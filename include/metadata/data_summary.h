@@ -18,13 +18,13 @@ class MUSE::DataSummary
 {
 public:
 
-    uint n_samples = 0;
-    uint n_positive_values = 0;
-    uint n_negative_values = 0;
-    uint n_nd_values = 0; //not detected
-    uint n_allowed_symbols = 0;
-    uint n_empty = 0;
-    uint n_valid_values = 0;
+    unsigned int n_samples = 0;
+    unsigned int n_positive_values = 0;
+    unsigned int n_negative_values = 0;
+    unsigned int n_nd_values = 0; //not detected
+    unsigned int n_allowed_symbols = 0;
+    unsigned int n_empty = 0;
+    unsigned int n_valid_values = 0;
 
 
     // Add any other additional descriptive info

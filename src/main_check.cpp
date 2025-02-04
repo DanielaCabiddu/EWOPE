@@ -349,7 +349,7 @@ int main(int argc, char** argv)
 
                         std::vector<std::string> deps;
                         filesystem::path realpath = filesystem::relative(filename, abspath);
-                        deps.push_back(realpath);
+                        deps.push_back(realpath.string());
                         meta_input.setDependencies(deps);
 
                         // filesystem::create_directory(out_folder + "/metadata");

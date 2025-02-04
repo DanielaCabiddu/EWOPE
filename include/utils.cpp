@@ -110,7 +110,7 @@ std::vector<std::string> get_files (const std::string &project_dir)
 {
     std::vector<std::string> list;
     for(auto& p : filesystem::directory_iterator(project_dir))
-        list.push_back(p.path());
+        list.push_back(p.path().string());
 
     return list;
 }
@@ -132,7 +132,7 @@ std::vector<std::string> get_files (const std::string &project_dir, const std::s
 //            list.push_back(p.path());
 
         if(get_extension(path).compare(ext) == 0)
-            list.push_back(p.path());
+            list.push_back(p.path().string());
     }
     if(alphab_sort == true)
         std::sort(list.begin(), list.end());
@@ -155,7 +155,7 @@ std::vector<std::string> get_vectorfiles (const std::string &project_dir)
             extname = filename.substr(filename.find_last_of("."), filename.length());
 
         if(extname.compare(".shp") == 0 || extname.compare(".gpkg") == 0)
-            list.push_back(p.path());
+            list.push_back(p.path().string());
     }
 
     return list;
@@ -174,7 +174,7 @@ std::vector<std::string> get_rasterfiles (const std::string &project_dir)
             extname = filename.substr(filename.find_last_of("."), filename.length());
 
         if(extname.compare(".asc") == 0 || extname.compare(".gpkg") == 0)
-            list.push_back(p.path());
+            list.push_back(p.path().string());
     }
 
     return list;
@@ -194,7 +194,7 @@ std::vector<std::string> get_shapefiles (const std::string &project_dir)
             extname = filename.substr(filename.find_last_of("."), filename.length());
 
         if(extname.compare(".shp") == 0)
-            list.push_back(p.path());
+            list.push_back(p.path().string());
     }
 
     return list;
@@ -213,7 +213,7 @@ std::vector<std::string> get_xyzfiles (const std::string &project_dir)
             extname = filename.substr(filename.find_last_of("."), filename.length());
 
         if(extname.compare(".dat") == 0 || extname.compare(".xyz") == 0 || extname.compare(".txt") == 0 || extname.compare(".csv") == 0)
-            list.push_back(p.path());
+            list.push_back(p.path().string());
     }
 
     return list;
@@ -232,7 +232,7 @@ std::vector<std::string> get_meshfiles (const std::string &project_dir)
             extname = filename.substr(filename.find_last_of("."), filename.length());
 
         if(extname.compare(".mesh") == 0 || extname.compare(".off") == 0)
-            list.push_back(p.path());
+            list.push_back(p.path().string());
     }
 
     return list;

@@ -18,7 +18,7 @@ class MUSE::Statistics
 {
 public:
 
-    uint     n_val;
+    unsigned int n_val;
     double   mean_val;
     double   var_val;
     double   stdev_val;
