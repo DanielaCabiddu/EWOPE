@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 
+inline
 void read_csv (const std::string filename, char delimiter, std::vector<std::vector<std::string>> &matrix)
 {
     std::ifstream file;
@@ -52,7 +53,7 @@ void read_csv (const std::string filename, char delimiter, std::vector<std::vect
     file.close();
 }
 
-
+inline
 void read_csv_with_header (const std::string filename, int nrows_header,
                            std::vector<std::vector<std::string>> &matrix_header, std::vector<std::vector<std::string>> &matrix_data, char delimiter)
 {
@@ -115,6 +116,7 @@ void read_csv_with_header (const std::string filename, int nrows_header,
     file.close();
 }
 
+inline
 std::string string_printable (const std::string &word)
 {
     std::string string_print;
@@ -127,6 +129,7 @@ std::string string_printable (const std::string &word)
     return string_print;
 }
 
+inline
 size_t nchars_printable (const std::string &word)
 {
     size_t n = 0;
@@ -139,6 +142,7 @@ size_t nchars_printable (const std::string &word)
     return n;
 }
 
+inline
 std::string search_column_csv (const std::string filename, int n_column, char delimiter)
 {
     std::string name_var; //nome variabile della colonna da ricercare (n_column)
@@ -183,6 +187,7 @@ std::string search_column_csv (const std::string filename, int n_column, char de
     return name_var;
 }
 
+inline
 void read_header_csv (const std::string filename, int nrows_header, std::vector<std::vector<std::string>> &matrix_header, char delimiter)
 {
     std::ifstream file;
@@ -232,6 +237,7 @@ void read_header_csv (const std::string filename, int nrows_header, std::vector<
     file.close();
 }
 
+inline
 bool equal_cell (std::string cell0, std::string cell1)
 {
     if(cell0.compare(cell1) == 0)
@@ -240,6 +246,7 @@ bool equal_cell (std::string cell0, std::string cell1)
         return false;
 }
 
+inline
 bool equal_column (std::vector<std::string> col0,std::vector<std::string> col1)
 {
     std::vector<bool> results;
@@ -273,7 +280,7 @@ bool equal_column (std::vector<std::string> col0,std::vector<std::string> col1)
     return is_equal;
 }
 
-
+inline
 std::vector<bool> matrix_compare (const std::vector<std::vector<std::string>> &matrix0, const std::vector<std::vector<std::string>> &matrix1)
 {
     size_t n_col0, n_col1;
@@ -292,8 +299,7 @@ std::vector<bool> matrix_compare (const std::vector<std::vector<std::string>> &m
     return results;
 }
 
-
-
+inline
 std::vector<std::pair<int, bool>> matrix_compare1 (const std::vector<std::vector<std::string>> &matrix0, const std::vector<std::vector<std::string>> &matrix1)
 {
     size_t n_col0, n_col1;
@@ -315,10 +321,7 @@ std::vector<std::pair<int, bool>> matrix_compare1 (const std::vector<std::vector
     return results;
 }
 
-
-
-
-
+inline
 std::vector<std::vector<std::string>> extracting_kmatrix (const std::vector<std::vector<std::string>> &matrix, const int &k)
 {
     size_t n_rows = matrix.size();
@@ -330,10 +333,7 @@ std::vector<std::vector<std::string>> extracting_kmatrix (const std::vector<std:
     return values;
 }
 
-
-
-
-
+inline
 std::vector<std::string> extracting_kcolumn (const std::vector<std::vector<std::string>> &matrix, const int &k)
 {
     std::vector<std::string> values;
@@ -351,6 +351,7 @@ std::vector<std::string> extracting_kcolumn (const std::vector<std::vector<std::
     return values;
 }
 
+inline
 std::vector<std::string> extracting_krow (const std::vector<std::vector<std::string>> &matrix, const int &k)
 {
     std::vector<std::string> values;
@@ -363,7 +364,7 @@ std::vector<std::string> extracting_krow (const std::vector<std::vector<std::str
     return values;
 }
 
-
+inline
 void save_data (const std::string filename, std::vector<std::string> &values)
 {
     std::ofstream file;
@@ -381,7 +382,7 @@ void save_data (const std::string filename, std::vector<std::string> &values)
     }
 }
 
-
+inline
 void count_whitespace (const std::string &str)
 {
     size_t count = 0;
@@ -395,7 +396,7 @@ void count_whitespace (const std::string &str)
         std::cout << "All characted are whitespaces" << std::endl;
 }
 
-
+inline
 bool searching_special_chars (const std::string &string, char c)
 {
     bool is_found = false;
@@ -404,7 +405,7 @@ bool searching_special_chars (const std::string &string, char c)
     return is_found;
 }
 
-
+inline
 int pos_special_chars (const std::string &string, char c)
 {
     int pos = 0;
@@ -412,8 +413,3 @@ int pos_special_chars (const std::string &string, char c)
         pos = string.find(c);
     return pos;
 }
-
-
-
-
-

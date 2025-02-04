@@ -60,7 +60,7 @@ private:
     bool writeConfFileJSON  (const std::string filename);
 };
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "project.cpp"
 #endif
 

@@ -152,7 +152,7 @@ private:
 };
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "volume.cpp"
 #endif
 

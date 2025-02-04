@@ -72,7 +72,7 @@ private:
 
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "data_summary_meta.cpp"
 #endif
 

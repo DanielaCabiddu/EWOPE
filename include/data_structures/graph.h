@@ -41,7 +41,7 @@ public:
     void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps, std::deque<std::string> &com);
 };
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "graph.cpp"
 #endif
 

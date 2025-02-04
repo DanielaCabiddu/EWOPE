@@ -52,7 +52,7 @@ EWOPE::Point2D linear_interpolation (EWOPE::Point2D p0, EWOPE::Point2D p1, const
 EWOPE::Point2D pixel2world ( const int& x, const int& y, const double &raster_width, const double &raster_height);
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "point.cpp"
 #endif
 

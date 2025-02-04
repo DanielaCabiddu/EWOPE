@@ -122,7 +122,7 @@ private:
 
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "extraction_meta.cpp"
 #endif
 

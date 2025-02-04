@@ -82,7 +82,7 @@ void updateProjectJson      (const EWOPE::GeospatialData &geometry, json &metada
 void updateJson             (const EWOPE::GeospatialData &geometry, json &metadata);
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "geometry.cpp"
 #endif
 

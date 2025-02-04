@@ -82,7 +82,7 @@ private:
 
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "volume_meta.cpp"
 #endif
 

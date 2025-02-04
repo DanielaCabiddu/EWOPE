@@ -188,7 +188,7 @@ private:
 
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "geometry_meta.cpp"
 #endif
 

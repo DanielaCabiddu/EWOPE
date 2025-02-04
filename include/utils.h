@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef _UTILS_H
+#define _UTILS_H
 
 #include <string>
 #include <vector>
@@ -37,7 +37,7 @@ std::vector<std::string> get_meshfiles   (const std::string &project_dir);
 void cout_list                           (const std::vector<std::string> &list);
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "utils.cpp"
 #endif
 

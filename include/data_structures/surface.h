@@ -168,7 +168,7 @@ private:
 
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "surface.cpp"
 #endif
 

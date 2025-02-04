@@ -275,7 +275,7 @@ private:
 
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "compute_meta.cpp"
 #endif
 

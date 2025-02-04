@@ -186,7 +186,7 @@ private:
 
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "manipulate_meta.cpp"
 #endif
 

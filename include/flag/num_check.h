@@ -14,7 +14,7 @@ bool getCheck           (char code, std::string &value);
 //bool getVarCheck        (char code, double &value);
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "num_check.cpp"
 #endif
 

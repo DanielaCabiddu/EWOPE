@@ -16,18 +16,25 @@ set(CHECK_TARGET_NAME ${PROJECT_NAME}_${CHECK_SUFFIX})
 ENABLE_LANGUAGE(C)
 
 add_definitions(-DEWOPE_USES_CEREAL)
-include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 #####
 # tclap
-include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/external/tclap/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/external/tclap/include)
 
 #####
 # cereal
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/external/cereal/include)
 
-## build
-add_executable(${CORE_TARGET_NAME} src/main.cpp )
-add_executable(${CHECK_TARGET_NAME} src/main_check.cpp)
+file(GLOB header_files CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
+)
 
-# target_link_libraries(${PROJECT_NAME})
+file(GLOB source_files CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/*.cpp
+)
+
+## build
+add_executable(${CORE_TARGET_NAME} src/main.cpp ${header_files} )
+add_executable(${CHECK_TARGET_NAME} src/main_check.cpp ${header_files})
+

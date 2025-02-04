@@ -112,7 +112,7 @@ void readCoordinate (const std::string &filename, std::vector<double> &coord);
 
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "data.cpp"
 #endif
 

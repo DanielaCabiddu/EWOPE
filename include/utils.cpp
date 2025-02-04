@@ -1,6 +1,8 @@
 #include "utils.h"
 
 #include <algorithm>
+#include <sstream>
+
 #include <stdlib.h>
 
 //for filesystem
@@ -13,6 +15,7 @@
     using namespace std;
 #endif
 
+inline
 std::vector<std::string> split_string (const std::string &str, char delimiter)
 {
     std::vector<std::string> v;
@@ -27,6 +30,7 @@ std::vector<std::string> split_string (const std::string &str, char delimiter)
     return v;
 }
 
+inline
 std::pair<std::string,std::string> split_string_pair (const std::string &str, char delimiter)
 {
     std::pair<std::string,std::string> v;
@@ -38,6 +42,7 @@ std::pair<std::string,std::string> split_string_pair (const std::string &str, ch
     return v;
 }
 
+inline
 std::string get_path (const std::string &complete_path)
 {
     std::string path;
@@ -46,6 +51,7 @@ std::string get_path (const std::string &complete_path)
     return path;
 }
 
+inline
 std::string get_filename (const std::string &path)
 {
     std::string filename;
@@ -54,6 +60,7 @@ std::string get_filename (const std::string &path)
     return filename;
 }
 
+inline
 std::string get_basename (const std::string &name)
 {
     std::string basename;
@@ -62,6 +69,7 @@ std::string get_basename (const std::string &name)
     return basename;
 }
 
+inline
 std::string get_extension (const std::string &name)
 {
     std::string extension;
@@ -70,6 +78,7 @@ std::string get_extension (const std::string &name)
     return extension;
 }
 
+inline
 bool find_char (const std::string &string, const char &c)
 {
     if(string.find(c) != std::string::npos)
@@ -78,6 +87,7 @@ bool find_char (const std::string &string, const char &c)
         return false;
 }
 
+inline
 std::vector<std::string> get_directories(const std::string &project_dir)
 {
     std::vector<std::string> list;
@@ -92,6 +102,7 @@ std::vector<std::string> get_directories(const std::string &project_dir)
     return list;
 }
 
+inline
 std::vector<std::string> get_recursive_directories (const std::string &project_dir)
 {
     std::vector<std::string> list;
@@ -106,6 +117,7 @@ std::vector<std::string> get_recursive_directories (const std::string &project_d
     return list;
 }
 
+inline
 std::vector<std::string> get_files (const std::string &project_dir)
 {
     std::vector<std::string> list;
@@ -115,6 +127,7 @@ std::vector<std::string> get_files (const std::string &project_dir)
     return list;
 }
 
+inline
 std::vector<std::string> get_files (const std::string &project_dir, const std::string &ext, bool alphab_sort)
 {
     std::vector<std::string> list;
@@ -140,8 +153,7 @@ std::vector<std::string> get_files (const std::string &project_dir, const std::s
     return list;
 }
 
-
-
+inline
 std::vector<std::string> get_vectorfiles (const std::string &project_dir)
 {
     std::vector<std::string> list;
@@ -161,6 +173,7 @@ std::vector<std::string> get_vectorfiles (const std::string &project_dir)
     return list;
 }
 
+inline
 std::vector<std::string> get_rasterfiles (const std::string &project_dir)
 {
     std::vector<std::string> list;
@@ -180,7 +193,7 @@ std::vector<std::string> get_rasterfiles (const std::string &project_dir)
     return list;
 }
 
-
+inline
 std::vector<std::string> get_shapefiles (const std::string &project_dir)
 {
     std::vector<std::string> list;
@@ -200,6 +213,7 @@ std::vector<std::string> get_shapefiles (const std::string &project_dir)
     return list;
 }
 
+inline
 std::vector<std::string> get_xyzfiles (const std::string &project_dir)
 {
     std::vector<std::string> list;
@@ -219,6 +233,7 @@ std::vector<std::string> get_xyzfiles (const std::string &project_dir)
     return list;
 }
 
+inline
 std::vector<std::string> get_meshfiles (const std::string &project_dir)
 {
     std::vector<std::string> list;
@@ -238,9 +253,7 @@ std::vector<std::string> get_meshfiles (const std::string &project_dir)
     return list;
 }
 
-
-
-
+inline
 bool check_folder_name (const std::string new_name, std::string project_folder)
 {
     bool equal_name = false;
@@ -263,6 +276,7 @@ bool check_folder_name (const std::string new_name, std::string project_folder)
     return equal_name;
 }
 
+inline
 bool check_filename (const std::string new_name, std::string project_folder)
 {
     bool equal_name = false;
@@ -285,10 +299,7 @@ bool check_filename (const std::string new_name, std::string project_folder)
     return equal_name;
 }
 
-
-
-
-
+inline
 void cout_list (const std::vector<std::string> &list)
 {
     for(size_t i=0; i<list.size(); i++)
@@ -296,5 +307,3 @@ void cout_list (const std::vector<std::string> &list)
         std::cout << "\033[0;32m" << list.at(i) << "\033[0m" <<std::endl;
     }
 }
-
-

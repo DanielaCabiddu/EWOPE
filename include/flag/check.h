@@ -32,7 +32,7 @@ int count_empty     (const std::vector<std::string> &values);
 //std::vector<double> getConversion (const std::vector<std::string> &variable, const std::string &flag, std::string negative_value, bool nd_value);
 
 
-#ifndef STATIC_MUSELIB
+#ifndef STATIC_EWOPE
 #include "check.cpp"
 #endif
 
