@@ -10,12 +10,12 @@
 #include "muselib/data_structures/volume.h"
 #include "muselib/data_structures/rotation.h"
 
-namespace MUSE
+namespace EWOPE
 {
     class SurfaceMeta;
 }
 
-class MUSE::SurfaceMeta
+class EWOPE::SurfaceMeta
 {
 public:
 
@@ -31,7 +31,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -67,7 +67,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -88,7 +88,7 @@ public:
 
 
     // Get Methods
-    const MUSE::Project         &getProject         () const    { return  project; }
+    const EWOPE::Project         &getProject         () const    { return  project; }
 
     const std::vector<std::string> &getCommands () const    { return commands;}
     const std::string &getCommand (const unsigned int i) const { return commands.at(i); }
@@ -96,29 +96,29 @@ public:
     const std::vector<std::string> &getDeps () const { return  dependencies; }
     const std::string &getDep (const unsigned int i) const { return  dependencies.at(i); }
 
-    const MUSE::GeospatialData  &getGeospatialData  () const    { return geospatialdata; }
+    const EWOPE::GeospatialData  &getGeospatialData  () const    { return geospatialdata; }
     const DataSummary           &getDataSummary     () const    { return data_summary; }
 
-    const MUSE::Rotation        &getDataRotation    () const    { return data_rotation; }
+    const EWOPE::Rotation        &getDataRotation    () const    { return data_rotation; }
     const Extrusion             &getExtrusion      () const     { return extrusion; }
-    const MUSE::Surface         &getMeshSummary     () const    { return mesh; }
+    const EWOPE::Surface         &getMeshSummary     () const    { return mesh; }
 
 
 
     // Set Methods
-    void setProject         (const MUSE::Project &d)        { project = d; }
+    void setProject         (const EWOPE::Project &d)        { project = d; }
 
     void setCommands        (const std::vector<std::string> &d) { commands = d; }
     void setDependencies    (const std::vector<std::string> &d) { dependencies = d; }
 
-    void setGeospatialData  (const MUSE::GeospatialData &d) { geospatialdata = d; }
+    void setGeospatialData  (const EWOPE::GeospatialData &d) { geospatialdata = d; }
 
 
     void setDataSummary     (const DataSummary &d)          { data_summary = d; }
 
-    void setDataRotation    (const MUSE::Rotation &d)       { data_rotation = d; }
+    void setDataRotation    (const EWOPE::Rotation &d)       { data_rotation = d; }
     void setExtrusion       (const Extrusion &d)            { extrusion = d; }
-    void setMeshSummary     (const MUSE::Surface &d)        { mesh = d; }
+    void setMeshSummary     (const EWOPE::Surface &d)        { mesh = d; }
 
 
 
@@ -126,7 +126,7 @@ public:
     bool read  (const std::string filename);
     bool write (const std::string filename);
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {
@@ -156,15 +156,15 @@ public:
 
 private:
 
-    MUSE::Project project;
+    EWOPE::Project project;
     std::vector<std::string> commands;
     std::vector<std::string> dependencies;
 
-    MUSE::GeospatialData geospatialdata;
+    EWOPE::GeospatialData geospatialdata;
     DataSummary data_summary;
-    MUSE::Rotation data_rotation;
+    EWOPE::Rotation data_rotation;
     Extrusion extrusion;
-    MUSE::Surface mesh;
+    EWOPE::Surface mesh;
 
 
 

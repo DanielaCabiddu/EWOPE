@@ -6,7 +6,7 @@
 
 // #include <geostatslib/statistics/stats.h>
 
-namespace MUSE
+namespace EWOPE
 {
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -34,7 +34,7 @@ bool Statistics::write(const std::string filename)
 
 bool Statistics::readConfFileJSON(const std::string filename)
 {
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     std::ifstream ss (filename.c_str(), std::ifstream::in);
 
     if (!ss.is_open())
@@ -60,7 +60,7 @@ bool Statistics::readConfFileJSON(const std::string filename)
 
 bool Statistics::writeConfFileJSON (const std::string filename, const int &precision)
 {
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     std::ofstream ss (filename.c_str(), std::ofstream::out);
 
     if (!ss.is_open())

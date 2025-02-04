@@ -16,12 +16,12 @@
 
 //DA RIMUOVERE!! PRIMA CONTROLLARE
 
-namespace MUSE
+namespace EWOPE
 {
     class GeometryMeta;
 }
 
-class MUSE::GeometryMeta
+class EWOPE::GeometryMeta
 {
 public:
 
@@ -37,7 +37,7 @@ public:
         
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -76,7 +76,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -101,36 +101,36 @@ public:
 
 
     // Get Methods
-    const MUSE::Project         &getProject         () const    { return  project; }
+    const EWOPE::Project         &getProject         () const    { return  project; }
 
     const std::vector<std::string> &getCommands     () const    { return commands;}
     const std::string &getCommand (const unsigned int i) const { return commands.at(i); }
 
-    const MUSE::GeospatialData  &getGeospatialData  () const    { return geospatialdata; }
+    const EWOPE::GeospatialData  &getGeospatialData  () const    { return geospatialdata; }
     const DataSummary           &getDataSummary     () const    { return data_summary; }
 
-    const MUSE::Rotation        &getDataRotation    () const    { return data_rotation; }
+    const EWOPE::Rotation        &getDataRotation    () const    { return data_rotation; }
     const ObjectInfo            &getObjectInfo      () const    { return object_info; }
-    const MUSE::Surface         &getMeshSummary     () const    { return mesh; }
-    const MUSE::Volume          &getVolumeSummary   () const    { return volume; }
+    const EWOPE::Surface         &getMeshSummary     () const    { return mesh; }
+    const EWOPE::Volume          &getVolumeSummary   () const    { return volume; }
 
 
 
 
     // Set Methods
-    void setProject         (const MUSE::Project &d)        { project = d; }
+    void setProject         (const EWOPE::Project &d)        { project = d; }
 
     void setCommands        (const std::vector<std::string> &d) { commands = d; }
 
-    void setGeospatialData  (const MUSE::GeospatialData &d) { geospatialdata = d; }
+    void setGeospatialData  (const EWOPE::GeospatialData &d) { geospatialdata = d; }
 
     void setDataSummary     (const DataSummary &d)          { data_summary = d; }
 
-    void setDataRotation    (const MUSE::Rotation &d)       { data_rotation = d; }
+    void setDataRotation    (const EWOPE::Rotation &d)       { data_rotation = d; }
     void setObjectInfo      (const ObjectInfo &d)           { object_info = d; }
-    void setMeshSummary     (const MUSE::Surface &d)        { mesh = d; }
+    void setMeshSummary     (const EWOPE::Surface &d)        { mesh = d; }
 
-    void setVolumeSummary   (const MUSE::Volume &d)         { volume = d; }
+    void setVolumeSummary   (const EWOPE::Volume &d)         { volume = d; }
 
 
 
@@ -141,7 +141,7 @@ public:
 
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {
@@ -171,14 +171,14 @@ public:
 
 private:
 
-    MUSE::Project project;
+    EWOPE::Project project;
     std::vector<std::string> commands;
-    MUSE::GeospatialData geospatialdata;
+    EWOPE::GeospatialData geospatialdata;
     DataSummary data_summary;
-    MUSE::Rotation data_rotation;
+    EWOPE::Rotation data_rotation;
     ObjectInfo object_info;
-    MUSE::Surface mesh;
-    MUSE::Volume volume;
+    EWOPE::Surface mesh;
+    EWOPE::Volume volume;
 
 
 

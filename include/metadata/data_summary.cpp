@@ -5,12 +5,12 @@
 #include <iostream>
 #include <math.h>
 
-namespace MUSE
+namespace EWOPE
 {
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-void DataSummary::setSummary(const MUSE::Data &data)
+void DataSummary::setSummary(const EWOPE::Data &data)
 {
     this->n_samples = data.text_values.size();
 
@@ -57,7 +57,7 @@ bool DataSummary::write(const std::string filename)
 
 bool DataSummary::readConfFileJSON(const std::string filename)
 {
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     std::ifstream ss (filename.c_str(), std::ifstream::in);
 
     if (!ss.is_open())
@@ -83,7 +83,7 @@ bool DataSummary::readConfFileJSON(const std::string filename)
 
 bool DataSummary::writeConfFileJSON (const std::string filename)
 {
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     std::ofstream ss (filename.c_str(), std::ofstream::out);
 
     if (!ss.is_open())

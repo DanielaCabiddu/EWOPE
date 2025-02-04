@@ -7,12 +7,12 @@
 
 #include <cinolib/meshes/meshes.h>
 
-namespace MUSE
+namespace EWOPE
 {
     class Volume;
 }
 
-class MUSE::Volume
+class EWOPE::Volume
 {
 public:
 
@@ -27,7 +27,7 @@ public:
         double resy = 0.0;
         double resz = 0.0;
 
-    #ifdef MUSE_USES_CEREAL
+    #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -72,7 +72,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -126,7 +126,7 @@ public:
     void setSummary     (const cinolib::AbstractPolyhedralMesh<M,V,E,F,P> &mesh);
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {

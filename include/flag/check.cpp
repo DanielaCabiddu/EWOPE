@@ -155,7 +155,7 @@ bool getCheck (char code, std::string &value)
 }
 
 
-//void DataSummary (const MUSE::Data &data)
+//void DataSummary (const EWOPE::Data &data)
 //{
 //    size_t n = data.text_values.size();
 

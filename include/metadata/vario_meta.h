@@ -21,12 +21,12 @@
 #include "data_structures/rotation.h"
 
 
-namespace MUSE
+namespace EWOPE
 {
     class VarioMeta;
 }
 
-class MUSE::VarioMeta : public MUSE::Metadata
+class EWOPE::VarioMeta : public EWOPE::Metadata
 {
 public:
 
@@ -40,7 +40,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -72,7 +72,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -107,7 +107,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -144,7 +144,7 @@ public:
 
 
     // Get Methods
-    const MUSE::Project     &getProject     () const    { return  project; }
+    const EWOPE::Project     &getProject     () const    { return  project; }
 
     const std::vector<std::string> &getCommands () const    { return commands;}
     const std::string &getCommand (const unsigned int i) const { return commands.at(i); }
@@ -152,42 +152,42 @@ public:
     const std::vector<std::string> &getDeps () const { return  dependencies; }
     const std::string &getDep (const unsigned int i) const { return  dependencies.at(i); }
 
-    const MUSE::InfoData    &getInfoData    () const    { return  infodata; }
-    const MUSE::Rotation    &getRotation    () const    { return  rotation; }
+    const EWOPE::InfoData    &getInfoData    () const    { return  infodata; }
+    const EWOPE::Rotation    &getRotation    () const    { return  rotation; }
 
     const Manipulate        &getManipulate  () const    { return  manipulate; }
     const Processing        &getProcessing  () const    { return  variable; }
 
     const InfoVariogram     &getInfoVariogram  () const  { return info_vario; }
 
-    const std::vector<MUSE::exp_variog_methods> &getDirExpVariog () const       { return  experimental_vario; }
-    const MUSE::exp_variog_methods &getExpVariog (const unsigned int i) const   { return  experimental_vario.at(i); }
+    const std::vector<EWOPE::exp_variog_methods> &getDirExpVariog () const       { return  experimental_vario; }
+    const EWOPE::exp_variog_methods &getExpVariog (const unsigned int i) const   { return  experimental_vario.at(i); }
 
-    const std::vector<MUSE::variogram_methods> &getFitExpVariog () const        { return  fit_experimental_vario; }
-    const MUSE::variogram_methods &getFitExpVariog (const unsigned int i) const { return  fit_experimental_vario.at(i); }
+    const std::vector<EWOPE::variogram_methods> &getFitExpVariog () const        { return  fit_experimental_vario; }
+    const EWOPE::variogram_methods &getFitExpVariog (const unsigned int i) const { return  fit_experimental_vario.at(i); }
 
-    const MUSE::EllipseParameter           &getSummary  () const    { return  summary; }
+    const EWOPE::EllipseParameter           &getSummary  () const    { return  summary; }
 
 
 
     // Set Methods
-    void setProject         (const MUSE::Project &d)    { project = d; }
+    void setProject         (const EWOPE::Project &d)    { project = d; }
 
     void setCommands        (const std::vector<std::string> &d) { commands = d; }
 
     void setDependencies    (const std::vector<std::string> &d) { dependencies = d; }
 
-    void setInfoData        (const MUSE::InfoData &d)   { infodata = d; }
-    void setRotation        (const MUSE::Rotation &d)   { rotation = d; }
+    void setInfoData        (const EWOPE::InfoData &d)   { infodata = d; }
+    void setRotation        (const EWOPE::Rotation &d)   { rotation = d; }
 
     void setManipulate      (const Manipulate &d)       { manipulate = d; }
     void setProcessing      (const Processing &d)       { variable = d; }
     void setInfoVariogram   (const InfoVariogram &d)    { info_vario = d; }
 
-    void setDirExpVariog    (const std::vector<MUSE::exp_variog_methods> &d)   { experimental_vario = d; }
-    void setFitExpVariog    (const std::vector<MUSE::variogram_methods> &d)    { fit_experimental_vario = d; }
+    void setDirExpVariog    (const std::vector<EWOPE::exp_variog_methods> &d)   { experimental_vario = d; }
+    void setFitExpVariog    (const std::vector<EWOPE::variogram_methods> &d)    { fit_experimental_vario = d; }
 
-    void setSummary         (const MUSE::EllipseParameter &d)   { summary = d; }
+    void setSummary         (const EWOPE::EllipseParameter &d)   { summary = d; }
 
 
     // Additional Methods
@@ -197,7 +197,7 @@ public:
 
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {
@@ -241,22 +241,22 @@ public:
 
 private:
 
-    // MUSE::Project project;
+    // EWOPE::Project project;
 
     // std::vector<std::string> commands;
     // std::vector<std::string> dependencies;
 
-    MUSE::InfoData infodata;
-    MUSE::Rotation rotation;
+    EWOPE::InfoData infodata;
+    EWOPE::Rotation rotation;
 
     Manipulate manipulate;
     Processing variable;
     InfoVariogram info_vario;
 
-    std::vector<MUSE::exp_variog_methods> experimental_vario;
-    std::vector<MUSE::variogram_methods> fit_experimental_vario;
+    std::vector<EWOPE::exp_variog_methods> experimental_vario;
+    std::vector<EWOPE::variogram_methods> fit_experimental_vario;
 
-    MUSE::EllipseParameter summary;
+    EWOPE::EllipseParameter summary;
 
 
     bool readConfFileJSON   (const std::string filename);

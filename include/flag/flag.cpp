@@ -6,9 +6,9 @@
 
 // Management of flags
 
-MUSE::Flag setFlag(std::string name, char code, bool is_active)
+EWOPE::Flag setFlag(std::string name, char code, bool is_active)
 {
-    MUSE::Flag flag;
+    EWOPE::Flag flag;
     flag.nameFlag = name;
     flag.charFlag = code;
     flag.activeFlag = is_active;
@@ -19,9 +19,9 @@ MUSE::Flag setFlag(std::string name, char code, bool is_active)
 
 // Definition table of flags (default)
 inline
-void flagsTable(std::vector<MUSE::Flag> &table)
+void flagsTable(std::vector<EWOPE::Flag> &table)
 {
-    MUSE::Flag f;
+    EWOPE::Flag f;
 
     f = setFlag ("COMPOSITIONAL", 'C');
     table.push_back(f);
@@ -88,7 +88,7 @@ void flagsTable(std::vector<MUSE::Flag> &table)
 }
 
 
-// void flagActivation (std::vector<MUSE::Flag> &table, const std::string &str_flag)
+// void flagActivation (std::vector<EWOPE::Flag> &table, const std::string &str_flag)
 // {
 //     for(size_t i= 0; i< str_flag.size(); i++)
 //     {
@@ -122,7 +122,7 @@ void flagsTable(std::vector<MUSE::Flag> &table)
 //     }
 // }
 
-void flagActivation (std::vector<MUSE::Flag> &table, const std::string &str_flag)
+void flagActivation (std::vector<EWOPE::Flag> &table, const std::string &str_flag)
 {
     for(size_t i= 0; i< str_flag.size(); i++)
     {
@@ -145,7 +145,7 @@ void flagActivation (std::vector<MUSE::Flag> &table, const std::string &str_flag
 
 
 
-void restoreTable (std::vector<MUSE::Flag> &table)
+void restoreTable (std::vector<EWOPE::Flag> &table)
 {
     for(size_t i=0; i<table.size(); i++)
     {
@@ -155,7 +155,7 @@ void restoreTable (std::vector<MUSE::Flag> &table)
 }
 
 
-int count_activeFlag  (std::vector<MUSE::Flag> &table) //conta il numero di flag attivi
+int count_activeFlag  (std::vector<EWOPE::Flag> &table) //conta il numero di flag attivi
 {
     int n_active_flag = 0;
 
@@ -166,7 +166,7 @@ int count_activeFlag  (std::vector<MUSE::Flag> &table) //conta il numero di flag
     return n_active_flag;
 }
 
-int count_passedCheck  (std::vector<MUSE::Flag> &table) //conta il check passati
+int count_passedCheck  (std::vector<EWOPE::Flag> &table) //conta il check passati
 {
     int n_passed_Check = 0;
 

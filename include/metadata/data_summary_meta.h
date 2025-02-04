@@ -11,26 +11,26 @@
 #include "muselib/metadata/data_summary.h"
 #include "muselib/metadata/data_statistics.h"
 
-namespace MUSE
+namespace EWOPE
 {
     class DataSummaryMeta;
 }
 
-class MUSE::DataSummaryMeta
+class EWOPE::DataSummaryMeta
 {
 public:
 
 
     // Get Methods
-    const MUSE::Data          &getData        () const    { return  data; }
-    const MUSE::DataSummary   &getSummary     () const    { return  summary; }
-    const MUSE::Statistics    &getStatistics  () const    { return  statistics; }
+    const EWOPE::Data          &getData        () const    { return  data; }
+    const EWOPE::DataSummary   &getSummary     () const    { return  summary; }
+    const EWOPE::Statistics    &getStatistics  () const    { return  statistics; }
 
 
     // Set Methods
-    void setData        (const MUSE::Data &d)               { data = d; }
-    void setSummary     (const MUSE::DataSummary &d)        { summary = d; }
-    void setStatistics  (const MUSE::Statistics &d)         { statistics = d; }
+    void setData        (const EWOPE::Data &d)               { data = d; }
+    void setSummary     (const EWOPE::DataSummary &d)        { summary = d; }
+    void setStatistics  (const EWOPE::Statistics &d)         { statistics = d; }
 
 
     // Additional Methods
@@ -40,7 +40,7 @@ public:
 
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {
@@ -60,9 +60,9 @@ public:
 
 private:
 
-    MUSE::Data data;
-    MUSE::DataSummary summary;
-    MUSE::Statistics statistics;
+    EWOPE::Data data;
+    EWOPE::DataSummary summary;
+    EWOPE::Statistics statistics;
 
 
 

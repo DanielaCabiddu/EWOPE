@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-double dist (MUSE::Point2D p0, MUSE::Point2D p1)
+double dist (EWOPE::Point2D p0, EWOPE::Point2D p1)
 {
     double d = 0.0;
     d = pow((p1.x-p0.x),2) + pow((p1.y-p0.y),2);
@@ -10,7 +10,7 @@ double dist (MUSE::Point2D p0, MUSE::Point2D p1)
     return d;
 }
 
-double sqrt_dist (MUSE::Point2D p0, MUSE::Point2D p1)
+double sqrt_dist (EWOPE::Point2D p0, EWOPE::Point2D p1)
 {
     double d = 0.0;
     d = pow(pow((p1.x-p0.x),2) + pow((p1.y-p0.y),2), 0.5);
@@ -18,7 +18,7 @@ double sqrt_dist (MUSE::Point2D p0, MUSE::Point2D p1)
     return d;
 }
 
-double dist3D (MUSE::Point3D p0, MUSE::Point3D p1)
+double dist3D (EWOPE::Point3D p0, EWOPE::Point3D p1)
 {
     double d = 0.0;
     d = pow((p1.x-p0.x),2) + pow((p1.y-p0.y),2) + pow((p1.z-p0.z),2);
@@ -26,7 +26,7 @@ double dist3D (MUSE::Point3D p0, MUSE::Point3D p1)
     return d;
 }
 
-bool comparePoint (MUSE::Point3D p0, MUSE::Point3D p1)
+bool comparePoint (EWOPE::Point3D p0, EWOPE::Point3D p1)
 {
     if (p0.x != p1.x)
         return p0.x > p1.x;
@@ -36,16 +36,16 @@ bool comparePoint (MUSE::Point3D p0, MUSE::Point3D p1)
         return p0.z > p1.z;
 }
 
-bool equalPoint (MUSE::Point3D p0, MUSE::Point3D p1)
+bool equalPoint (EWOPE::Point3D p0, EWOPE::Point3D p1)
 {
     if (dist3D(p0, p1) < 1e-6)
         return true;
     return false;
 }
 
-MUSE::Point3D rotPoint (MUSE::Point3D p0, const std::string &rot_axis, const double &rot_angle)
+EWOPE::Point3D rotPoint (EWOPE::Point3D p0, const std::string &rot_axis, const double &rot_angle)
 {
-    MUSE::Point3D p;
+    EWOPE::Point3D p;
     double rad = (rot_angle * M_PI)/180;
 
     if(rot_axis.compare("X") == 0)
@@ -65,15 +65,15 @@ MUSE::Point3D rotPoint (MUSE::Point3D p0, const std::string &rot_axis, const dou
     return p;
 }
 
-std::vector<MUSE::Point3D> remove_duplicates (std::vector<MUSE::Point3D> &points, double threshold)
+std::vector<EWOPE::Point3D> remove_duplicates (std::vector<EWOPE::Point3D> &points, double threshold)
 {
-    std::vector<MUSE::Point3D> sorted_points = points;
-    std::vector<MUSE::Point3D> unique_points;
+    std::vector<EWOPE::Point3D> sorted_points = points;
+    std::vector<EWOPE::Point3D> unique_points;
 
     unique_points.push_back(sorted_points.at(0));
     for (uint i=1; i < sorted_points.size(); i++)
     {
-        MUSE::Point2D p0, p1;
+        EWOPE::Point2D p0, p1;
         p0.x = sorted_points.at(i-1).x;
         p0.y = sorted_points.at(i-1).y;
         p1.x = sorted_points.at(i).x;
@@ -88,14 +88,14 @@ std::vector<MUSE::Point3D> remove_duplicates (std::vector<MUSE::Point3D> &points
 }
 
 
-void remove_duplicates (std::vector<MUSE::Point3D> &points, std::vector<MUSE::Point3D> &unique_points, std::vector<int> &unique_points_id, double threshold)
+void remove_duplicates (std::vector<EWOPE::Point3D> &points, std::vector<EWOPE::Point3D> &unique_points, std::vector<int> &unique_points_id, double threshold)
 {
-    std::vector<MUSE::Point3D> sorted_points = points;
+    std::vector<EWOPE::Point3D> sorted_points = points;
 
     unique_points.push_back(sorted_points.at(0));
     for (uint i=1; i < sorted_points.size(); i++)
     {
-        MUSE::Point2D p0, p1;
+        EWOPE::Point2D p0, p1;
         p0.x = sorted_points.at(i-1).x;
         p0.y = sorted_points.at(i-1).y;
         p1.x = sorted_points.at(i).x;
@@ -121,7 +121,7 @@ void remove_duplicates (const std::vector<double> &points_x, const std::vector<d
 
     for (uint i=1; i < points_x.size(); i++)
     {
-        MUSE::Point2D p0, p1;
+        EWOPE::Point2D p0, p1;
         p0.x = points_x.at(i-1);
         p0.y = points_y.at(i-1);
         p1.x = points_x.at(i);
@@ -139,9 +139,9 @@ void remove_duplicates (const std::vector<double> &points_x, const std::vector<d
 }
 
 
-MUSE::Point2D linear_interpolation (MUSE::Point2D p0, MUSE::Point2D p1, const double &t)
+EWOPE::Point2D linear_interpolation (EWOPE::Point2D p0, EWOPE::Point2D p1, const double &t)
 {
-    MUSE::Point2D p;
+    EWOPE::Point2D p;
     p.x = ((1-t)*p0.x) + (t*p1.x);
     p.y = ((1-t)*p0.y) + (t*p1.y);
 
@@ -149,15 +149,15 @@ MUSE::Point2D linear_interpolation (MUSE::Point2D p0, MUSE::Point2D p1, const do
 }
 
 //// convert the pixel coordinate to lat/lon coordinates
-//MUSE::Point2D pixel2world ( const int& x, const int& y, const double &raster_width, const double &raster_height)
+//EWOPE::Point2D pixel2world ( const int& x, const int& y, const double &raster_width, const double &raster_height)
 //{
 //    // compute the ratio of the pixel location to its dimension
 //    double rx = (double)x / raster_width;
 //    double ry = (double)y / raster_height;
 
 //    // compute LERP of each coordinate
-//    MUSE::Point2D rightSide = linear_interpolation(tr, br, ry);
-//    MUSE::Point2D leftSide  = linear_interpolation(tl, bl, ry);
+//    EWOPE::Point2D rightSide = linear_interpolation(tr, br, ry);
+//    EWOPE::Point2D leftSide  = linear_interpolation(tl, bl, ry);
 
 //    // compute the actual Lat/Lon coordinate of the interpolated coordinate
 //    return linear_interpolation( leftSide, rightSide, rx );

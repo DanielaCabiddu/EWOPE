@@ -2,7 +2,7 @@
 
 
 template<class M, class V, class E, class P>
-void MUSE::Surface::setSummary(const cinolib::AbstractPolygonMesh<M,V,E,P> &mesh)
+void EWOPE::Surface::setSummary(const cinolib::AbstractPolygonMesh<M,V,E,P> &mesh)
 {
     this->summary.nverts = mesh.num_verts();
     this->summary.nedges = mesh.num_edges();

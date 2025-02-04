@@ -4,7 +4,7 @@
 #include <iostream>
 #include <math.h>
 
-namespace MUSE
+namespace EWOPE
 {
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -21,7 +21,7 @@ bool DataSummaryMeta::write(const std::string filename)
 
 bool DataSummaryMeta::readConfFileJSON(const std::string filename)
 {
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     std::ifstream ss (filename.c_str(), std::ifstream::in);
 
     if (!ss.is_open())
@@ -47,7 +47,7 @@ bool DataSummaryMeta::readConfFileJSON(const std::string filename)
 
 bool DataSummaryMeta::writeConfFileJSON (const std::string filename, const int &precision)
 {
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     std::ofstream ss (filename.c_str(), std::ofstream::out);
 
     if (!ss.is_open())

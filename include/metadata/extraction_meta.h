@@ -11,12 +11,12 @@
 #include "muselib/data_structures/rotation.h"
 
 
-namespace MUSE
+namespace EWOPE
 {
     class ExtractionMeta;
 }
 
-class MUSE::ExtractionMeta
+class EWOPE::ExtractionMeta
 {
 public:
 
@@ -30,7 +30,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -52,7 +52,7 @@ public:
 
 
     // Get Methods
-    const MUSE::Project     &getProject         () const    { return  project; }
+    const EWOPE::Project     &getProject         () const    { return  project; }
 
     const std::vector<std::string> &getCommands () const    { return commands;}
     const std::string &getCommand (const unsigned int i) const { return commands.at(i); }
@@ -60,19 +60,19 @@ public:
     const std::vector<std::string> &getDeps () const { return  dependencies; }
     const std::string &getDep (const unsigned int i) const { return  dependencies.at(i); }
 
-    const MUSE::Rotation    &getRotation        () const    { return  rotation; }
+    const EWOPE::Rotation    &getRotation        () const    { return  rotation; }
 
     const DataExtraction    &getDataExtraction  () const    { return  subdataset; }
 
 
 
     // Set Methods
-    void setProject         (const MUSE::Project &d)        { project = d; }
+    void setProject         (const EWOPE::Project &d)        { project = d; }
     void setCommands        (const std::vector<std::string> &d) { commands = d; }
 
     void setDependencies    (const std::vector<std::string> &d) { dependencies = d; }
 
-    void setRotation        (const MUSE::Rotation &d)       { rotation = d; }
+    void setRotation        (const EWOPE::Rotation &d)       { rotation = d; }
 
     void setDataExtraction  (const DataExtraction &d)       { subdataset = d; }
 
@@ -84,7 +84,7 @@ public:
 
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {
@@ -108,10 +108,10 @@ public:
 
 private:
 
-    MUSE::Project project;
+    EWOPE::Project project;
     std::vector<std::string> commands;
     std::vector<std::string> dependencies;
-    MUSE::Rotation rotation;
+    EWOPE::Rotation rotation;
 
     DataExtraction subdataset;
 

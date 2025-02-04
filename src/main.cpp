@@ -63,14 +63,14 @@ int main(int argc, char **argv)
 
     std::vector<std::string> deps;
 
-    for (const std::string s : inputs)
+    for (const std::string &s : inputs)
     {
         deps.push_back(s.substr(0, s.find_last_of(".")) + ".json");
 
         // check di esistenza e del caso di uno a molti
     }
 
-    for (const std::string o : outputs)
+    for (const std::string &o : outputs)
     {
 
         Metadata metadata;

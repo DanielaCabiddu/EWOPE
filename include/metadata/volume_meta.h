@@ -9,17 +9,17 @@
 #include "muselib/data_structures/project.h"
 #include "muselib/data_structures/volume.h"
 
-namespace MUSE
+namespace EWOPE
 {
     class VolumeMeta;
 }
 
-class MUSE::VolumeMeta
+class EWOPE::VolumeMeta
 {
 public:
 
     // Get Methods
-    const MUSE::Project         &getProject         () const    { return  project; }
+    const EWOPE::Project         &getProject         () const    { return  project; }
 
     const std::vector<std::string> &getCommands () const    { return commands;}
     const std::string &getCommand (const unsigned int i) const { return commands.at(i); }
@@ -27,18 +27,18 @@ public:
     const std::vector<std::string> &getDeps () const { return  dependencies; }
     const std::string &getDep (const unsigned int i) const { return  dependencies.at(i); }
 
-    const MUSE::Volume          &getMeshSummary   () const    { return mesh; }
+    const EWOPE::Volume          &getMeshSummary   () const    { return mesh; }
 
 
 
 
     // Set Methods
-    void setProject         (const MUSE::Project &d)        { project = d; }
+    void setProject         (const EWOPE::Project &d)        { project = d; }
     void setCommands        (const std::vector<std::string> &d) { commands = d; }
 
     void setDependencies    (const std::vector<std::string> &d) { dependencies = d; }
 
-    void setMeshSummary   (const MUSE::Volume &d)         { mesh = d; }
+    void setMeshSummary   (const EWOPE::Volume &d)         { mesh = d; }
 
 
 
@@ -47,7 +47,7 @@ public:
     bool write (const std::string filename);
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {
@@ -69,10 +69,10 @@ public:
 
 private:
 
-    MUSE::Project project;
+    EWOPE::Project project;
     std::vector<std::string> commands;
     std::vector<std::string> dependencies;
-    MUSE::Volume mesh;
+    EWOPE::Volume mesh;
 
 
 

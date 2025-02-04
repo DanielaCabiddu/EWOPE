@@ -1,6 +1,6 @@
 #include "geometry.h"
 
-void setGeometryType (MUSE::GeospatialData &geometry, std::string &GDALtype)
+void setGeometryType (EWOPE::GeospatialData &geometry, std::string &GDALtype)
 {
     if(GDALtype.compare("POLYGON") == 0)
         geometry.geom_type = POLYGON;
@@ -14,7 +14,7 @@ void setGeometryType (MUSE::GeospatialData &geometry, std::string &GDALtype)
 
 
 // Update project json
-void updateProjectJson (const MUSE::GeospatialData &geometry, json &metadata)
+void updateProjectJson (const EWOPE::GeospatialData &geometry, json &metadata)
 {
     metadata.push_back({geometry.getName(), {
                             {"Format",          geometry.getFormat()},
@@ -26,7 +26,7 @@ void updateProjectJson (const MUSE::GeospatialData &geometry, json &metadata)
 
 
 // Update json
-void updateJson (const MUSE::GeospatialData &geometry, json &metadata)
+void updateJson (const EWOPE::GeospatialData &geometry, json &metadata)
 {
     metadata.push_back({"File", {
                             {"Name",            geometry.getName()},

@@ -10,7 +10,7 @@
 // #include <geostatslib/statistics/data_structures.h>
 // #include <geostatslib/statistics/variogram.h>
 
-namespace MUSE
+namespace EWOPE
 {
 
 class variogram_methods /*: public variogram*/
@@ -32,7 +32,7 @@ class variogram_methods /*: public variogram*/
 
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {

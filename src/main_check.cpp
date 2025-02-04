@@ -39,7 +39,7 @@ using namespace std::__fs;
 using namespace std;
 #endif
 
-using namespace MUSE;
+using namespace EWOPE;
 using namespace TCLAP;
 
 int main(int argc, char** argv)
@@ -168,7 +168,7 @@ int main(int argc, char** argv)
         // Option 1. Setting coordinate function
         if(setIDXYZ.isSet())
         {
-            MUSE::DataMeta datameta;
+            EWOPE::DataMeta datameta;
 
             char csv_delimiter;
             if(Delimiter.getValue().compare("DEFAULT") == 0) //DEFAULT (;) oppure COMMA
@@ -191,7 +191,7 @@ int main(int argc, char** argv)
             {
                 // std::vector<std::string> list_csv = get_files(in_folder, ".csv");
 
-                MUSE::InfoData info;
+                EWOPE::InfoData info;
 
                 for(size_t i=0; i< list_csv.size(); i++)
                 {
@@ -209,7 +209,7 @@ int main(int argc, char** argv)
 
                     //std::string filename = list_csv.at(i).substr(list_csv.at(i).find_last_of("/")+1, list_csv.at(i).length());
 
-                    MUSE::DataMeta::CSVFile csv;
+                    EWOPE::DataMeta::CSVFile csv;
                     csv.setFilename(get_basename(get_filename(list_csv.at(i))));
                     csv.setDelimiter(Delimiter.getValue());
                     datameta.setCSVFile(csv);
@@ -257,7 +257,7 @@ int main(int argc, char** argv)
                 std::string filename = list_csv.at(i);
                 int n_rows_header = 6;
 
-                MUSE::DataMeta datameta;
+                EWOPE::DataMeta datameta;
                 datameta.read(get_basename(get_filename(filename)) + ".json");
 
 
@@ -270,7 +270,7 @@ int main(int argc, char** argv)
                 size_t n_files = 0; //numero file creati in formato MUSE
 
                 // Active flag table
-                std::vector<MUSE::Flag> table;
+                std::vector<EWOPE::Flag> table;
                 flagsTable(table);
 
                 int flag_row = 3; //riga della matrice (contando da 1) dove si trova il flag
@@ -334,9 +334,9 @@ int main(int argc, char** argv)
                         }
 
 
-                        MUSE::Data data;
+                        EWOPE::Data data;
                         data.setData(header_variable);
-                        std::vector<MUSE::Data> multidata;
+                        std::vector<EWOPE::Data> multidata;
                         multidata.push_back(data);
 
                         Metadata meta_input;
@@ -382,7 +382,7 @@ int main(int argc, char** argv)
                 std::cout << std::endl;
 
 
-                MUSE::DataMeta::DataFormat format;
+                EWOPE::DataMeta::DataFormat format;
                 format.n_variables = n_var;
                 format.n_accepted_variables = n_files;
                 datameta.setDataFormat(format);
@@ -408,15 +408,15 @@ int main(int argc, char** argv)
         //     std::string json_basename = get_basename(get_filename(Variable.getValue()));
 
         //     // Reading json file
-        //     MUSE::Metadata data;
+        //     EWOPE::Metadata data;
         //     data.read(Variable.getValue());
 
         //     PlotStruct dataplot;
-        //     std::vector<MUSE::Data> vec_data = data.getMultiData();
+        //     std::vector<EWOPE::Data> vec_data = data.getMultiData();
 
         //     if(setNrealization.isSet())
         //     {
-        //         MUSE::Data d = vec_data.at(setNrealization.getValue());
+        //         EWOPE::Data d = vec_data.at(setNrealization.getValue());
         //         d.setType(d.flag);
 
         //         std::vector<std::string> textValues;
@@ -507,7 +507,7 @@ int main(int argc, char** argv)
         //     }
         //     else
         //     {
-        //         for(MUSE::Data &d:vec_data)
+        //         for(EWOPE::Data &d:vec_data)
         //         {
         //             d.setType(d.flag);
 
@@ -647,7 +647,7 @@ int main(int argc, char** argv)
         //         }
 
         //         // Definition of coordinate variables
-        //         MUSE::DataMeta datameta;
+        //         EWOPE::DataMeta datameta;
         //         datameta.read(list_proj_json.at(0));
 
 
@@ -673,15 +673,15 @@ int main(int argc, char** argv)
         //             std::string data_path = l +"/data/"+ data_filename;
 
         //             // Reading json file
-        //             MUSE::Metadata data;
+        //             EWOPE::Metadata data;
         //             data.read(json_path);
 
-        //             std::vector<MUSE::Data> vec_data = data.getMultiData();
+        //             std::vector<EWOPE::Data> vec_data = data.getMultiData();
 
         //             if(!filesystem::exists(sum_folder + "/" + basename +".json"))
         //                 filesystem::copy(json_path, sum_folder + "/"+ basename +".json");
 
-        //             for(MUSE::Data &d:vec_data)
+        //             for(EWOPE::Data &d:vec_data)
         //             {
         //                 d.setType(d.flag);
 

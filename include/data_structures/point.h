@@ -5,13 +5,13 @@
 #include <vector>
 #include <iostream>
 
-namespace MUSE
+namespace EWOPE
 {
     class Point2D;
     class Point3D;
 }
 
-class MUSE::Point2D
+class EWOPE::Point2D
 {
     public:
 
@@ -20,7 +20,7 @@ class MUSE::Point2D
         double y;
 };
 
-class MUSE::Point3D
+class EWOPE::Point3D
 {
     public:
 
@@ -33,23 +33,23 @@ class MUSE::Point3D
 };
 
 
-double  dist         (MUSE::Point2D p0, MUSE::Point2D p1);
-double  sqrt_dist    (MUSE::Point2D p0, MUSE::Point2D p1);
+double  dist         (EWOPE::Point2D p0, EWOPE::Point2D p1);
+double  sqrt_dist    (EWOPE::Point2D p0, EWOPE::Point2D p1);
 
-double  dist3D       (MUSE::Point3D p0, MUSE::Point3D p1);
-bool    comparePoint (MUSE::Point3D p0, MUSE::Point3D p1);
+double  dist3D       (EWOPE::Point3D p0, EWOPE::Point3D p1);
+bool    comparePoint (EWOPE::Point3D p0, EWOPE::Point3D p1);
 
-bool    equalPoint   (MUSE::Point3D p0, MUSE::Point3D p1);
+bool    equalPoint   (EWOPE::Point3D p0, EWOPE::Point3D p1);
 
-MUSE::Point3D rotPoint (MUSE::Point3D p0, const std::string &rot_axis, const double &rot_angle);
+EWOPE::Point3D rotPoint (EWOPE::Point3D p0, const std::string &rot_axis, const double &rot_angle);
 
-std::vector<MUSE::Point3D> remove_duplicates (std::vector<MUSE::Point3D> &points, double threshold = 1e-6);
-void remove_duplicates (std::vector<MUSE::Point3D> &points, std::vector<MUSE::Point3D> &unique_points, std::vector<int> &unique_points_id, double threshold = 1e-6);
+std::vector<EWOPE::Point3D> remove_duplicates (std::vector<EWOPE::Point3D> &points, double threshold = 1e-6);
+void remove_duplicates (std::vector<EWOPE::Point3D> &points, std::vector<EWOPE::Point3D> &unique_points, std::vector<int> &unique_points_id, double threshold = 1e-6);
 void remove_duplicates (const std::vector<double> &points_x, const std::vector<double> &points_y, std::vector<int> &unique_points_id, std::vector<double> &unique_points_x, std::vector<double> &unique_points_y, double threshold = 1e-6);
 
 
-MUSE::Point2D linear_interpolation (MUSE::Point2D p0, MUSE::Point2D p1, const double &t);
-MUSE::Point2D pixel2world ( const int& x, const int& y, const double &raster_width, const double &raster_height);
+EWOPE::Point2D linear_interpolation (EWOPE::Point2D p0, EWOPE::Point2D p1, const double &t);
+EWOPE::Point2D pixel2world ( const int& x, const int& y, const double &raster_width, const double &raster_height);
 
 
 #ifndef STATIC_MUSELIB

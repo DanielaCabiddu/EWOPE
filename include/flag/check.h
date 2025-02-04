@@ -25,7 +25,7 @@ int count_negvalues (const std::vector<std::string> &values);
 int count_allowedsymbol (const std::vector<std::string> &values);
 int count_empty     (const std::vector<std::string> &values);
 
-//void DataSummary    (const MUSE::Data &data);
+//void DataSummary    (const EWOPE::Data &data);
 
 // Check if numerical conversion is possible related to flag
 //std::string num_conversion(const std::string &code);

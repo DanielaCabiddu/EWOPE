@@ -10,12 +10,12 @@ using json = nlohmann::ordered_json;
 
 #include <cinolib/meshes/meshes.h>
 
-namespace MUSE
+namespace EWOPE
 {
     class Surface;
 }
 
-class MUSE::Surface
+class EWOPE::Surface
 {
 public:
 
@@ -29,7 +29,7 @@ public:
         double resy = 0.0;
         double resz = 0.0;
 
-    #ifdef MUSE_USES_CEREAL
+    #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -85,7 +85,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -141,7 +141,7 @@ public:
 
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {

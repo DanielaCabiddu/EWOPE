@@ -5,11 +5,11 @@
 
 #include <cereal/archives/json.hpp>
 
-namespace MUSE
+namespace EWOPE
 {
     class Rotation;
 }
-class MUSE::Rotation
+class EWOPE::Rotation
 {
     public:
 
@@ -22,7 +22,7 @@ class MUSE::Rotation
 
     // Add any other additional descriptive info
 
-    #ifdef MUSE_USES_CEREAL
+    #ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {

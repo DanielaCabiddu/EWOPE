@@ -4,7 +4,7 @@
 #include <iostream>
 #include <math.h>
 
-namespace MUSE
+namespace EWOPE
 {
 
 void SurfaceMeta::DataSummary::setDataSummary (const std::vector<Point3D> &data)
@@ -46,7 +46,7 @@ bool SurfaceMeta::write(const std::string filename)
 
 bool SurfaceMeta::readConfFileJSON(const std::string filename)
 {
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     std::ifstream ss (filename.c_str(), std::ifstream::in);
 
     if (!ss.is_open())
@@ -72,7 +72,7 @@ bool SurfaceMeta::readConfFileJSON(const std::string filename)
 
 bool SurfaceMeta::writeConfFileJSON (const std::string filename, const int &precision)
 {
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     std::ofstream ss (filename.c_str(), std::ofstream::out);
 
     if (!ss.is_open())

@@ -5,12 +5,12 @@
 
 #include <cereal/archives/json.hpp>
 
-namespace MUSE
+namespace EWOPE
 {
     class Project;
 }
 
-class MUSE::Project
+class EWOPE::Project
 {
     public:
 
@@ -36,7 +36,7 @@ class MUSE::Project
         bool write (const std::string filename);
 
 
-    #ifdef MUSE_USES_CEREAL
+    #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {

@@ -1,7 +1,7 @@
 #include "volume.h"
 
 template<class M, class V, class E, class F, class P>
-void MUSE::Volume::setSummary(const cinolib::AbstractPolyhedralMesh<M,V,E,F,P> &mesh)
+void EWOPE::Volume::setSummary(const cinolib::AbstractPolyhedralMesh<M,V,E,F,P> &mesh)
 {
     this->summary.nverts = mesh.num_verts();
     this->summary.nedges = mesh.num_edges();

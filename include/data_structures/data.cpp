@@ -3,7 +3,7 @@
 // #include "muselib/flag/check.h"
 // #include "muselib/colors.h"
 
-namespace MUSE
+namespace EWOPE
 {
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -55,7 +55,7 @@ bool Data::write(const std::string filename)
 
 bool Data::readConfFileJSON(const std::string filename)
 {
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     std::ifstream ss (filename.c_str(), std::ifstream::in);
 
     if (!ss.is_open())
@@ -81,7 +81,7 @@ bool Data::readConfFileJSON(const std::string filename)
 
 bool Data::writeConfFileJSON (const std::string filename)
 {
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     std::ofstream ss (filename.c_str(), std::ofstream::out);
 
     if (!ss.is_open())
@@ -106,7 +106,7 @@ bool Data::writeConfFileJSON (const std::string filename)
 
 }
 
-//void setData (MUSE::Data &data, json metadata)
+//void setData (EWOPE::Data &data, json metadata)
 //{
 //    data.setName(metadata.at(json::json_pointer("/Name")));
 //    data.setUnit(metadata.at(json::json_pointer("/Units")));
@@ -119,7 +119,7 @@ bool Data::writeConfFileJSON (const std::string filename)
 
 
 
-//void setType (MUSE::Data &data)
+//void setType (EWOPE::Data &data)
 //{
 //    if(data.flag.find("V") != std::string::npos || data.flag.find("Y") != std::string::npos || data.flag.find("T") != std::string::npos)
 //        data.type = varType::TEXT;

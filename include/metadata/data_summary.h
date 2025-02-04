@@ -9,12 +9,12 @@
 
 #include "data_structures/data.h"
 
-namespace MUSE
+namespace EWOPE
 {
     class DataSummary;
 }
 
-class MUSE::DataSummary
+class EWOPE::DataSummary
 {
 public:
 
@@ -28,7 +28,7 @@ public:
 
 
     // Add any other additional descriptive info
-    #ifdef MUSE_USES_CEREAL
+    #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -59,7 +59,7 @@ public:
     //const DataSummary   &getSummary             () const    { return  summary; }
 
     // Set Methods
-    void setSummary     (const MUSE::Data &data);
+    void setSummary     (const EWOPE::Data &data);
 
 
     // Additional Methods

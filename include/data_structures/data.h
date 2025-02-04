@@ -20,13 +20,13 @@ enum varType
     TEXT        //3
 };
 
-namespace MUSE
+namespace EWOPE
 {
     class Data;
 }
 
 
-class MUSE::Data
+class EWOPE::Data
 {
     public:
 
@@ -71,7 +71,7 @@ class MUSE::Data
         bool write (const std::string filename);
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {
@@ -103,8 +103,8 @@ private:
 };
 
 
-//void setData (MUSE::Data &data, json metadata);
-//void setType (MUSE::Data &data);
+//void setData (EWOPE::Data &data, json metadata);
+//void setType (EWOPE::Data &data);
 
 void readTextValues (const std::string &filename, std::vector<std::string> &v);
 

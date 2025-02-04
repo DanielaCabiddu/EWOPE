@@ -9,12 +9,12 @@
 
 #include "data_structures/data.h"
 
-namespace MUSE
+namespace EWOPE
 {
     class Statistics;
 }
 
-class MUSE::Statistics
+class EWOPE::Statistics
 {
 public:
 
@@ -33,7 +33,7 @@ public:
     void setStatistics     (const std::vector<double> &values);
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
 template <class Archive>
 void serialize( Archive & ar )
 {

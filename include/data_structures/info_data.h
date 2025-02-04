@@ -5,15 +5,15 @@
 
 #include <cereal/archives/json.hpp>
 
-namespace MUSE
+namespace EWOPE
 {
     class InfoData;
 }
 
 ///
-/// \brief The MUSE::InfoData class: store general information about CSV input file and related conversion in MUSE DataFormat
+/// \brief The EWOPE::InfoData class: store general information about CSV input file and related conversion in MUSE DataFormat
 ///
-class MUSE::InfoData
+class EWOPE::InfoData
 {
     public:
 
@@ -25,7 +25,7 @@ class MUSE::InfoData
 
     // Add any other additional descriptive info
 
-    #ifdef MUSE_USES_CEREAL
+    #ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {

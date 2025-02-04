@@ -10,7 +10,7 @@
 // #include <geostatslib/statistics/variogram.h>
 
 
-namespace MUSE
+namespace EWOPE
 {
 
 class exp_variog_methods /*: public exp_variog*/
@@ -32,7 +32,7 @@ class exp_variog_methods /*: public exp_variog*/
 
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {

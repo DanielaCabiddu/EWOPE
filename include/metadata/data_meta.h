@@ -11,16 +11,16 @@
 #include "data_structures/info_data.h"
 
 
-namespace MUSE
+namespace EWOPE
 {
     class DataMeta;
 }
 
 
 ///
-/// \brief The MUSE::DataMeta class
+/// \brief The EWOPE::DataMeta class
 ///
-class MUSE::DataMeta
+class EWOPE::DataMeta
 {
 public:
 
@@ -31,7 +31,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -60,7 +60,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -81,12 +81,12 @@ public:
 
 
     // Get Methods
-    const MUSE::Project     &getProject    () const    { return  project; }
+    const EWOPE::Project     &getProject    () const    { return  project; }
 
     const std::vector<std::string> &getCommands () const    { return commands;}
     const std::string &getCommand (const unsigned int i) const { return commands.at(i); }
 
-    const MUSE::InfoData    &getInfoData   () const    { return infodata; }
+    const EWOPE::InfoData    &getInfoData   () const    { return infodata; }
 
     const CSVFile           &getCSVFile    () const    { return  csvfile; }
     const DataFormat        &getDataFormat () const    { return  dataformat; }
@@ -95,10 +95,10 @@ public:
 
 
     // Set Methods
-    void setProject     (const MUSE::Project &d)    { project = d; }
+    void setProject     (const EWOPE::Project &d)    { project = d; }
     void setCommands    (const std::vector<std::string> &d) { commands = d; }
 
-    void setInfoData    (const MUSE::InfoData &d)   { infodata = d; }
+    void setInfoData    (const EWOPE::InfoData &d)   { infodata = d; }
 
     void setCSVFile     (const CSVFile &d)          { csvfile = d; }
     void setDataFormat  (const DataFormat &d)       { dataformat = d; }
@@ -111,7 +111,7 @@ public:
 
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {
@@ -135,9 +135,9 @@ public:
 
 private:
 
-    MUSE::Project project;
+    EWOPE::Project project;
     std::vector<std::string> commands;
-    MUSE::InfoData infodata;
+    EWOPE::InfoData infodata;
 
     CSVFile csvfile;
     DataFormat dataformat;

@@ -15,12 +15,12 @@
 #include "muselib/data_structures/rotation.h"
 
 
-namespace MUSE
+namespace EWOPE
 {
     class ComputeMeta;
 }
 
-class MUSE::ComputeMeta
+class EWOPE::ComputeMeta
 {
 public:
 
@@ -34,7 +34,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -66,7 +66,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -92,7 +92,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -125,7 +125,7 @@ public:
 
         // Add any other additional descriptive info
 
-        #ifdef MUSE_USES_CEREAL
+        #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -163,7 +163,7 @@ public:
 
 
     // Get Methods
-    const MUSE::Project     &getProject         () const    { return  project; }
+    const EWOPE::Project     &getProject         () const    { return  project; }
 
     const std::vector<std::string> &getCommands () const    { return commands;}
     const std::string &getCommand (const unsigned int i) const { return commands.at(i); }
@@ -171,36 +171,36 @@ public:
     const std::vector<std::string> &getDeps     () const { return  dependencies; }
     const std::string &getDep (const unsigned int i) const { return  dependencies.at(i); }
 
-    const MUSE::InfoData    &getInfoData        () const    { return  data; }
-    const MUSE::Rotation    &getRotation        () const    { return  rotation; }
+    const EWOPE::InfoData    &getInfoData        () const    { return  data; }
+    const EWOPE::Rotation    &getRotation        () const    { return  rotation; }
 
     const Manipulate        &getManipulate      () const    { return  manipulate; }
     const Processing        &getProcessing      () const    { return  variable; }
     const InfoVariogram     &getInfoVariogram   () const    { return  info_vario; }
 
-    const MUSE::variogram_methods &getFitExpVariog () const { return  fit_experimental_vario; }
+    const EWOPE::variogram_methods &getFitExpVariog () const { return  fit_experimental_vario; }
 
     const Simulation        &getSimulation      () const    { return  simulation; }
 
 
 
     // Set Methods
-    void setProject         (const MUSE::Project &d)    { project = d; }
+    void setProject         (const EWOPE::Project &d)    { project = d; }
 
     void setCommands        (const std::vector<std::string> &d) { commands = d; }
 
     void setDependencies    (const std::vector<std::string> &d) { dependencies = d; }
     //void setDependency      (const std::string &d)              { dependencies.at(i) = d; }
-    //void setDependencies    (const std::vector<MUSE::Dependency> &d) { dependencies = d; }
+    //void setDependencies    (const std::vector<EWOPE::Dependency> &d) { dependencies = d; }
 
-    void setInfoData        (const MUSE::InfoData &d)   { data = d; }
-    void setRotation        (const MUSE::Rotation &d)   { rotation = d; }
+    void setInfoData        (const EWOPE::InfoData &d)   { data = d; }
+    void setRotation        (const EWOPE::Rotation &d)   { rotation = d; }
 
     void setManipulate      (const Manipulate &d)       { manipulate = d; }
     void setProcessing      (const Processing &d)       { variable = d; }
     void setInfoVariogram   (const InfoVariogram &d)    { info_vario = d; }
 
-    void setFitExpVariog    (const MUSE::variogram_methods &d)    { fit_experimental_vario = d; }
+    void setFitExpVariog    (const EWOPE::variogram_methods &d)    { fit_experimental_vario = d; }
 
     void setSimulation      (const Simulation &d)       { simulation = d; }
 
@@ -212,7 +212,7 @@ public:
 
 
 
-#ifdef MUSE_USES_CEREAL
+#ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {
@@ -250,21 +250,21 @@ public:
 
 private:
 
-    MUSE::Project project;
+    EWOPE::Project project;
 
     std::vector<std::string> commands;
     std::vector<std::string> dependencies;
 
 
-    MUSE::InfoData data;
-    MUSE::Rotation rotation;
+    EWOPE::InfoData data;
+    EWOPE::Rotation rotation;
 
     Manipulate manipulate;
     Processing variable;
     InfoVariogram info_vario;
 
-    //std::vector<MUSE::variogram_methods> fit_experimental_vario;
-    MUSE::variogram_methods fit_experimental_vario;
+    //std::vector<EWOPE::variogram_methods> fit_experimental_vario;
+    EWOPE::variogram_methods fit_experimental_vario;
 
     Simulation simulation;
 

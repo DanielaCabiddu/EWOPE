@@ -28,7 +28,7 @@ bool findDeps_from_JSON (const std::string &JSONfilename)
     if(loc == apps[0])
     {
         //MUSE DATA META
-        MUSE::Metadata datameta;
+        EWOPE::Metadata datameta;
         datameta.read(JSONfilename);
 
         if(datameta.getDeps().size() > 0)
@@ -37,7 +37,7 @@ bool findDeps_from_JSON (const std::string &JSONfilename)
     else if(loc == apps[1] && JSONfilename.find("surf") != std::string::npos)
     {
         //MUSE GEOMETRY META
-        MUSE::SurfaceMeta surfmeta;
+        EWOPE::SurfaceMeta surfmeta;
         surfmeta.read(JSONfilename);
 
         if(surfmeta.getDeps().size() > 0)
@@ -46,7 +46,7 @@ bool findDeps_from_JSON (const std::string &JSONfilename)
     else if(loc == apps[1] && JSONfilename.find("volume") != std::string::npos)
     {
         //MUSE GEOMETRY META
-        MUSE::VolumeMeta volmeta;
+        EWOPE::VolumeMeta volmeta;
         volmeta.read(JSONfilename);
 
         if(volmeta.getDeps().size() > 0)
@@ -55,7 +55,7 @@ bool findDeps_from_JSON (const std::string &JSONfilename)
     else if(loc == apps[2])
     {
         //MUSE MANIPULATE META
-        MUSE::ExtractionMeta extrmeta;
+        EWOPE::ExtractionMeta extrmeta;
         extrmeta.read(JSONfilename);
 
         if(extrmeta.getDeps().size() > 0)
@@ -64,7 +64,7 @@ bool findDeps_from_JSON (const std::string &JSONfilename)
     else if(loc == apps[3])
     {
         //MUSE VARIO META
-        MUSE::VarioMeta variometa;
+        EWOPE::VarioMeta variometa;
         variometa.read(JSONfilename);
 
         if(variometa.getDeps().size() > 0)
@@ -73,7 +73,7 @@ bool findDeps_from_JSON (const std::string &JSONfilename)
     else if(loc == apps[4] && JSONfilename.find("_sgs") == std::string::npos)
     {
         //MUSE COMPUTE META
-        MUSE::ComputeMeta computemeta;
+        EWOPE::ComputeMeta computemeta;
         computemeta.read(JSONfilename);
 
         if(computemeta.getDeps().size() > 0)
@@ -82,7 +82,7 @@ bool findDeps_from_JSON (const std::string &JSONfilename)
     else if(loc == apps[4])
     {
         //MUSE DATA META
-        MUSE::Metadata datameta;
+        EWOPE::Metadata datameta;
         datameta.read(JSONfilename);
 
         if(datameta.getDeps().size() > 0)
@@ -113,7 +113,7 @@ std::vector<std::string> getDeps_from_JSON(const std::string &JSONfilename)
     if(loc == apps[0])
     {
         //MUSE DATA META
-        MUSE::Metadata datameta;
+        EWOPE::Metadata datameta;
         datameta.read(JSONfilename);
 
         deps = datameta.getDeps();
@@ -121,7 +121,7 @@ std::vector<std::string> getDeps_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[1] && JSONfilename.find("surf") != std::string::npos)
     {
         //MUSE GEOMETRY META
-        MUSE::SurfaceMeta surfmeta;
+        EWOPE::SurfaceMeta surfmeta;
         surfmeta.read(JSONfilename);
 
         deps = surfmeta.getDeps();
@@ -129,7 +129,7 @@ std::vector<std::string> getDeps_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[1] && JSONfilename.find("volume") != std::string::npos)
     {
         //MUSE GEOMETRY META
-        MUSE::VolumeMeta volmeta;
+        EWOPE::VolumeMeta volmeta;
         volmeta.read(JSONfilename);
 
         deps = volmeta.getDeps();
@@ -137,7 +137,7 @@ std::vector<std::string> getDeps_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[2] && JSONfilename.find(key0) != std::string::npos)
     {
         //MUSE MANIPULATE META
-        MUSE::ManipulateMeta extrmeta;
+        EWOPE::ManipulateMeta extrmeta;
         extrmeta.read(JSONfilename);
 
         deps = extrmeta.getDeps();
@@ -145,7 +145,7 @@ std::vector<std::string> getDeps_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[2] && JSONfilename.find(key1) != std::string::npos)
     {
         //MUSE MANIPULATE META
-        MUSE::ManipulateMeta extrmeta;
+        EWOPE::ManipulateMeta extrmeta;
         extrmeta.read(JSONfilename);
 
         deps = extrmeta.getDeps();
@@ -153,7 +153,7 @@ std::vector<std::string> getDeps_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[2])
     {
         //MUSE MANIPULATE META
-        MUSE::ExtractionMeta extrmeta;
+        EWOPE::ExtractionMeta extrmeta;
         extrmeta.read(JSONfilename);
 
         deps = extrmeta.getDeps();
@@ -161,7 +161,7 @@ std::vector<std::string> getDeps_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[3])
     {
         //MUSE VARIO META
-        MUSE::VarioMeta variometa;
+        EWOPE::VarioMeta variometa;
         variometa.read(JSONfilename);
 
         deps = variometa.getDeps();
@@ -169,7 +169,7 @@ std::vector<std::string> getDeps_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[4] && JSONfilename.find("_sgs") == std::string::npos)
     {
         //MUSE COMPUTE META
-        MUSE::ComputeMeta computemeta;
+        EWOPE::ComputeMeta computemeta;
         computemeta.read(JSONfilename);
 
         deps = computemeta.getDeps();
@@ -177,7 +177,7 @@ std::vector<std::string> getDeps_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[4])
     {
         //MUSE DATA META
-        MUSE::Metadata datameta;
+        EWOPE::Metadata datameta;
         datameta.read(JSONfilename);
 
         deps = datameta.getDeps();
@@ -206,7 +206,7 @@ std::vector<std::string> getCom_from_JSON(const std::string &JSONfilename)
     if(loc == apps[0])
     {
         //MUSE DATA META
-        MUSE::Metadata datameta;
+        EWOPE::Metadata datameta;
         datameta.read(JSONfilename);
 
         deps = datameta.getCommands();
@@ -214,7 +214,7 @@ std::vector<std::string> getCom_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[1] && JSONfilename.find("surf") != std::string::npos)
     {
         //MUSE GEOMETRY META
-        MUSE::SurfaceMeta surfmeta;
+        EWOPE::SurfaceMeta surfmeta;
         surfmeta.read(JSONfilename);
 
         deps = surfmeta.getCommands();
@@ -222,7 +222,7 @@ std::vector<std::string> getCom_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[1] && JSONfilename.find("volume") != std::string::npos)
     {
         //MUSE GEOMETRY META
-        MUSE::VolumeMeta volmeta;
+        EWOPE::VolumeMeta volmeta;
         volmeta.read(JSONfilename);
 
         deps = volmeta.getCommands();
@@ -230,7 +230,7 @@ std::vector<std::string> getCom_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[2] && JSONfilename.find(key0) != std::string::npos)
     {
         //MUSE MANIPULATE META
-        MUSE::ManipulateMeta extrmeta;
+        EWOPE::ManipulateMeta extrmeta;
         extrmeta.read(JSONfilename);
 
         deps = extrmeta.getCommands();
@@ -238,7 +238,7 @@ std::vector<std::string> getCom_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[2] && JSONfilename.find(key1) != std::string::npos)
     {
         //MUSE MANIPULATE META
-        MUSE::ManipulateMeta extrmeta;
+        EWOPE::ManipulateMeta extrmeta;
         extrmeta.read(JSONfilename);
 
         deps = extrmeta.getCommands();
@@ -246,7 +246,7 @@ std::vector<std::string> getCom_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[2])
     {
         //MUSE MANIPULATE META
-        MUSE::ExtractionMeta extrmeta;
+        EWOPE::ExtractionMeta extrmeta;
         extrmeta.read(JSONfilename);
 
         deps = extrmeta.getCommands();
@@ -254,7 +254,7 @@ std::vector<std::string> getCom_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[3])
     {
         //MUSE VARIO META
-        MUSE::VarioMeta variometa;
+        EWOPE::VarioMeta variometa;
         variometa.read(JSONfilename);
 
         deps = variometa.getCommands();
@@ -262,7 +262,7 @@ std::vector<std::string> getCom_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[4] && JSONfilename.find("_sgs") == std::string::npos)
     {
         //MUSE COMPUTE META
-        MUSE::ComputeMeta computemeta;
+        EWOPE::ComputeMeta computemeta;
         computemeta.read(JSONfilename);
 
         deps = computemeta.getCommands();
@@ -270,7 +270,7 @@ std::vector<std::string> getCom_from_JSON(const std::string &JSONfilename)
     else if(loc == apps[4])
     {
         //MUSE DATA META
-        MUSE::Metadata datameta;
+        EWOPE::Metadata datameta;
         datameta.read(JSONfilename);
 
         deps = datameta.getCommands();
@@ -298,7 +298,7 @@ void getDeps_from_JSON_extended(const std::string &JSONfilename, std::vector<std
     if(loc == apps[0])
     {
         //MUSE DATA META
-        MUSE::Metadata datameta;
+        EWOPE::Metadata datameta;
         datameta.read(JSONfilename);
 
         deps = datameta.getDeps();
@@ -307,7 +307,7 @@ void getDeps_from_JSON_extended(const std::string &JSONfilename, std::vector<std
     else if(loc == apps[1] && JSONfilename.find("surf") != std::string::npos)
     {
         //MUSE GEOMETRY META
-        MUSE::SurfaceMeta surfmeta;
+        EWOPE::SurfaceMeta surfmeta;
         surfmeta.read(JSONfilename);
 
         deps = surfmeta.getDeps();
@@ -316,7 +316,7 @@ void getDeps_from_JSON_extended(const std::string &JSONfilename, std::vector<std
     else if(loc == apps[1] && JSONfilename.find("volume") != std::string::npos)
     {
         //MUSE GEOMETRY META
-        MUSE::VolumeMeta volmeta;
+        EWOPE::VolumeMeta volmeta;
         volmeta.read(JSONfilename);
 
         deps = volmeta.getDeps();
@@ -325,7 +325,7 @@ void getDeps_from_JSON_extended(const std::string &JSONfilename, std::vector<std
     else if(loc == apps[2] && JSONfilename.find(key0) != std::string::npos)
     {
         //MUSE MANIPULATE META
-        MUSE::ManipulateMeta extrmeta;
+        EWOPE::ManipulateMeta extrmeta;
         extrmeta.read(JSONfilename);
 
         deps = extrmeta.getDeps();
@@ -334,7 +334,7 @@ void getDeps_from_JSON_extended(const std::string &JSONfilename, std::vector<std
     else if(loc == apps[2] && JSONfilename.find(key1) != std::string::npos)
     {
         //MUSE MANIPULATE META
-        MUSE::ManipulateMeta extrmeta;
+        EWOPE::ManipulateMeta extrmeta;
         extrmeta.read(JSONfilename);
 
         deps = extrmeta.getDeps();
@@ -343,7 +343,7 @@ void getDeps_from_JSON_extended(const std::string &JSONfilename, std::vector<std
     else if(loc == apps[2])
     {
         //MUSE MANIPULATE META
-        MUSE::ExtractionMeta extrmeta;
+        EWOPE::ExtractionMeta extrmeta;
         extrmeta.read(JSONfilename);
 
         deps = extrmeta.getDeps();
@@ -352,7 +352,7 @@ void getDeps_from_JSON_extended(const std::string &JSONfilename, std::vector<std
     else if(loc == apps[3])
     {
         //MUSE VARIO META
-        MUSE::VarioMeta variometa;
+        EWOPE::VarioMeta variometa;
         variometa.read(JSONfilename);
 
         deps = variometa.getDeps();
@@ -361,7 +361,7 @@ void getDeps_from_JSON_extended(const std::string &JSONfilename, std::vector<std
     else if(loc == apps[4] && JSONfilename.find("_sgs") == std::string::npos)
     {
         //MUSE COMPUTE META
-        MUSE::ComputeMeta computemeta;
+        EWOPE::ComputeMeta computemeta;
         computemeta.read(JSONfilename);
 
         deps = computemeta.getDeps();
@@ -370,7 +370,7 @@ void getDeps_from_JSON_extended(const std::string &JSONfilename, std::vector<std
     else if(loc == apps[4])
     {
         //MUSE DATA META
-        MUSE::Metadata datameta;
+        EWOPE::Metadata datameta;
         datameta.read(JSONfilename);
 
         deps = datameta.getDeps();

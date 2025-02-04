@@ -16,12 +16,12 @@ enum geomType
     LINESTRING
 };
 
-namespace MUSE
+namespace EWOPE
 {
     class GeospatialData;
 }
 
-class MUSE::GeospatialData
+class EWOPE::GeospatialData
 {
     public:
 
@@ -51,7 +51,7 @@ class MUSE::GeospatialData
         void setDomains     (      int n)          { n_subdomains = n; }
 
 
-    #ifdef MUSE_USES_CEREAL
+    #ifdef EWOPE_USES_CEREAL
         template <class Archive>
         void serialize( Archive & ar )
         {
@@ -77,9 +77,9 @@ class MUSE::GeospatialData
 
 };
 
-void setGeometryType        (MUSE::GeospatialData &geometry, std::string &GDALtype);
-void updateProjectJson      (const MUSE::GeospatialData &geometry, json &metadata);
-void updateJson             (const MUSE::GeospatialData &geometry, json &metadata);
+void setGeometryType        (EWOPE::GeospatialData &geometry, std::string &GDALtype);
+void updateProjectJson      (const EWOPE::GeospatialData &geometry, json &metadata);
+void updateJson             (const EWOPE::GeospatialData &geometry, json &metadata);
 
 
 #ifndef STATIC_MUSELIB

@@ -4,12 +4,12 @@
 #include <string>
 #include <vector>
 
-namespace MUSE
+namespace EWOPE
 {
     struct Flag;
 }
 
-struct MUSE::Flag
+struct EWOPE::Flag
 {
     std::string nameFlag;
     char charFlag;
@@ -19,13 +19,13 @@ struct MUSE::Flag
 
 
 // Management of flags
-MUSE::Flag setFlag      (std::string name, char code, bool is_active = false);
-void flagsTable         (std::vector<MUSE::Flag> &table); // Definition of flags table (default)
-void restoreTable       (std::vector<MUSE::Flag> &table); // Restore default activeFlag in table
-//void flagActivation     (std::vector<MUSE::Flag> &table, const std::string &str_flag);
-void flagActivation     (std::vector<MUSE::Flag> &table, const std::string &str_flag);
-int count_activeFlag    (std::vector<MUSE::Flag> &table);
-int count_passedCheck   (std::vector<MUSE::Flag> &table);
+EWOPE::Flag setFlag      (std::string name, char code, bool is_active = false);
+void flagsTable         (std::vector<EWOPE::Flag> &table); // Definition of flags table (default)
+void restoreTable       (std::vector<EWOPE::Flag> &table); // Restore default activeFlag in table
+//void flagActivation     (std::vector<EWOPE::Flag> &table, const std::string &str_flag);
+void flagActivation     (std::vector<EWOPE::Flag> &table, const std::string &str_flag);
+int count_activeFlag    (std::vector<EWOPE::Flag> &table);
+int count_passedCheck   (std::vector<EWOPE::Flag> &table);
 
 
 // Check on vector
