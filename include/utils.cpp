@@ -15,6 +15,12 @@
     using namespace std;
 #endif
 
+#ifdef WIN32
+    const char path_sep = '\\';
+#else
+    const char path_sep = '/';
+#endif
+
 inline
 std::vector<std::string> split_string (const std::string &str, char delimiter)
 {
@@ -46,8 +52,8 @@ inline
 std::string get_path (const std::string &complete_path)
 {
     std::string path;
-    if(complete_path.find("/") != std::string::npos)
-        path = complete_path.substr(0, complete_path.find_last_of("/"));
+    if(complete_path.find(path_sep) != std::string::npos)
+        path = complete_path.substr(0, complete_path.find_last_of(path_sep));
     return path;
 }
 
@@ -55,8 +61,8 @@ inline
 std::string get_filename (const std::string &path)
 {
     std::string filename;
-    if(path.find("/") != std::string::npos)
-        filename = path.substr(path.find_last_of("/")+1, path.length());
+    if(path.find(path_sep) != std::string::npos)
+        filename = path.substr(path.find_last_of(path_sep)+1, path.length());
     return filename;
 }
 
@@ -264,7 +270,7 @@ bool check_folder_name (const std::string new_name, std::string project_folder)
     for(size_t i=0; i< dirs.size(); i++)
     {
         //std::cout << "Dir: " << dirs.at(i) << std::endl;
-        std::string existed_name = dirs.at(i).substr(dirs.at(i).find_last_of("/")+1, dirs.at(i).length());
+        std::string existed_name = dirs.at(i).substr(dirs.at(i).find_last_of(path_sep)+1, dirs.at(i).length());
         std::string basename = existed_name.substr(0, existed_name.find_last_of("."));
 
         if(new_name.compare(basename) == 0)
@@ -287,7 +293,7 @@ bool check_filename (const std::string new_name, std::string project_folder)
     for(size_t i=0; i< dirs.size(); i++)
     {
         //std::cout << "Dir: " << dirs.at(i) << std::endl;
-        std::string existed_name = dirs.at(i).substr(dirs.at(i).find_last_of("/")+1, dirs.at(i).length());
+        std::string existed_name = dirs.at(i).substr(dirs.at(i).find_last_of(path_sep)+1, dirs.at(i).length());
         //std::string basename = existed_name.substr(0, existed_name.find_last_of("."));
 
         if(new_name.compare(existed_name) == 0)

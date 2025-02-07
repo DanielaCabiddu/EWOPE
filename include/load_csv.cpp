@@ -101,6 +101,9 @@ void read_csv_with_header (const std::string filename, int nrows_header,
             row.push_back(word);
         }
 
+        if (line.find_last_of(delimiter) == line.length()-1)
+            row.push_back("");
+
         if(count <= nrows_header)
             matrix_header.push_back(row);
         else
