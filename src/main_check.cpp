@@ -124,7 +124,7 @@ int main(int argc, char** argv)
         std::string command;
         std::cout << "Number of command arguments: " << argc << std::endl;
 
-        filesystem::path abspath = argv[3];
+        filesystem::path abspath = argv[0];
         std::cout << "Absolute path: " << abspath << std::endl;
 
         for(int i=1; i< argc; i++)
