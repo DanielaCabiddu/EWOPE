@@ -7,7 +7,6 @@
 #include <cereal/archives/json.hpp>
 #include <cereal/types/vector.hpp>
 
-#include "data_structures/project.h"
 #include "data_structures/info_data.h"
 
 
@@ -81,7 +80,6 @@ public:
 
 
     // Get Methods
-    const EWOPE::Project     &getProject    () const    { return  project; }
 
     const std::vector<std::string> &getCommands () const    { return commands;}
     const std::string &getCommand (const unsigned int i) const { return commands.at(i); }
@@ -95,7 +93,6 @@ public:
 
 
     // Set Methods
-    void setProject     (const EWOPE::Project &d)    { project = d; }
     void setCommands    (const std::vector<std::string> &d) { commands = d; }
 
     void setInfoData    (const EWOPE::InfoData &d)   { infodata = d; }
@@ -110,12 +107,10 @@ public:
 
 
 
-
 #ifdef EWOPE_USES_CEREAL
     template <class Archive>
     void serialize( Archive & ar )
     {
-        ar (CEREAL_NVP(project));
         ar (CEREAL_NVP(commands));
         ar (CEREAL_NVP(infodata));
         ar (CEREAL_NVP(csvfile));
@@ -125,7 +120,6 @@ public:
     template <class Archive>
     void deserialize( Archive & ar )
     {
-        ar (CEREAL_NVP(project));
         ar (CEREAL_NVP(commands));
         ar (CEREAL_NVP(infodata));
         ar (CEREAL_NVP(csvfile));
@@ -135,7 +129,6 @@ public:
 
 private:
 
-    EWOPE::Project project;
     std::vector<std::string> commands;
     EWOPE::InfoData infodata;
 
