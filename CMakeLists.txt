@@ -35,6 +35,6 @@ file(GLOB source_files CONFIGURE_DEPENDS
 )
 
 ## build
-add_executable(${CORE_TARGET_NAME} src/main.cpp ${header_files} )
-add_executable(${CHECK_TARGET_NAME} src/main_check.cpp ${header_files})
+add_executable(${CORE_TARGET_NAME} src/main_core.cpp ${header_files} )
+add_executable(${CHECK_TARGET_NAME} src/main_data.cpp ${header_files})
 
