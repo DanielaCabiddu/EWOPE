@@ -9,6 +9,9 @@
 #include <string>
 #include <vector>
 
+namespace EWOPE
+{
+
 class Metadata
 {
 public:
@@ -68,6 +71,8 @@ protected:
     bool writeConfFileJSON  (const std::string filename);
 
 };
+
+}
 
 
 #ifndef STATIC_LIB

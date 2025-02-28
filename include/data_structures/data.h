@@ -65,7 +65,6 @@ class EWOPE::Data
         void setData        (const std::vector<std::string> &header);
         void setType        (const std::string &flags);
 
-
         // Additional Methods
         bool read  (const std::string filename);
         bool write (const std::string filename);

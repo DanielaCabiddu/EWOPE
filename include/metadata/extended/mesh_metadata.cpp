@@ -1,24 +1,22 @@
-#include "metadata.h"
+#include "mesh_metadata.h"
 
 #include <iostream>
 #include <fstream>
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-namespace EWOPE
-{
 
-bool Metadata::read(const std::string filename)
+bool MeshMetadata::read(const std::string filename)
 {
     return readConfFileJSON(filename);
 }
 
-bool Metadata::write(const std::string filename)
+bool MeshMetadata::write(const std::string filename)
 {
     return writeConfFileJSON(filename);
 }
 
-bool Metadata::readConfFileJSON(const std::string filename)
+bool MeshMetadata::readConfFileJSON(const std::string filename)
 {
     std::ifstream ss (filename.c_str(), std::ifstream::in);
 
@@ -36,10 +34,10 @@ bool Metadata::readConfFileJSON(const std::string filename)
     return true;
 }
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-bool Metadata::writeConfFileJSON (const std::string filename)
+bool MeshMetadata::writeConfFileJSON (const std::string filename)
 {
     std::ofstream ss (filename.c_str(), std::ofstream::out);
 
@@ -57,5 +55,4 @@ bool Metadata::writeConfFileJSON (const std::string filename)
     ss.close();
 
     return true;
-}
 }
