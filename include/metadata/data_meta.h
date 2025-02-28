@@ -76,9 +76,6 @@ public:
         #endif
     };
 
-
-
-
     // Get Methods
 
     const std::vector<std::string> &getCommands () const    { return commands;}
@@ -89,9 +86,6 @@ public:
     const CSVFile           &getCSVFile    () const    { return  csvfile; }
     const DataFormat        &getDataFormat () const    { return  dataformat; }
 
-
-
-
     // Set Methods
     void setCommands    (const std::vector<std::string> &d) { commands = d; }
 
@@ -100,12 +94,9 @@ public:
     void setCSVFile     (const CSVFile &d)          { csvfile = d; }
     void setDataFormat  (const DataFormat &d)       { dataformat = d; }
 
-
     // Additional Methods
     bool read  (const std::string filename);
     bool write (const std::string filename);
-
-
 
 #ifdef EWOPE_USES_CEREAL
     template <class Archive>
@@ -135,13 +126,9 @@ private:
     CSVFile csvfile;
     DataFormat dataformat;
 
-
-
     bool readConfFileJSON   (const std::string filename);
     bool writeConfFileJSON  (const std::string filename) ;
 };
-
-
 
 #ifndef STATIC_EWOPE
 #include "data_meta.cpp"

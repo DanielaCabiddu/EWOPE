@@ -15,12 +15,8 @@
 #include "utils.h"
 #include "metadata/metadata.h"
 #include "metadata/data_meta.h"
-// #include "muselib/metadata/data_summary_meta.h"
-#include "metadata/data_summary.h"
-#include "metadata/data_statistics.h"
 
 #include "data_structures/data.h"
-// #include "muselib/data_structures/project.h"
 
 #include "flag/flag.h"
 #include "flag/check.h"

@@ -84,6 +84,7 @@ int main(int argc, char **argv)
     if (returnCode != 0)
     {
         cout << "Command execution failed or returned non-zero: " << returnCode << endl;
+        exit(1);
     }
     else
     {
