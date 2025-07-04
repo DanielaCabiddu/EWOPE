@@ -9,9 +9,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CORE_SUFFIX "core")
 set(CHECK_SUFFIX "data")
+set(HISTORY_SUFFIX "history")
 
 set(CORE_TARGET_NAME ${PROJECT_NAME}_${CORE_SUFFIX})
 set(CHECK_TARGET_NAME ${PROJECT_NAME}_${CHECK_SUFFIX})
+set(HISTORY_TARGET_NAME ${PROJECT_NAME}_${HISTORY_SUFFIX})
 
 ENABLE_LANGUAGE(C)
 
@@ -37,4 +39,5 @@ file(GLOB source_files CONFIGURE_DEPENDS
 ## build
 add_executable(${CORE_TARGET_NAME} src/main_core.cpp ${header_files} )
 add_executable(${CHECK_TARGET_NAME} src/main_data.cpp ${header_files})
+add_executable(${HISTORY_TARGET_NAME} src/main_history.cpp ${header_files})
 

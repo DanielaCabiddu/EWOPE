@@ -22,10 +22,6 @@
 #include "flag/check.h"
 #include "flag/num_check.h"
 
-// For color code
-// https://stackoverflow.com/questions/2616906/how-do-i-output-coloured-text-to-a-linux-terminal
-
-
 //for filesystem
 #ifdef __APPLE__
 //#include <filesystem>
@@ -33,6 +29,12 @@ using namespace std::__fs;
 #else
 //#include <experimental/filesystem>
 using namespace std;
+#endif
+
+#ifdef WIN32
+const std::string sep = "\\";
+#else
+const std::string sep = "/";
 #endif
 
 using namespace EWOPE;
@@ -47,6 +49,7 @@ int main(int argc, char** argv)
     std::string app_name = "data"; //app name
 
     std::vector<std::string> list_csv;
+    std::string output_folder = "";
 
     try {
         CmdLine cmd("MUSE = Modelling of Uncertainty as a Support of Environment; Data tool", ' ', "version 0.0");
@@ -59,6 +62,8 @@ int main(int argc, char** argv)
         // ValueArg<std::string> projectFolder ("p", "pdir", "Project directory", true, "Directory", "path", cmd);
 
         TCLAP::MultiArg<std::string> inputsArg("i", "in", "Inputs", true, "string", cmd);
+
+        ValueArg<std::string> outputFolderArg ("o", "out", "Output folder", false, "", "", cmd);
 
         // Option 0a. Project creation - optional: setting project EPSG
         ValueArg<std::string> setEPSG       ("", "setEPSG", "Set project EPSG", false, "Unknown", "authority", cmd);
@@ -110,6 +115,9 @@ int main(int argc, char** argv)
         cmd.parse(argc, argv);
 
         list_csv = inputsArg.getValue();
+
+        if (outputFolderArg.isSet())
+            output_folder=outputFolderArg.getValue();
 
 
         // ---------------------------------------------------------------------------------------------------------
@@ -206,24 +214,32 @@ int main(int argc, char** argv)
                     //std::string filename = list_csv.at(i).substr(list_csv.at(i).find_last_of("/")+1, list_csv.at(i).length());
 
                     EWOPE::DataMeta::CSVFile csv;
-                    csv.setFilename(get_basename(get_filename(list_csv.at(i))));
+
+                    std::string basename = get_basename(get_filename(list_csv.at(i)));
+
+                    csv.setFilename(basename);
                     csv.setDelimiter(Delimiter.getValue());
                     datameta.setCSVFile(csv);
 
                     datameta.setInfoData(info);
 
+                    std::string output_filename = csv.filename;
+                    if (output_folder.length() > 0)
+                    {
+                        if (std::filesystem::exists(output_folder))
+                            std::filesystem::create_directories(output_folder);
+
+                        output_filename = output_folder + sep + basename;
+                    }
+
                     if(list_csv.size() > 1)
                     {
-                        // std::string out_frame = out_folder + "/" + csv.filename;
-                        // if(!filesystem::exists(out_frame))
-                        //     filesystem::create_directory(out_frame);
-
-                        datameta.write(csv.filename + ".json");
+                        datameta.write(output_filename + ".json");
                         std::cout << "\033[0;32mUpdating JSON file: "<< csv.filename << ".json \033[0m" << std::endl;
                     }
                     else
                     {
-                        datameta.write(csv.filename + ".json");
+                        datameta.write(output_filename + ".json");
                         std::cout << "\033[0;32mUpdating JSON file: "<< csv.filename << ".json \033[0m" << std::endl;
                     }
                 }
@@ -348,12 +364,21 @@ int main(int argc, char** argv)
                         deps.push_back(realpath.string());
                         meta_input.setDependencies(deps);
 
+                        std::string output_filename = header_variable.at(0);
+                        if (output_folder.length() > 0)
+                        {
+                            if (std::filesystem::exists(output_folder))
+                                std::filesystem::create_directories(output_folder);
+
+                            output_filename = output_folder + sep + header_variable.at(0);
+                        }
+
                         // filesystem::create_directory(out_folder + "/metadata");
-                        meta_input.write(/*out_folder + "/metadata/" + */header_variable.at(0) + ".json");
+                        meta_input.write(/*out_folder + "/metadata/" + */output_filename + ".json");
                         //data.write(out_folder + "/metadata/" + header_variable.at(0) + ".json");
 
                         // filesystem::create_directory(out_folder + "/data");
-                        save_data(/*out_folder + "/data/" + */header_variable.at(0) + ".dat", data_variable);
+                        save_data(/*out_folder + "/data/" + */output_filename + ".dat", data_variable);
 
                         std::cout << "\033[0;32mAll checks are passed. Creation of MUSE format for variable: " << header_variable.at(0) << "\033[0m" << std::endl;
                         std::cout << std::endl;
@@ -387,7 +412,17 @@ int main(int argc, char** argv)
                 excommands.push_back(command);
                 datameta.setCommands(excommands);
 
-                datameta.write(/*out_folder + "/" + */get_basename(get_filename(filename)) + ".json");
+                std::string output_filename = get_basename(get_filename(filename));
+                if (output_folder.length() > 0)
+                {
+                    if (std::filesystem::exists(output_folder))
+                        std::filesystem::create_directories(output_folder);
+
+                    output_filename = output_folder + sep + output_filename;
+                }
+
+
+                datameta.write(/*out_folder + "/" + */ output_filename + ".json");
                 std::cout << "\033[0;32mUpdating JSON file: "<< /*out_folder + "/" +*/ get_basename(get_filename(filename)) << ".json\033[0m" << std::endl;
 
                 matrix_data.clear();
