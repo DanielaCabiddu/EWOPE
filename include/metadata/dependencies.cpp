@@ -1,5 +1,5 @@
 #include "dependencies.h"
-#include "muselib/input/load_xyz.h"
+//#include "muselib/input/load_xyz.h"
 
 // #include "muselib/metadata/data_meta.h"
 // #include "muselib/metadata/metadata.h"
@@ -9,6 +9,8 @@
 // #include "muselib/metadata/volume_meta.h"
 // #include "muselib/metadata/vario_meta.h"
 // #include "muselib/metadata/compute_meta.h"
+
+#include <fstream>
 
 
 std::vector<std::string> get_from_JSON (const std::string &JSONfilename, const std::string &search)
@@ -30,9 +32,9 @@ std::vector<std::string> get_from_JSON (const std::string &JSONfilename, const s
     while(getline(file_in, line))
     {
         curLine++;
-        if (line.find(search, 0) != string::npos)
+        if (line.find(search, 0) != std::string::npos)
         {
-            cout << "### Found: " << search << " at line: " << curLine << endl;
+            std::cout << "### Found: " << search << " at line: " << curLine << std::endl;
             //std::cout << line << std::endl;
             break;
         }
@@ -41,12 +43,12 @@ std::vector<std::string> get_from_JSON (const std::string &JSONfilename, const s
     while(getline(file_in, line))
     {
         //itLine++;
-        if (line.find("]", 0) == string::npos)
+        if (line.find("]", 0) == std::string::npos)
         {
             line.erase(remove(line.begin(), line.end(), ' '), line.end());
             line.erase(remove(line.begin(), line.end(), '"'), line.end());
             line.erase(remove(line.begin(), line.end(), ','), line.end());
-            cout << "found: " << line << endl;
+            std::cout << "found: " << line << std::endl;
             //cout << "found: " << line << " - line: " << itLine << endl;
             deps.push_back(line);
         }
@@ -55,7 +57,7 @@ std::vector<std::string> get_from_JSON (const std::string &JSONfilename, const s
     }
     file_in.close();
 
-    std::cout << FGRN("Loading xyz file: ") << JSONfilename << FGRN(" ... COMPLETED.") << std::endl;
+    std::cout << "Loading xyz file: " << JSONfilename << " ... COMPLETED." << std::endl;
     return deps;
 }
 

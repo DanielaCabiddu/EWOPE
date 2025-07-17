@@ -50,7 +50,7 @@ int main(int argc, char** argv)
         // SwitchArg projectCreation           ("N", "new_project", "Creation new project", cmd, false); //booleano
         // ValueArg<std::string> projectFolder ("p", "pdir", "Project directory", true, "Directory", "path", cmd);
 
-        ValueArg<std::string> setJSON       ("j", "json", "Set json file", false, "path", "string", cmd);
+        ValueArg<std::string> setJSON       ("j", "json", "Set json file", true, "path", "string", cmd);
         SwitchArg setBackInfo               ("b", "back", "Set JSON history (recursively - back)", cmd, false); //booleano
         SwitchArg setForwardInfo            ("f", "forward", "Set JSON history (recursively - forward)", cmd, false); //booleano
         SwitchArg setMoreInfo               ("m", "more", "Set JSON history (recursively - forward) and commands", cmd, false); //booleano
@@ -130,7 +130,7 @@ int main(int argc, char** argv)
             filesystem::path rel_path = filesystem::relative(setJSON.getValue(), root_project);
             std::cout << "JSON file: " << rel_path << std::endl;
 
-            queue.push(rel_path);
+            queue.push(rel_path.string());
 
             int id_level = 0;
             level.push_back(id_level);
@@ -218,7 +218,7 @@ int main(int argc, char** argv)
             filesystem::path rel_path = filesystem::relative(setJSON.getValue(), root_project);
             std::cout << "JSON file: " << rel_path << std::endl;
 
-            queue.push(rel_path);
+            queue.push(rel_path.string());
 
             int id_level = 0;
             level.push_back(id_level);
