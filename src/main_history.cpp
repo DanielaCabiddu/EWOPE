@@ -37,6 +37,7 @@ int main(int argc, char** argv)
     std::string app_name = "history"; //app name
 
     std::string input_json;
+    std::string workflow_dir;
 
     std::string ext = ".json"; //default extension for json files;
 
@@ -51,6 +52,8 @@ int main(int argc, char** argv)
         // ValueArg<std::string> projectFolder ("p", "pdir", "Project directory", true, "Directory", "path", cmd);
 
         ValueArg<std::string> setJSON       ("j", "json", "Set json file", true, "path", "string", cmd);
+
+        ValueArg<std::string> workflowDir   ("w", "workflow", "Set workflow directory", false, "path", "string", cmd);
         SwitchArg setBackInfo               ("b", "back", "Set JSON history (recursively - back)", cmd, false); //booleano
         SwitchArg setForwardInfo            ("f", "forward", "Set JSON history (recursively - forward)", cmd, false); //booleano
         SwitchArg setMoreInfo               ("m", "more", "Set JSON history (recursively - forward) and commands", cmd, false); //booleano
@@ -63,20 +66,28 @@ int main(int argc, char** argv)
 
         if(get_extension(setJSON.getValue()).compare(".json") != 0)
         {
-            std::cerr << "ERROR. File format not correct. Only JSON file are supported!" << std::endl;
+            std::cout << "ERROR. File format not correct. Only JSON file are supported!" << std::endl;
             exit(1);
         }
 
         std::cout << "Loading file ... " << setJSON.getValue() << std::endl;
         std::cout << std::endl;
 
-        std::string root_project;
-        if(setJSON.getValue().find("out/") != std::string::npos)
-            root_project = setJSON.getValue().substr(0, setJSON.getValue().find("out/"));
+        std::string root_project = "";
+
+        if (workflowDir.isSet())
+        {
+            root_project = workflowDir.getValue();
+            if(root_project.back() != sep[0])
+                root_project += sep;
+        }
+
+        // if(setJSON.getValue().find("out/") != std::string::npos)
+        //     root_project = setJSON.getValue().substr(0, setJSON.getValue().find("out/"));
 
         std::cout << std::endl;
         std::cout << "### JSON GENERAL FEATURES ..." << std::endl;
-        std::cout << "JSON file root: " << root_project << std::endl;
+        // std::cout << "JSON file root: " << root_project << std::endl;
         std::cout << std::endl;
 
         std::vector<std::string> deps, commands;
@@ -102,7 +113,7 @@ int main(int argc, char** argv)
 
                 deps.clear();
                 if(curr.find(".json") != std::string::npos)
-                    deps = get_from_JSON(root_project + curr, "dependencies");
+                    deps = get_from_JSON( root_project + curr, "dependencies");
 
                 std::string indent = "\t";
                 if(deps.size() > 0)
@@ -118,6 +129,7 @@ int main(int argc, char** argv)
                 for(size_t i=0; i< deps.size(); i++)
                     queue.push(deps.at(i));
             }
+
         }
 
 
@@ -127,10 +139,14 @@ int main(int argc, char** argv)
             std::deque<std::string> deque, deque_com;
             std::queue<std::string> queue;
 
-            filesystem::path rel_path = filesystem::relative(setJSON.getValue(), root_project);
-            std::cout << "JSON file: " << rel_path << std::endl;
-
-            queue.push(rel_path.string());
+            if (workflowDir.isSet())
+            {
+                filesystem::path rel_path = filesystem::relative(setJSON.getValue(), workflowDir.getValue());
+                std::cout << "JSON file: " << rel_path << std::endl;
+                queue.push(rel_path.string());
+            }
+            else
+                queue.push(setJSON.getValue());
 
             int id_level = 0;
             level.push_back(id_level);
@@ -143,7 +159,7 @@ int main(int argc, char** argv)
 
                 //if(filesystem::exists(root_project + curr) )
                 if(curr.find(".json") != std::string::npos)
-                    curr_com = get_from_JSON(root_project + curr,"commands").at(0);
+                    curr_com = get_from_JSON(curr,"commands").at(0);
                 //curr_com = getCom_from_JSON(root_project + curr).at(0);
 
                 queue.pop();
@@ -211,14 +227,20 @@ int main(int argc, char** argv)
 
         if(setForwardInfo.isSet() && !setMoreInfo.isSet())
         {
+
+            std::cout << std::endl << "FORWARD -----------------------------------------" << std::endl << std::endl;
             std::deque<int> n_deps, level;
             std::deque<std::string> deque;
             std::queue<std::string> queue;
 
-            filesystem::path rel_path = filesystem::relative(setJSON.getValue(), root_project);
-            std::cout << "JSON file: " << rel_path << std::endl;
-
-            queue.push(rel_path.string());
+            if (workflowDir.isSet())
+            {
+                filesystem::path rel_path = filesystem::relative(setJSON.getValue(), workflowDir.getValue());
+                std::cout << "JSON file: " << rel_path << std::endl;
+                queue.push(rel_path.string());
+            }
+            else
+                queue.push(setJSON.getValue());
 
             int id_level = 0;
             level.push_back(id_level);
@@ -226,7 +248,7 @@ int main(int argc, char** argv)
             while (!queue.empty())
             {
                 std::string curr = queue.front();
-                //std::cout << "---> " << curr << std::endl;
+                // std::cout << " curr ---> " << curr << std::endl;
                 queue.pop();
                 deque.push_back(curr);
 

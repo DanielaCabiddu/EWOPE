@@ -133,7 +133,7 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps)
 
     for (int i = n-1; i >= 0; i--)
     {
-        std::string prefix = (i != 0) ? "├── " : "└── ";
+        std::string prefix = (i != 0) ? "|-- " : "|__ ";
         std::string string = prefix;
 
         // print all neighboring vertices of a vertex `i`
@@ -153,9 +153,9 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps)
             }
 
             if(string.find("in/") != std::string::npos)
-                std::cout << "\e[1m" << string << "\e[0m" << " ——> " << deps.at(i) << std::endl;
+                std::cout << string << " --> " << deps.at(i) << std::endl;
             else
-                std::cout << string << " ——> " << deps.at(i) << std::endl;
+                std::cout << string << " --> " << deps.at(i) << std::endl;
         }
     }
 }
@@ -168,7 +168,7 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps, std::
 
     for (int i = n-1; i >= 0; i--)
     {
-        std::string prefix = (i != 0) ? "├── " : "└── ";
+        std::string prefix = (i != 0) ? " |-- " : " |__ ";
         std::string string = prefix;
 
         // print all neighboring vertices of a vertex `i`
@@ -188,11 +188,11 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps, std::
             }
 
             if(string.find("in/") != std::string::npos)
-                std::cout << "\e[1m" << string << "\e[0m" << " ——> " << deps.at(i) << std::endl;
+                std::cout << string << " --> " << deps.at(i) << std::endl;
             else
-                std::cout << string << " ——> " << deps.at(i) << std::endl;
+                std::cout << string << " --> " << deps.at(i) << std::endl;
 
-            std::cout << std::setfill(' ') << std::right << std::setw(string.length()+3) << " ——> " << com.at(i) << std::endl;
+            std::cout << std::setfill(' ') << std::right << std::setw(string.length()+3) << " --> " << com.at(i) << std::endl;
         }
     }
 }
@@ -210,7 +210,7 @@ void printGraph2_old(Graph const &graph, int n, std::deque<std::string> &deps)
         std::string string;
         if(i != 0)
         {
-            prefix = "├── ";
+            prefix = " |-- ";
 
             // print all neighboring vertices of a vertex `i`
             if(graph.adjList[i].size() > 0)
