@@ -83,12 +83,12 @@ int main(int argc, char **argv)
 
     if (returnCode != 0)
     {
-        cout << "Command execution failed or returned non-zero: " << returnCode << endl;
+        std::cout << "Command execution failed or returned non-zero: " << returnCode << std::endl;
         exit(1);
     }
     else
     {
-        cout << "Command executed successfully." << endl;
+        std::cout << "Command executed successfully." << std::endl;
     }
 
     command_lines.push_back(command_line);

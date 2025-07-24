@@ -185,7 +185,7 @@ int main(int argc, char** argv)
             }
 
             int k_last = 1;
-            vector<EWOPE::Edge> edges;
+            std::vector<EWOPE::Edge> edges;
             std::cout << "Creating graph ..." << std::endl;
             for(int j=0; j< deque.size(); j++)
             {
@@ -271,7 +271,7 @@ int main(int argc, char** argv)
             }
 
             int k_last = 1;
-            vector<EWOPE::Edge> edges;
+            std::vector<EWOPE::Edge> edges;
             std::cout << "Creating graph ..." << std::endl;
             for(int j=0; j< deque.size(); j++)
             {
