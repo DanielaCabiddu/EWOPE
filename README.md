@@ -40,6 +40,8 @@ cmake --DCMAKE_BUILD_TYPE=Release ..
 cmake --build . --config Release
 ```
 
+Executables will be made available in _${ROOT}/bin_ folder.
+
 ## Examples
 To guarantee replicability, data of our examples are provided in the _example_ folder. 
 If you wish to replicate them, please run bash script file (_10_test_MUSE_example_name.sh_), as follows:
@@ -49,11 +51,9 @@ cd ${ROOT}/examples/example_name/script
 ./10_test_MUSE_example_name.sh
 ```
 
-
 ## Authors contact
 - Daniela Cabiddu (CNR-IMATI, Genova, Italy), email: daniela.cabiddu@cnr.it
 - Marianna Miola (CNR-IMATI, Genova, Italy), email: marianna.miola@cnr.it
-
 
 ## Citing us
 
