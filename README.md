@@ -30,7 +30,15 @@ EWoPe code has some mandatory dependences included in _${ROOT}/external_:
 - to metadata the computational process (cereal).
 
 ## Building
-To build EWoPe source code, use the `build.sh` script available, located in the root directory ROOT (where this README lies). 
+To build EWoPe source code, use the following pipeline:
+
+```
+cd ${ROOT}
+mkdir build
+cd build
+cmake --DCMAKE_BUILD_TYPE=Release ..
+cmake --build . --config Release
+```
 
 ## Examples
 To guarantee replicability, data of our examples are provided in the _example_ folder. 
