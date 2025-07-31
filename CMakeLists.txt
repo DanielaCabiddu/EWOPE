@@ -17,6 +17,10 @@ set(HISTORY_TARGET_NAME ${PROJECT_NAME}_${HISTORY_SUFFIX})
 
 ENABLE_LANGUAGE(C)
 
+# make a bin folder to host all the executables
+make_directory(${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
+
 add_definitions(-DEWOPE_USES_CEREAL)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
