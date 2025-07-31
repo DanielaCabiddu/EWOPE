@@ -49,6 +49,16 @@ cd ${ROOT}/examples/example_name/script
 
 ## Citing us
 
+```bibtex
+@unpublished{miola2025ewoPe,
+  author       = {Marianna Miola and Daniela Cabiddu and Simone Pittaluga and Micaela Raviola and Marino Vetuschi Zuccolini},
+  title        = {{EWoPe: a light Embeddable WOrkflow PErsistence tool for geoscientific pipeline reproducibility}},
+  year         = {2025},
+  note         = {Manuscript under review in *Computers \& Geosciences*},
+  url          = {https://github.com/DanielaCabiddu/EWOPE}
+}
+```
+
 ## Acknowledgment
 The work is developed under the Ph.D. Research Project in Earth and Environmental Science and Technology, supported by PON "Ricerca e Innovazione" 2014-2020, Asse IV "Istruzione e ricerca per il recupero", Azione IV.5 "Dottorati su tematiche Green" DM 1061/2021. 
 
