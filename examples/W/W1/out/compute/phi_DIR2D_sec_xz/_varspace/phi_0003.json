@@ -1,0 +1,70 @@
+{
+    "project": {
+        "name": "06_sec_2D_4000_tri",
+        "authority": "Unknown"
+    },
+    "commands": [
+        "-B -p . -v phi -m ./out/geometry/surf/sec_xz.obj --dir DIR --dim 2D --extr Extr --minextr 0 --maxextr 1 --csv "
+    ],
+    "dependencies": [
+        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0003.json"
+    ],
+    "data": {
+        "x_name": "X",
+        "y_name": "Y",
+        "z_name": "Z",
+        "id_name": "Unknown"
+    },
+    "metadata":
+    {
+        "name": "phi",
+        "units": "",
+        "flag": "P",
+        "parents": "",
+        "description": "",
+        "comments": "computeOUTPUT-BNS"
+    },
+    "rotation": {
+        "rotation": true,
+        "rotation_axis": "X",
+        "rotation_center_x": 0.0,
+        "rotation_center_y": 0.0,
+        "rotation_center_z": 0.0,
+        "rotation_angle": 270.0
+    },
+    "manipulate": {
+        "sub_dataset": "NO",
+        "domain": "",
+        "stratigraphic_transf": "NO",
+        "filename": ""
+    },
+    "variable": {
+        "v_name": "phi",
+        "declustering": "NO",
+        "normal_score": "YES"
+    },
+    "info_vario": {
+        "dimension": "2D",
+        "direction": "DIR"
+    },
+    "fit_experimental_vario": {
+        "degree_direction": 0.0,
+        "type": "Exp",
+        "nugget": 0.18,
+        "sill": 0.82,
+        "range": 0.0,
+        "range_max": 39.8717,
+        "range_min": 7.0635,
+        "range_z": 7.0635
+    },
+    "simulation": {
+        "geometry": "sec_xz.obj",
+        "n_elements": 19445,
+        "sim_criterion": "SGS",
+        "n_iterations": 10,
+        "back_normal_score": true,
+        "extrapolation_type": "Extr",
+        "min_extrapolation_value": 0.0,
+        "max_extrapolation_value": 1.0
+    }
+}

@@ -1,0 +1,285 @@
+{
+    "project": {
+        "name": "06_sec_2D_4000_tri",
+        "authority": "Unknown"
+    },
+    "commands": [
+        "-V -p . -v phi --rotaxis X --rotangle 270 --nscore YES --dir DIR --dim 2D --vario MODEL --dirs 0,70,80,90,110 --degtol 15 --vclean 5 --weight --eps 5.0 --nugget 0.18 "
+    ],
+    "dependencies": [
+        "out/data/metadata/X.json",
+        "out/data/metadata/Y.json",
+        "out/data/metadata/Z.json",
+        "out/data/metadata/phi.json"
+    ],
+    "infodata": {
+        "x_name": "X",
+        "y_name": "Y",
+        "z_name": "Z",
+        "id_name": "Unknown"
+    },
+    "rotation": {
+        "rotation": true,
+        "rotation_axis": "X",
+        "rotation_center_x": 0.0,
+        "rotation_center_y": 0.0,
+        "rotation_center_z": 0.0,
+        "rotation_angle": 270.0
+    },
+    "manipulate": {
+        "sub_dataset": "NO",
+        "domain": "",
+        "stratigraphic_transf": "NO",
+        "filename": "filename"
+    },
+    "variable": {
+        "v_name": "phi",
+        "declustering": "NO",
+        "normal_score": "YES"
+    },
+    "info_vario": {
+        "dimension": "2D",
+        "direction": "DIR",
+        "degree_step": 0.0,
+        "degree_tolerance": 0.0,
+        "set_directions": "0,70,80,90,110",
+        "n_directions": 5,
+        "clean_is_set": true,
+        "n_min_points_for_clean": 5,
+        "penalty_function": true
+    },
+    "experimental_vario": [
+        {
+            "degree_direction": 0.0,
+            "gamma": [
+                0.1745,
+                0.1933,
+                0.2303,
+                0.2709,
+                0.3008,
+                0.3529,
+                0.4105,
+                0.4828,
+                0.5711,
+                0.6576,
+                0.7305,
+                0.7622,
+                0.9656,
+                1.0448
+            ],
+            "h": [
+                0.0299,
+                0.0619,
+                0.0982,
+                0.1417,
+                0.1969,
+                0.2704,
+                0.3733,
+                0.5242,
+                0.7556,
+                1.1259,
+                1.743,
+                2.8126,
+                4.7379,
+                6.6633
+            ],
+            "N": [
+                4369,
+                4340,
+                8618,
+                4309,
+                8560,
+                12768,
+                16860,
+                29196,
+                40893,
+                63557,
+                105498,
+                169769,
+                185690,
+                143556
+            ]
+        },
+        {
+            "degree_direction": 70.0,
+            "gamma": [
+                0.6837,
+                0.6746,
+                0.8502,
+                0.8791,
+                1.1397,
+                1.1955,
+                1.3262
+            ],
+            "h": [
+                3.1126,
+                6.4327,
+                10.1955,
+                14.7109,
+                20.4304,
+                28.0563,
+                38.7327
+            ],
+            "N": [
+                24650,
+                72398,
+                325424,
+                409378,
+                419605,
+                586143,
+                443338
+            ]
+        },
+        {
+            "degree_direction": 80.0,
+            "gamma": [
+                0.4934,
+                0.5549,
+                0.6705,
+                0.7142,
+                0.8266,
+                0.865,
+                0.9491
+            ],
+            "h": [
+                3.1,
+                6.4066,
+                10.1542,
+                14.6512,
+                20.3475,
+                27.9426,
+                38.5756
+            ],
+            "N": [
+                23789,
+                102235,
+                332217,
+                559453,
+                559523,
+                1096028,
+                1076642
+            ]
+        },
+        {
+            "degree_direction": 90.0,
+            "gamma": [
+                0.4196,
+                0.5689,
+                0.6147,
+                0.6425,
+                0.7769,
+                0.7749,
+                0.8771
+            ],
+            "h": [
+                3.1,
+                6.4066,
+                10.1542,
+                14.6512,
+                20.3475,
+                27.9426,
+                38.5756
+            ],
+            "N": [
+                23022,
+                124637,
+                319547,
+                624009,
+                614726,
+                1293712,
+                1396164
+            ]
+        },
+        {
+            "degree_direction": 110.0,
+            "gamma": [
+                0.5927,
+                0.7331,
+                0.8129,
+                0.8367,
+                1.0608,
+                1.1201,
+                1.1881
+            ],
+            "h": [
+                3.1144,
+                6.4365,
+                10.2016,
+                14.7197,
+                20.4426,
+                28.0731,
+                38.7558
+            ],
+            "N": [
+                24971,
+                70710,
+                328180,
+                402757,
+                416084,
+                566464,
+                459106
+            ]
+        }
+    ],
+    "fit_experimental_vario": [
+        {
+            "degree_direction": 0.0,
+            "type": "Exp",
+            "nugget": 0.18,
+            "sill": 1.0,
+            "range": 4.2279,
+            "range_max": 4.2279,
+            "range_min": 4.2279,
+            "range_z": 4.2279
+        },
+        {
+            "degree_direction": 70.0,
+            "type": "Exp",
+            "nugget": 0.18,
+            "sill": 1.0,
+            "range": 18.2183,
+            "range_max": 18.2183,
+            "range_min": 18.2183,
+            "range_z": 18.2183
+        },
+        {
+            "degree_direction": 80.0,
+            "type": "Exp",
+            "nugget": 0.18,
+            "sill": 1.0,
+            "range": 38.2038,
+            "range_max": 38.2038,
+            "range_min": 38.2038,
+            "range_z": 38.2038
+        },
+        {
+            "degree_direction": 90.0,
+            "type": "Exp",
+            "nugget": 0.18,
+            "sill": 1.0,
+            "range": 38.2038,
+            "range_max": 38.2038,
+            "range_min": 38.2038,
+            "range_z": 38.2038
+        },
+        {
+            "degree_direction": 110.0,
+            "type": "Exp",
+            "nugget": 0.18,
+            "sill": 1.0,
+            "range": 20.5546,
+            "range_max": 20.5546,
+            "range_min": 20.5546,
+            "range_z": 20.5546
+        }
+    ],
+    "summary": {
+        "center_x": 0.0,
+        "center_y": 0.0,
+        "phi_rad": 0.0399,
+        "max_direction": 87.7116,
+        "min_direction": 177.7116,
+        "max_semiaxis": 39.8717,
+        "min_semiaxis": 7.0635
+    }
+}

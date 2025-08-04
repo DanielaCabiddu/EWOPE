@@ -42,6 +42,5 @@ file(GLOB source_files CONFIGURE_DEPENDS
 
 ## build
 add_executable(${CORE_TARGET_NAME} src/main_core.cpp ${header_files} )
-add_executable(${CHECK_TARGET_NAME} src/main_data.cpp ${header_files})
 add_executable(${HISTORY_TARGET_NAME} src/main_history.cpp ${header_files})
 

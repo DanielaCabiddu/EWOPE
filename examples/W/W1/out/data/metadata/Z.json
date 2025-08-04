@@ -1,0 +1,22 @@
+{
+    "project": {
+        "name": "06_sec_2D_4000_tri",
+        "authority": "Unknown"
+    },
+    "commands": [
+        "-C -p . "
+    ],
+    "dependencies": [
+        "in/data/samples_sec4000.csv"
+    ],
+    "data": [
+        {
+            "name": "Z",
+            "units": "m",
+            "flag": "D-",
+            "parents": "",
+            "description": "Depth",
+            "comments": ""
+        }
+    ]
+}
