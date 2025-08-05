@@ -1,13 +1,14 @@
 {
     "project": {
-        "name": "W1",
+        "name": "W2",
         "authority": "Unknown"
     },
     "commands": [
-        "-B -p . -v phi -m ./out/geometry/surf/sec_xz.obj --dir DIR --dim 2D --extr Extr --minextr 0 --maxextr 1 --csv "
+        "-C -p . -v cat -m ./out/geometry/surf/sec_xz.obj --dir DIR --dim 2D --crit SISIM --nsim 10 --rotaxis X --rotangle 270 "
     ],
     "dependencies": [
-        "W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0009.json"
+        "W2/out/geometry/surf/sec_xz.json"
+        "W2/out/vario/phi_sec_DIR2D/cat6.json"
     ],
     "data": {
         "x_name": "X",
@@ -17,12 +18,12 @@
     },
     "metadata":
     {
-        "name": "phi",
+        "name": "cat",
         "units": "",
         "flag": "P",
         "parents": "",
         "description": "",
-        "comments": "computeOUTPUT-BNS"
+        "comments": "computeOUTPUT"
     },
     "rotation": {
         "rotation": true,
@@ -39,9 +40,9 @@
         "filename": ""
     },
     "variable": {
-        "v_name": "phi",
+        "v_name": "cat",
         "declustering": "NO",
-        "normal_score": "YES"
+        "normal_score": "NO"
     },
     "info_vario": {
         "dimension": "2D",
@@ -49,21 +50,21 @@
     },
     "fit_experimental_vario": {
         "degree_direction": 0.0,
-        "type": "Exp",
-        "nugget": 0.18,
-        "sill": 0.82,
-        "range": 0.0,
-        "range_max": 39.8717,
-        "range_min": 7.0635,
-        "range_z": 7.0635
+        "type": "Sph",
+        "nugget": 0.0,
+        "sill": 0.0086,
+        "range": 10.9239,
+        "range_max": 41.5585,
+        "range_min": 10.9239,
+        "range_z": 0.0
     },
     "simulation": {
         "geometry": "sec_xz.obj",
         "n_elements": 19445,
-        "sim_criterion": "SGS",
+        "sim_criterion": "SISIM",
         "n_iterations": 10,
-        "back_normal_score": true,
-        "extrapolation_type": "Extr",
+        "back_normal_score": false,
+        "extrapolation_type": "None",
         "min_extrapolation_value": 0.0,
         "max_extrapolation_value": 1.0
     }

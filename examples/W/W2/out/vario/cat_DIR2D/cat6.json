@@ -1,72 +1,32 @@
 {
     "project": {
-        "name": "14_sec_2D_4000_tri_ind",
+        "name": "W2",
         "authority": "Unknown"
     },
     "commands": [
-        "-V -p . -v phi --sub sec --vario MODEL --dir DIR --dim 2D --dirs 0,70,80,90,110 --degtol 15 --vclean 10 --itype SPHERICAL!6 --itype SPHERICAL!8 --inugget 0!1 --inugget 0!2 --inugget 0!3 --inugget 0!4 --inugget 0!5 --inugget 0!6 --inugget 0!7 --inugget 0!8 "
+        "-V -p . -v cat --vario MODEL --dir DIR --dim 2D --dirs 0,70,80,90,110 --degtol 15 --vclean 10 --itype SPHERICAL!6 --itype SPHERICAL!8 --inugget 0!1 --inugget 0!2 --inugget 0!3 --inugget 0!4 --inugget 0!5 --inugget 0!6 --inugget 0!7 --inugget 0!8 --rotaxis X --rotangle 270 "
     ],
     "dependencies": [
-        "out/data/metadata/X.json",
-        "out/data/metadata/Y.json",
-        "out/data/metadata/Z.json",
-        "out/data/metadata/phi.json",
-        "out/manipulate/sec.json"
+        "W2/out/vario/cat_DIR2D/cat.json"
     ],
-    "infodata": {
-        "x_name": "X",
-        "y_name": "Y",
-        "z_name": "Z",
-        "id_name": "Unknown"
-    },
-    "rotation": {
-        "rotation": true,
-        "rotation_axis": "X",
-        "rotation_center_x": 0.0,
-        "rotation_center_y": 0.0,
-        "rotation_center_z": 0.0,
-        "rotation_angle": 270.0
-    },
-    "manipulate": {
-        "sub_dataset": "YES",
-        "domain": "sec",
-        "stratigraphic_transf": "NO",
-        "filename": "filename"
-    },
-    "variable": {
-        "v_name": "phi",
-        "declustering": "NO",
-        "normal_score": "NO"
-    },
-    "info_vario": {
-        "dimension": "2D",
-        "direction": "DIR",
-        "degree_step": 0.0,
-        "degree_tolerance": 0.0,
-        "set_directions": "0,70,80,90,110",
-        "n_directions": 5,
-        "clean_is_set": true,
-        "n_min_points_for_clean": 10,
-        "penalty_function": false
-    },
     "experimental_vario": [
         {
             "degree_direction": 0.0,
             "gamma": [
                 0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0001,
-                0.0002,
-                0.0006,
-                0.0011,
-                0.0031,
-                0.0059,
+                0.0009,
+                0.0023,
+                0.0037,
+                0.0051,
+                0.0073,
+                0.009,
+                0.0092,
+                0.0093,
                 0.0094,
+                0.0098,
+                0.0111,
                 0.0127,
-                0.015,
-                0.019
+                0.0078
             ],
             "h": [
                 0.0299,
@@ -104,13 +64,13 @@
         {
             "degree_direction": 70.0,
             "gamma": [
-                0.0035,
-                0.0057,
-                0.0143,
-                0.0107,
-                0.0196,
-                0.0203,
-                0.0282
+                0.0,
+                0.0126,
+                0.0134,
+                0.0081,
+                0.0092,
+                0.0089,
+                0.0049
             ],
             "h": [
                 3.1126,
@@ -134,13 +94,13 @@
         {
             "degree_direction": 80.0,
             "gamma": [
-                0.0023,
-                0.003,
-                0.0095,
-                0.0073,
-                0.0118,
-                0.0119,
-                0.0166
+                0.0,
+                0.0116,
+                0.0104,
+                0.0102,
+                0.0091,
+                0.0098,
+                0.0063
             ],
             "h": [
                 3.1,
@@ -164,13 +124,13 @@
         {
             "degree_direction": 90.0,
             "gamma": [
-                0.0017,
-                0.0041,
-                0.007,
-                0.0077,
-                0.0107,
-                0.0111,
-                0.0139
+                0.0,
+                0.0116,
+                0.0094,
+                0.0115,
+                0.0076,
+                0.0113,
+                0.0066
             ],
             "h": [
                 3.1,
@@ -194,13 +154,13 @@
         {
             "degree_direction": 110.0,
             "gamma": [
-                0.0029,
-                0.011,
-                0.0143,
+                0.0,
+                0.0144,
                 0.0123,
-                0.0227,
-                0.0248,
-                0.0262
+                0.0101,
+                0.0071,
+                0.0083,
+                0.0055
             ],
             "h": [
                 3.1144,
@@ -225,29 +185,29 @@
     "fit_experimental_vario": [
         {
             "degree_direction": 0.0,
-            "type": "Gau",
+            "type": "Sph",
             "nugget": 0.0,
-            "sill": 0.0194,
-            "range": 4.0946,
-            "range_max": 4.0946,
-            "range_min": 4.0946,
+            "sill": 0.0086,
+            "range": 0.4964,
+            "range_max": 0.4964,
+            "range_min": 0.4964,
             "range_z": 0.0
         },
         {
             "degree_direction": 70.0,
-            "type": "Gau",
+            "type": "Sph",
             "nugget": 0.0,
-            "sill": 0.0194,
-            "range": 19.7676,
-            "range_max": 19.7676,
-            "range_min": 19.7676,
+            "sill": 0.0086,
+            "range": 20.155,
+            "range_max": 20.155,
+            "range_min": 20.155,
             "range_z": 0.0
         },
         {
             "degree_direction": 80.0,
-            "type": "Gau",
+            "type": "Sph",
             "nugget": 0.0,
-            "sill": 0.0194,
+            "sill": 0.0086,
             "range": 38.2038,
             "range_max": 38.2038,
             "range_min": 38.2038,
@@ -255,9 +215,9 @@
         },
         {
             "degree_direction": 90.0,
-            "type": "Gau",
+            "type": "Sph",
             "nugget": 0.0,
-            "sill": 0.0194,
+            "sill": 0.0086,
             "range": 38.2038,
             "range_max": 38.2038,
             "range_min": 38.2038,
@@ -265,22 +225,22 @@
         },
         {
             "degree_direction": 110.0,
-            "type": "Gau",
+            "type": "Sph",
             "nugget": 0.0,
-            "sill": 0.0194,
-            "range": 17.0666,
-            "range_max": 17.0666,
-            "range_min": 17.0666,
+            "sill": 0.0086,
+            "range": 38.3823,
+            "range_max": 38.3823,
+            "range_min": 38.3823,
             "range_z": 0.0
         }
     ],
     "summary": {
-        "center_x": 0.0,
+        "center_x": -0.0,
         "center_y": 0.0,
-        "phi_rad": 3.2083,
-        "max_direction": 86.1743,
-        "min_direction": 176.1743,
-        "max_semiaxis": 41.6535,
-        "min_semiaxis": 6.2876
+        "phi_rad": -0.0947,
+        "max_direction": 95.431,
+        "min_direction": 5.431,
+        "max_semiaxis": 41.5585,
+        "min_semiaxis": 10.9239
     }
 }

@@ -1,0 +1,61 @@
+{
+    "project": {
+        "name": "W2",
+        "authority": "Unknown"
+    },
+    "commands": [
+        "-V -p . -v cat --vario MODEL --dir DIR --dim 2D --dirs 0,70,80,90,110 --degtol 15 --vclean 10 --itype SPHERICAL!6 --itype SPHERICAL!8 --inugget 0!1 --inugget 0!2 --inugget 0!3 --inugget 0!4 --inugget 0!5 --inugget 0!6 --inugget 0!7 --inugget 0!8 --rotaxis X --rotangle 270 "
+    ],
+    "dependencies": [
+        "W2/out/data/metadata/X.json",
+        "W2/out/data/metadata/Y.json",
+        "W2/out/data/metadata/Z.json",
+        "W2/out/data/metadata/cat.json"
+    ],
+    "infodata": {
+        "x_name": "X",
+        "y_name": "Y",
+        "z_name": "Z",
+        "id_name": "Unknown"
+    },
+    "rotation": {
+        "rotation": true,
+        "rotation_axis": "X",
+        "rotation_center_x": 0.0,
+        "rotation_center_y": 0.0,
+        "rotation_center_z": 0.0,
+        "rotation_angle": 270.0
+    },
+    "manipulate": {
+        "sub_dataset": "NO",
+        "domain": "",
+        "stratigraphic_transf": "NO",
+        "filename": "filename"
+    },
+    "variable": {
+        "v_name": "cat",
+        "declustering": "NO",
+        "normal_score": "NO"
+    },
+    "info_vario": {
+        "dimension": "2D",
+        "direction": "DIR",
+        "degree_step": 0.0,
+        "degree_tolerance": 0.0,
+        "set_directions": "0,70,80,90,110",
+        "n_directions": 5,
+        "clean_is_set": true,
+        "n_min_points_for_clean": 10,
+        "penalty_function": false
+    },
+    "vario_for_categories": [
+        "cat1.json",
+        "cat2.json",
+        "cat3.json",
+        "cat4.json",
+        "cat5.json",
+        "cat6.json",
+        "cat7.json",
+        "cat8.json"
+    ]
+}

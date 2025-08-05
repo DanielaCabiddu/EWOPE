@@ -4,13 +4,13 @@
         "authority": "Unknown"
     },
     "commands": [
-        "-P -p . --tri --polygon ./in/geometry/sec.xyz --opt a0.1 --setz -1.0 --obj "
+        "-P -p . --tri --polygon ./in/geometry/sec_xz.xyz --opt a0.12 --setz -1.0 --obj --rotaxis X --rotangle 270 "
     ],
     "dependencies": [
-        "in/geometry/sec.xyz"
+        "in/geometry/sec_xz.xyz"
     ],
     "geospatialdata": {
-        "name": "sec",
+        "name": "sec_xz",
         "format": ".xyz",
         "authority": "Unknown",
         "units": "",
@@ -21,18 +21,18 @@
     "data_summary": {
         "x_min": 0.0,
         "x_max": 100.0,
-        "y_min": -15.0,
-        "y_max": 0.0,
-        "z_min": -1.0,
-        "z_max": -1.0
+        "y_min": 1.0,
+        "y_max": 1.0,
+        "z_min": -15.0,
+        "z_max": 0.0
     },
     "data_rotation": {
         "rotation": false,
-        "rotation_axis": "",
+        "rotation_axis": "X",
         "rotation_center_x": 0.0,
         "rotation_center_y": 0.0,
         "rotation_center_z": 0.0,
-        "rotation_angle": 0.0
+        "rotation_angle": 270.0
     },
     "extrusion": {
         "type": "",
@@ -43,22 +43,22 @@
         "parameters": {
             "type": "TRIMESH",
             "boundary": "FIXED BOUNDARY",
-            "opt": "a0.1",
+            "opt": "a0.12",
             "resx": 0.0,
             "resy": 0.0,
             "resz": 0.0
         },
         "summary": {
-            "nverts": 11852,
-            "nedges": 35173,
-            "npolys": 23322,
-            "min_edge": 0.182,
-            "max_edge": 1.875,
-            "avg_edge": 0.4,
+            "nverts": 9892,
+            "nedges": 29336,
+            "npolys": 19445,
+            "min_edge": 0.304,
+            "max_edge": 1.562,
+            "avg_edge": 0.439,
             "bbox_dx": 100.0,
             "bbox_dy": 15.0,
             "bbox_dz": 0.0,
-            "area": 1499.999
+            "area": 1500.0
         }
     }
 }
