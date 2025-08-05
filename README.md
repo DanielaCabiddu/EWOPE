@@ -16,7 +16,7 @@ The repository includes a submodule necessary to make the code work. Please, clo
 git clone --recursive https://github.com/DanielaCabiddu/EWOPE.git
 ```
 
-##Content of the repository
+## Content of the repository
 - `src`: source code for the two main applications
     - `main_core`: to create and customize metadata following EWoPe base structure
     - `main_history`: to build computational histories

@@ -31,7 +31,7 @@ where:
 -  `--version` -- Displays version information and exits.
 - `-h`,  `--help` -- Displays usage information and exits.
 
-##Example
+## Example
 To reproduce the results described in the paper, specifically for testing the history functionality, use the following command:
 
 ```
