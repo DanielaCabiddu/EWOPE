@@ -24,10 +24,10 @@ git submodule update --init --recursive
 ```
 
 ## Usage
-EWoPe code has some mandatory dependences included in _${ROOT}/external_:
+EWoPe code has some mandatory dependences:
 
-- to manage command line arguments and options (tclap);
-- to metadata the computational process (cereal).
+- to manage command line arguments and options: tclap (to clone and include in _${ROOT}/external_);
+- to metadata the computational process: cereal (included as a submodule in _${ROOT}/external_).
 
 ## Building
 To build EWoPe source code, use the following pipeline:
@@ -42,13 +42,13 @@ cmake --build . --config Release
 
 Executables will be made available in _${ROOT}/bin_ folder.
 
-## Examples
-To guarantee replicability, data of our examples are provided in the _example_ folder. 
-If you wish to replicate them, please run bash script file (_10_test_MUSE_example_name.sh_), as follows:
+## Application
+Our application is described in the paper (see Section 5). 
+To replicate paper results testing history functionality (see Section 6.3), please run  _EWOPE_history_, as described in the README located in the _${ROOT}/example_ folder. Input data and metadata are provided in the same location.
 
 ```
-cd ${ROOT}/examples/example_name/script
-./10_test_MUSE_example_name.sh
+cd ${ROOT}/bin
+./EWOPE_history -w 
 ```
 
 ## Authors contact
