@@ -9,23 +9,27 @@ The code is tested on different Operating Systems (MacOS, Linux and Windows).
 
 ## Clone
 We provide the commands to install EWoPe. 
-The repository includes some submodules necessary to make the code work. Please, clone it recursively:
+The repository includes a submodule necessary to make the code work. Please, clone it recursively:
 
 - Clone recursively the repository into your local machine:
 ```
 git clone --recursive https://github.com/DanielaCabiddu/EWOPE.git
 ```
-- If some submodules are not clone/update, please use git command in the root directory ROOT (where this README lies):
-```
-cd ${ROOT}
-git submodule update --init --recursive
-```
+
+##Content of the repository
+- `src`: source code for the two main applications
+    - `main_core`: to create and customize metadata following EWoPe base structure
+    - `main_history`: to build computational histories
+- `include`: functionalities library to support source codes
+- `external`: external libraries
+- `examples`: application data (input data and output metadata)
+- `CMakeLists.txt`: build configuration file
 
 ## Usage
 EWoPe code has some mandatory dependences:
 
-- to manage command line arguments and options: tclap (to clone and include in _${ROOT}/external_);
-- to metadata the computational process: cereal (included as a submodule in _${ROOT}/external_).
+- to manage command line arguments and options: `tclap` (to clone and include in _${ROOT}/external_);
+- to metadata the computational process: `cereal` (included as a submodule in _${ROOT}/external_).
 
 ## Building
 To build EWoPe source code, use the following pipeline:

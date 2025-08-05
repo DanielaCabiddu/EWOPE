@@ -30,3 +30,11 @@ where:
 -  `--`,  `--ignore_rest` -- Ignores the rest of the labeled arguments following this flag.
 -  `--version` -- Displays version information and exits.
 - `-h`,  `--help` -- Displays usage information and exits.
+
+##Example
+To reproduce the results described in the paper, specifically for testing the history functionality, use the following command:
+
+```
+cd ${ROOT}/bin
+./EWOPE_history -w  ${ROOT}/examples/W -j ${ROOT}/examples/W/W1/out/compute/phi_DIR2D_sec_xz/_varspace/_stats/phi_mean.json -f
+```
