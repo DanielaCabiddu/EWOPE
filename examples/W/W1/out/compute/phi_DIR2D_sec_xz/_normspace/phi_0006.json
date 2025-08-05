@@ -1,14 +1,14 @@
 {
     "project": {
-        "name": "06_sec_2D_4000_tri",
+        "name": "W1",
         "authority": "Unknown"
     },
     "commands": [
         "-C -p . -v phi --rotaxis X --rotangle 270 -m ./out/geometry/surf/sec_xz.obj --nsim 10 --dir DIR --dim 2D --out VECSIM --octant --scaleradius 1.5 --input 10 --simulated 6 "
     ],
     "dependencies": [
-        "out/vario/phi_DIR2D/phi.json",
-        "out/geometry/surf/sec_xz.json"
+        "/W1/out/vario/phi_DIR2D/phi.json",
+        "/W1/out/geometry/surf/sec_xz.json"
     ],
     "data": {
         "x_name": "X",

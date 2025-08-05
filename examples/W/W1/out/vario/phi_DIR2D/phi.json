@@ -1,16 +1,16 @@
 {
     "project": {
-        "name": "06_sec_2D_4000_tri",
+        "name": "W1",
         "authority": "Unknown"
     },
     "commands": [
         "-V -p . -v phi --rotaxis X --rotangle 270 --nscore YES --dir DIR --dim 2D --vario MODEL --dirs 0,70,80,90,110 --degtol 15 --vclean 5 --weight --eps 5.0 --nugget 0.18 "
     ],
     "dependencies": [
-        "out/data/metadata/X.json",
-        "out/data/metadata/Y.json",
-        "out/data/metadata/Z.json",
-        "out/data/metadata/phi.json"
+        "/W1/out/data/metadata/X.json",
+        "/W1/out/data/metadata/Y.json",
+        "/W1/out/data/metadata/Z.json",
+        "/W1/out/data/metadata/phi.json"
     ],
     "infodata": {
         "x_name": "X",

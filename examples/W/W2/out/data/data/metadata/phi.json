@@ -1,0 +1,22 @@
+{
+    "project": {
+        "name": "W2",
+        "authority": "Unknown"
+    },
+    "commands": [
+        "-C -p . "
+    ],
+    "dependencies": [
+        "in/data/samples_sec4000.csv"
+    ],
+    "data": [
+        {
+            "name": "phi",
+            "units": "",
+            "flag": "P",
+            "parents": "",
+            "description": "",
+            "comments": ""
+        }
+    ]
+}

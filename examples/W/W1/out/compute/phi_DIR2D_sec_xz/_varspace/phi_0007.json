@@ -1,13 +1,13 @@
 {
     "project": {
-        "name": "06_sec_2D_4000_tri",
+        "name": "W1",
         "authority": "Unknown"
     },
     "commands": [
         "-B -p . -v phi -m ./out/geometry/surf/sec_xz.obj --dir DIR --dim 2D --extr Extr --minextr 0 --maxextr 1 --csv "
     ],
     "dependencies": [
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0007.json"
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0007.json"
     ],
     "data": {
         "x_name": "X",

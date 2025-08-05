@@ -1,22 +1,22 @@
 {
     "project": {
-        "name": "06_sec_2D_4000_tri",
+        "name": "W1",
         "authority": "Unknown"
     },
     "commands": [
         "-S -p . -v phi -m ./out/geometry/surf/sec_xz.obj --dir DIR --dim 2D --csv "
     ],
     "dependencies": [
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0000.json",
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0001.json",
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0002.json",
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0003.json",
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0004.json",
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0005.json",
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0006.json",
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0007.json",
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0008.json",
-        "out/compute/phi_DIR2D_sec_xz/_normspace/phi_0009.json"
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0000.json",
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0001.json",
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0002.json",
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0003.json",
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0004.json",
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0005.json",
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0006.json",
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0007.json",
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0008.json",
+        "/W1/out/compute/phi_DIR2D_sec_xz/_normspace/phi_0009.json"
     ],
     "data": [
         {

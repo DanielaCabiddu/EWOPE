@@ -1,0 +1,64 @@
+{
+    "project": {
+        "name": "W2",
+        "authority": "Unknown"
+    },
+    "commands": [
+        "-P -p . --tri --polygon ./in/geometry/sec.xyz --opt a0.1 --setz -1.0 --obj "
+    ],
+    "dependencies": [
+        "in/geometry/sec.xyz"
+    ],
+    "geospatialdata": {
+        "name": "sec",
+        "format": ".xyz",
+        "authority": "Unknown",
+        "units": "",
+        "n_subdomains": 0,
+        "id_subdomain": "",
+        "attributes": ""
+    },
+    "data_summary": {
+        "x_min": 0.0,
+        "x_max": 100.0,
+        "y_min": -15.0,
+        "y_max": 0.0,
+        "z_min": -1.0,
+        "z_max": -1.0
+    },
+    "data_rotation": {
+        "rotation": false,
+        "rotation_axis": "",
+        "rotation_center_x": 0.0,
+        "rotation_center_y": 0.0,
+        "rotation_center_z": 0.0,
+        "rotation_angle": 0.0
+    },
+    "extrusion": {
+        "type": "",
+        "direction": "",
+        "value": 0.0
+    },
+    "mesh": {
+        "parameters": {
+            "type": "TRIMESH",
+            "boundary": "FIXED BOUNDARY",
+            "opt": "a0.1",
+            "resx": 0.0,
+            "resy": 0.0,
+            "resz": 0.0
+        },
+        "summary": {
+            "nverts": 11852,
+            "nedges": 35173,
+            "npolys": 23322,
+            "min_edge": 0.182,
+            "max_edge": 1.875,
+            "avg_edge": 0.4,
+            "bbox_dx": 100.0,
+            "bbox_dy": 15.0,
+            "bbox_dz": 0.0,
+            "area": 1499.999
+        }
+    }
+}
