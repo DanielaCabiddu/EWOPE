@@ -7,8 +7,6 @@ The architecture supports two modes of use, such as:
 
 The code is tested on different Operating Systems (MacOS, Linux and Windows).
 
-Referring to examples, execution script and data are related to synthetical scenarios or real case studies.
-
 ## Clone
 We provide the commands to install EWoPe. 
 The repository includes some submodules necessary to make the code work. Please, clone it recursively:
@@ -44,19 +42,14 @@ Executables will be made available in _${ROOT}/bin_ folder.
 
 ## Application
 Our application is described in the paper (see Section 5). 
-To replicate paper results testing history functionality (see Section 6.3), please run  _EWOPE_history_, as described in the README located in the _${ROOT}/example_ folder. Input data and metadata are provided in the same location.
+To replicate paper results testing history functionality (see Section 6.3), please run the executable ```_EWOPE_history_```, as described in the README located in the _${ROOT}/example_ folder. Input data and metadata are provided in the same location.
 
-```
-cd ${ROOT}/bin
-./EWOPE_history -w 
-```
 
-## Authors contact
+## Contributors
 - Daniela Cabiddu (CNR-IMATI, Genova, Italy), email: daniela.cabiddu@cnr.it
 - Marianna Miola (CNR-IMATI, Genova, Italy), email: marianna.miola@cnr.it
 
 ## Citing us
-
 ```bibtex
 @unpublished{miola2025ewoPe,
   author       = {Marianna Miola and Daniela Cabiddu and Simone Pittaluga and Micaela Raviola and Marino Vetuschi Zuccolini},
