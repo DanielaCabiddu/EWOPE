@@ -1,68 +1,142 @@
 {
     "commands": [
-        "-B -p . -v phi -m ./out/geometry/surf/sec_xz.obj --dir DIR --dim 2D --extr Extr --minextr 0 --maxextr 1 --csv "
+        "mpirun -n 4 -pflotranin pflotran_file.in"
     ],
     "dependencies": [
-        "/W3/out/geometry/sec_xz_3D.json",
-        "/W1/out/compute/phi_DIR2D_sec_xz/_varspace/_stats/phi_mean.json",
-        "/W2/out/compute/cat_DIR2D_sec_xz/sisim.json"
+        "W3/out/geometry/sec_xz_3D.json",
+        "W1/out/compute/phi_DIR2D_sec_xz/_varspace/_stats/phi_mean.json",
+        "W2/out/compute/cat_DIR2D_sec_xz/sisim.json"
     ],
-    "data": {
-        "x_name": "X",
-        "y_name": "Y",
-        "z_name": "Z",
-        "id_name": "Unknown"
-    },
-    "metadata":
-    {
-        "name": "phi",
-        "units": "",
-        "flag": "P",
-        "parents": "",
-        "description": "",
-        "comments": "computeOUTPUT-BNS"
-    },
-    "rotation": {
-        "rotation": true,
-        "rotation_axis": "X",
-        "rotation_center_x": 0.0,
-        "rotation_center_y": 0.0,
-        "rotation_center_z": 0.0,
-        "rotation_angle": 270.0
-    },
-    "manipulate": {
-        "sub_dataset": "NO",
-        "domain": "",
-        "stratigraphic_transf": "NO",
-        "filename": ""
-    },
-    "variable": {
-        "v_name": "phi",
-        "declustering": "NO",
-        "normal_score": "YES"
-    },
-    "info_vario": {
-        "dimension": "2D",
-        "direction": "DIR"
-    },
-    "fit_experimental_vario": {
-        "degree_direction": 0.0,
-        "type": "Exp",
-        "nugget": 0.18,
-        "sill": 0.82,
-        "range": 0.0,
-        "range_max": 39.8717,
-        "range_min": 7.0635,
-        "range_z": 7.0635
-    },
     "simulation": {
-        "geometry": "sec_xz.obj",
-        "n_elements": 19445,
-        "sim_criterion": "SGS",
-        "n_iterations": 10,
-        "back_normal_score": true,
-        "extrapolation_type": "Extr",
-        "min_extrapolation_value": 0.0,
-        "max_extrapolation_value": 1.0
+        "simulation_type": "SUBSURFACE",
+        "process_models": "SUBSURFACE_FLOW",
+	"mode": "RICHARDS"
+    },
+    "numerical_methods": {
+        "methods": "FLOW",
+        "solver": "NEWTON_SOLVER"
+    },
+    "dataset":
+    {
+    	"filename": "sec_xz_perm_por.h5",
+        "dataset": "porosity",
+        "dataset": "kX",
+        "dataset": "kY",
+        "dataset": "kZ"
+    },
+    "discretization": {
+    	"filename": "sec_xz_perm_por.ugi",
+        "grid_type": "UNSTRUCTURED"
+    },
+    "fluid_properties": {
+        "diffusion_coefficient": 1.d-9
+    },
+    "material_properties": {
+        "material": "soil1",
+        "id": 1,
+        "porosity_dataset": "porosity",
+        "rock_density": 2700.d0,
+        "permeability": {
+            "anisotropic": true,
+            "dataset": "k"
+        },
+        "characteristic_curve": "cc1"
+    },
+    "characteristic_curve": {
+        "name": "cc1",
+        "saturation_function": "VAN_GENUCHTEN",
+        "saturation_parameters": {
+            "alpha": 1.d-4,
+            "m": 0.7d0,
+            "liquid_residual_saturation": 000001d0
+        },
+        "permeability_function": "MUALEM_VG_LIQ",
+        "saturation_parameters": {
+            "m": 0.7d0,
+            "liquid_residual_saturation": 000001d0
+        }
+    },
+    "times": {
+        "final_time": "800.d0 d",
+        "initial_timestep_size": "50.d0 d",
+        "maximum_timestep_size": "100.d0 d at 100 d",
+        "maximum_timestep_size": "150.d0 d at 150 d"
+    },
+    "regions": [
+        {
+            "regions": "all",
+            "coordinates": "-1.d20 -1.d20 -1.d20"
+        },
+        {
+           "regions": "west",
+           "file": "sec_xz_perm_por_west.ss"
+        },
+        {
+           "regions": "east",
+           "file": "sec_xz_perm_por_east.ss"
+        },
+        {
+           "injection_well": true,
+           "coordinates": "3.d0 1.d0 -8.d0"
+        }
+    ],
+    "flow_condition": [
+        {
+           "state": "initial", 
+           "type_liquid_pressure": "HYDROSTATIC",
+           "datum": "0.d0 0.d0 -5.d0",
+           "liquid_pressure": 101325.0
+        }
+        {
+           "state": "init_west", 
+           "type_liquid_pressure": "HYDROSTATIC",
+           "datum": "0.d0 0.d0 -5.d0",
+           "liquid_pressure": 101325.0
+        },
+        {
+           "state": "init_east", 
+           "type_liquid_pressure": "HYDROSTATIC",
+           "datum": "100.d0 0.d0 -5.3d0",
+           "liquid_pressure": 101325.0
+        }
+    ],
+    "flow_condition_inj:" {
+        "state": "inj_well", 
+        "rate": "SCALED_VOLUMETRIC_RATE VOLUME",
+   	"sync_type": "SYNC_TIMESTEP_WITH_UPDATE",
+   	"sync": true,
+   	"rate_list": {
+       	    "time_units": "d",
+       	    "data_units": "m^3/day",
+            "0.": "0.",
+            "50.": "1.",
+            "400.": "0."
+        }
+    },
+    "condition_couplers:" {
+        "initial_condition": {
+	    "flow_condition": "initial",
+	    "region": "all"
+	    },
+	"boundary_condition": [
+         {
+	   "east": {
+	   "flow_condition": "init_east",
+	   "region": "east"
+	  },
+	  {
+     	   "west": {
+	   "flow_condition": "init_west",
+	   "region": "west"
+	  },
+	 "source_sink": {
+	      "injection_well": {
+		"flow_condition": "inj_well",
+		"region": "injection_well"
+	      }
+	    },
+    "stratigraphy_couplers": {
+      "region": "all",
+      "material": "soil1"
     }
 }
