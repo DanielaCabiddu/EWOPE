@@ -2,7 +2,7 @@
 
 ## Application
 Our application is described in the paper (see Section 5). 
-The _${ROOT}/example_ contains all input data and output metadata used in our case study. It includes a main workflow directory _${ ROOT}/examples/W_, organized into three subdirectories, each corresponding to a different workflow:
+The _examples_ folder contains all input data and output metadata used in our case study. It includes a main workflow directory _${ ROOT}/examples/W_, organized into three subdirectories, each corresponding to a different workflow:
 - W1: starting from porosity data sampled along a borehole, a spatial distribution is computed over an unstructured mesh;
 - W2: following a similar approach using hydrofacies, a best guess is computed over the same mesh;
 - W3: hydrofacies are converted into permeability, and coupled with porosity distribution, the geochemical model is performed.

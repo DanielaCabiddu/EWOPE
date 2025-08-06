@@ -25,10 +25,10 @@ git clone --recursive https://github.com/DanielaCabiddu/EWOPE.git
 - `examples`: application data (input data and output metadata)
 - `CMakeLists.txt`: build configuration file
 
-## Usage
+## Dependences
 EWoPe code has some mandatory dependences:
 
-- to manage command line arguments and options: `tclap` (to clone and include in _${ROOT}/external_);
+- to manage command line arguments and options: [tclap](https://tclap.sourceforge.net/) (to clone and include in _${ROOT}/external_);
 - to metadata the computational process: `cereal` (included as a submodule in _${ROOT}/external_).
 
 ## Building
@@ -46,7 +46,8 @@ Executables will be made available in _${ROOT}/bin_ folder.
 
 ## Application
 Our application is described in the paper (see Section 5). 
-To replicate paper results testing history functionality (see Section 6.3), please run the executable ```_EWOPE_history_```, as described in the README located in the _${ROOT}/example_ folder. Input data and metadata are provided in the same location.
+To replicate paper results testing history functionality (see Section 6.3), please run the executable ```_EWOPE_history_```, as described in the README located in the [**examples**](https://github.com/DanielaCabiddu/EWOPE/tree/main/examples) folder. 
+Such a folder contains all input data and output metadata used in our case study.
 
 
 ## Contributors
