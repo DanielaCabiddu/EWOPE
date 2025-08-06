@@ -8,8 +8,8 @@ The _examples_ folder contains all input data and output metadata used in our ca
 - W3: hydrofacies are converted into permeability, and coupled with porosity distribution, the geochemical model is performed.
 
 We used a synthetic scenario representing a vertical section of 100 m x 15 m. The input data includes:
-- a bounding box defining the geometry, stored in text file **sec\_xz.xyz** (https://github.com/DanielaCabiddu/EWOPE/blob/main/examples/W/W1/in/geometry/sec_xz.xyz);
-- borehole sampling data from n. 11 cores, stored in a CSV file **samples_sec4000.csv** (https://github.com/DanielaCabiddu/EWOPE/blob/main/examples/W/W1/in/data/samples_sec4000.csv);
+- a bounding box defining the geometry, stored in text file [sec\_xz.xyz] (https://github.com/DanielaCabiddu/EWOPE/blob/main/examples/W/W1/in/geometry/sec_xz.xyz);
+- borehole sampling data from n. 11 cores, stored in a CSV file [samples_sec4000.csv] (https://github.com/DanielaCabiddu/EWOPE/blob/main/examples/W/W1/in/data/samples_sec4000.csv);
 
 To replicate the results presented in the paper (see Section 6.3), especially for testing the history functionality, run the executable _EWOPE_history_ as described below.
 
