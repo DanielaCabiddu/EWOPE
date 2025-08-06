@@ -1,6 +1,6 @@
 {
     "commands": [
-        "-P -p . --tri --polygon ./in/geometry/sec_xz.xyz --opt a0.01 --setz -1.0 --obj --rotaxis X --rotangle 270 "
+        "-O -p . -m ./W1/out/geometry/surf/sec_xz.obj --abs -y -1.0 --obj "
     ],
     "dependencies": [
         "W1/out/geometry/surf/sec_xz.json"
@@ -31,30 +31,8 @@
         "rotation_angle": 270.0
     },
     "extrusion": {
-        "type": "",
-        "direction": "",
-        "value": 0.0
-    },
-    "mesh": {
-        "parameters": {
-            "type": "TRIMESH",
-            "boundary": "FIXED BOUNDARY",
-            "opt": "a0.01",
-            "resx": 0.0,
-            "resy": 0.0,
-            "resz": 0.0
-        },
-        "summary": {
-            "nverts": 117451,
-            "nedges": 351338,
-            "npolys": 233888,
-            "min_edge": 0.057,
-            "max_edge": 0.781,
-            "avg_edge": 0.126,
-            "bbox_dx": 100.0,
-            "bbox_dy": 15.0,
-            "bbox_dz": 0.0,
-            "area": 1499.999
-        }
+        "type": "delta",
+        "direction": "Y",
+        "value": 1.0
     }
 }
