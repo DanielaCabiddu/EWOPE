@@ -5,7 +5,7 @@
     "dependencies": [
         "W3/out/geometry/sec_xz_3D.json",
         "W1/out/compute/phi_DIR2D_sec_xz/_varspace/_stats/phi_mean.json",
-        "W2/out/compute/cat_DIR2D_sec_xz/sisim.json"
+        "W2/out/compute/cat_DIR2D_sec_xz/_stats/best.json"
     ],
     "simulation": {
         "simulation_type": "SUBSURFACE",

@@ -8,7 +8,7 @@
     ],
     "dependencies": [
         "W2/out/geometry/surf/sec_xz.json"
-        "W2/out/vario/phi_sec_DIR2D/cat6.json"
+        "W2/out/vario/cat_DIR2D/cat6.json"
     ],
     "data": {
         "x_name": "X",
