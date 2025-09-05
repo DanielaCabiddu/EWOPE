@@ -50,3 +50,7 @@ Thumbs.db
 
 # user configuration
 *.txt.user
+
+# build/bin folder
+bin/
+build/

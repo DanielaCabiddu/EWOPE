@@ -38,7 +38,7 @@ To build EWoPe source code, use the following pipeline:
 cd ${ROOT}
 mkdir build
 cd build
-cmake --DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake --build . --config Release
 ```
 
