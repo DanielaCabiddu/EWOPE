@@ -195,6 +195,68 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps)
     }
 }
 
+
+void printFormalism(Graph const &graph, int n, std::deque<std::string> &deps)
+{
+    std::string root = "FORMALISM";
+    std::cout << root << std::endl;
+    //std::cout << prefix << std::endl;
+
+    std::vector<std::string> formalism_vec(n);
+
+    int n_outnode = 0; // per contare i nodi output
+    std::string prev = "[D" + std::to_string(n_outnode+1) + "]";
+
+    for (int i = n-1; i >= 0; i--)
+    {
+        //std::cout << prev << std::endl;
+        std::string prefix = (i != 0) ? "|-- " : "|__ ";
+        std::string string;
+
+        std::string curr;
+        if(graph.adjList[i].size() > 0)
+        {
+            string = prefix + prev + " --> ";
+            curr = "[D" + std::to_string(n_outnode+1) + "a"+std::to_string(n_outnode+1) +"]";
+
+           //std::cout << string << std::endl;
+
+            for (size_t v=0; v< graph.adjList[i].size(); v++)
+            {
+                if(graph.adjList[i].size() == 1)
+                {
+                    string += curr;
+                    //std::cout << deps.at(graph.adjList[i].at(v)) <<std::endl;
+                }
+                else
+                {
+                    if(v == graph.adjList[i].size()-1)
+                        string += deps.at(graph.adjList[i].at(v));
+                    else
+                        string += deps.at(graph.adjList[i].at(v)) + " + ";
+                }
+            }
+
+            // Output finale
+            //string += " --> " + curr;
+            std::cout << string << std::endl;
+            n_outnode++;
+        }
+        else //if(i!=n-1)
+        {
+            curr = "[D" + std::to_string(n_outnode+1) + "]";
+            prev = curr;
+            string = prefix + prev;
+
+            std::cout << string << std::endl;
+        }
+        formalism_vec[i] = curr;
+        prev = curr;
+
+    }
+}
+
+
 void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps, std::deque<std::string> &com)
 {
     std::string root = "WORKFLOW";

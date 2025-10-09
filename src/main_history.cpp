@@ -336,6 +336,8 @@ int main(int argc, char** argv)
 
             // print adjacency list representation of a graph
             printGraph2(graph, edges.size()+1, deque);
+            std::cout << std::endl;
+            printFormalism(graph, edges.size()+1, deque);
         }
 
         std::cout << std::endl;

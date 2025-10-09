@@ -75,6 +75,8 @@ public:
     void printGraph(Graph const &graph, int n, std::deque<std::string> deps);
     void printGraph2(Graph const &graph, int n, std::deque<std::string> deps, std::deque<int> level);
 
+    void printFormalism(Graph const &graph, int n, std::deque<std::string> &deps);
+
 
     void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps);
     void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps, std::deque<std::string> &com);
