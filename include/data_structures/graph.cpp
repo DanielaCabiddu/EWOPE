@@ -198,62 +198,209 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps)
 
 void printFormalism(Graph const &graph, int n, std::deque<std::string> &deps)
 {
+    std::vector<std::string> output;
     std::string root = "FORMALISM";
-    std::cout << root << std::endl;
-    //std::cout << prefix << std::endl;
+    output.push_back(root);
 
-    std::vector<std::string> formalism_vec(n);
+    std::vector<std::string> form_in(n);  // Per tracciare le trasformazioni [D1a1], ecc.
+    std::unordered_map<int, int> a_counters; // Contatori a1, a2, a3... per ciascun nodo
 
-    int n_outnode = 0; // per contare i nodi output
-    std::string prev = "[D" + std::to_string(n_outnode+1) + "]";
-
-    for (int i = n-1; i >= 0; i--)
+    // Prima passata: 1:1 e 1:many (chi parte da un nodo input)
+    for (int i = 0; i < n; ++i)
     {
-        //std::cout << prev << std::endl;
-        std::string prefix = (i != 0) ? "|-- " : "|__ ";
-        std::string string;
+        std::string source = "[D" + std::to_string(i + 1) + "]";
+        const auto &outputs = graph.adjList[i];
 
-        std::string curr;
-        if(graph.adjList[i].size() > 0)
+        if (outputs.empty())
         {
-            string = prefix + prev + " --> ";
-            curr = "[D" + std::to_string(n_outnode+1) + "a"+std::to_string(n_outnode+1) +"]";
+            // Nodo senza output (foglia)
+            output.push_back(source);
+            continue;
+        }
 
-           //std::cout << string << std::endl;
+        if (outputs.size() == 1)
+        {
+            // 1:1
+            int a_index = ++a_counters[i];
+            std::string transformed = source.substr(0, source.size() - 1) + "a" + std::to_string(a_index) + "]";
+            form_in[outputs[0]] = transformed;
 
-            for (size_t v=0; v< graph.adjList[i].size(); v++)
+            output.push_back(source + " -> " + transformed);
+        }
+        else
+        {
+            // 1:many
+            int a_index = ++a_counters[i];
+            std::vector<std::string> branches;
+
+            for (size_t j = 0; j < outputs.size(); ++j)
             {
-                if(graph.adjList[i].size() == 1)
-                {
-                    string += curr;
-                    //std::cout << deps.at(graph.adjList[i].at(v)) <<std::endl;
-                }
-                else
-                {
-                    if(v == graph.adjList[i].size()-1)
-                        string += deps.at(graph.adjList[i].at(v));
-                    else
-                        string += deps.at(graph.adjList[i].at(v)) + " + ";
-                }
+                std::string branch = source.substr(0, source.size() - 1) + "a" + std::to_string(a_index) + "|" + std::to_string(j + 1) + "]";
+                form_in[outputs[j]] = branch;
+                branches.push_back(branch);
             }
 
-            // Output finale
-            //string += " --> " + curr;
-            std::cout << string << std::endl;
-            n_outnode++;
-        }
-        else //if(i!=n-1)
-        {
-            curr = "[D" + std::to_string(n_outnode+1) + "]";
-            prev = curr;
-            string = prefix + prev;
+            std::string line = source + " -> ";
+            for (size_t j = 0; j < branches.size(); ++j)
+            {
+                line += branches[j];
+                if (j != branches.size() - 1)
+                    line += ", ";
+            }
 
-            std::cout << string << std::endl;
+            output.push_back(line);
         }
-        formalism_vec[i] = curr;
-        prev = curr;
-
     }
+
+    // Seconda passata: many:1 (nodo con più input)
+    for (int i = 0; i < n; ++i)
+    {
+        const auto &inputs = graph.adjList[i];
+        if (inputs.size() <= 1) continue;
+
+        std::string target = "[D" + std::to_string(i + 1) + "]";
+        std::string line = target + " = ";
+
+        for (size_t j = 0; j < inputs.size(); ++j)
+        {
+            int input_node = inputs[j];
+
+            // Se non è ancora stato trasformato, creiamo nome standard
+            if (form_in[i].empty())
+            {
+                int a_index = ++a_counters[input_node];
+                form_in[input_node] = "[D" + std::to_string(input_node + 1) + "a" + std::to_string(a_index) + "]";
+            }
+
+            std::string dep = form_in[input_node];
+            line += dep;
+            if (j != inputs.size() - 1)
+                line += " + ";
+        }
+
+        output.push_back(line);
+    }
+
+    // Stampa in ordine inverso (dagli input verso i nodi calcolati)
+    for (auto it = output.rbegin(); it != output.rend(); ++it)
+        std::cout << *it << std::endl;
+}
+
+void printFormalism_old(Graph const &graph, int n, std::deque<std::string> &deps)
+{
+    std::string root = "FORMALISM";
+    std::cout << root << std::endl;
+
+    std::vector<std::string> nodeNames(n);
+    int transID=1;
+
+    // Costruisci i nomi base dei nodi
+    for (int i = 0; i < n; ++i)
+        nodeNames[i] = "[D" + std::to_string(i+1) + "]";
+
+    for (int i = 0; i < n; ++i)
+    {
+        const auto &depsList = graph.adjList[i];
+
+        if (depsList.empty())
+        {
+            // Nodo iniziale (no input)
+            std::cout << nodeNames[i] << std::endl;
+        }
+        else if (depsList.size() == 1)
+        {
+            // 1:1
+            std::string source = nodeNames[depsList[0]];
+            std::string target = source.substr(0, source.size() - 1) + "a" + std::to_string(transID++) + "]";
+            std::cout << source << " -> " << target << std::endl;
+            nodeNames[i] = target;
+        }
+        else
+        {
+            // many:1
+            std::string target = "[D" + std::to_string(i+1) + "]";
+            std::cout << target << " = ";
+
+            for (size_t j = 0; j < depsList.size(); ++j)
+            {
+                int dep = depsList[j];
+                std::string source = nodeNames[dep];
+                std::string transformed = source.substr(0, source.size() - 1) + "a" + std::to_string(transID++) + "]";
+                std::cout << transformed;
+
+                if (j != depsList.size() - 1)
+                    std::cout << " + ";
+            }
+            std::cout << std::endl;
+        }
+
+        // Check se ha più output (1:many)
+        int out_degree = 0;
+        for (int j = 0; j < n; ++j)
+        {
+            for (int v : graph.adjList[j])
+            {
+                if (v == i) out_degree++;
+            }
+        }
+
+        if (out_degree > 1)
+        {
+            std::cout << nodeNames[i] << " -> ";
+            for (int k = 1; k <= out_degree; ++k)
+            {
+                std::cout << nodeNames[i].substr(0, nodeNames[i].size() - 1) + "|" + std::to_string(k) + "]";
+                if (k != out_degree) std::cout << ", ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    // int n_outnode = 0; // per contare i nodi output
+    // std::string curr, succ;
+
+    // std::string prev = "[D" + std::to_string(n_outnode+1) + "]";
+
+    // std::string prefix = ((n-1) != 0) ? "|-- " : "|__ ";
+    // std::string string = prefix + prev + " --> ";
+    // form_in[n-1] = prev;
+    // curr = prev;
+    // std::cout << string << std::endl;
+
+    // for (int i = n-2; i >= 0; i--)
+    // {
+    //     prefix = (i != 0) ? "|-- " : "|__ ";
+
+    //     //sono in un nodo output
+    //     //verifico il numero di dipendenze
+    //     if(graph.adjList[i].empty())
+    //     {
+    //         //no dipendenze
+    //     }
+    //     else if(graph.adjList[i].size()==1) //1:1
+    //     {
+    //         //curr ="[D" + std::to_string(n_outnode+1) + "a"+std::to_string(n_outnode+1) +"]";
+    //         curr = prev + "a";
+    //         string += curr;
+    //     }
+    //     else if(graph.adjList[i].size()>1) //many:1
+    //     {
+    //         //somma dei nodi
+    //         for (size_t v=0; v< graph.adjList[i].size(); v++)
+    //         {
+    //             curr = prev + "a";
+
+    //             if(v == graph.adjList[i].size()-1)
+    //                 string += curr;
+    //             else
+    //                 string += curr + " + ";
+
+    //         }
+    //     }
+    //     std::cout << string << std::endl;
+    //     prev = curr;
+    // }
+
 }
 
 
