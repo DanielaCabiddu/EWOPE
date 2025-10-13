@@ -263,6 +263,8 @@ int main(int argc, char** argv)
             std::deque<std::string> deque;
             std::queue<std::string> queue;
 
+            std::map<std::string, std::vector<std::string>> j2deps;
+
             if (workflowDir.isSet())
             {
                 filesystem::path rel_path = filesystem::relative(setJSON.getValue(), workflowDir.getValue());
@@ -270,7 +272,9 @@ int main(int argc, char** argv)
                 queue.push(rel_path.string());
             }
             else
+            {
                 queue.push(setJSON.getValue());
+            }
 
             int id_level = 0;
             level.push_back(id_level);
@@ -291,13 +295,31 @@ int main(int argc, char** argv)
                 //std::string indent = "\t";
                 if(deps.size() > 0)
                 {
+                    std::vector<std::string> curr_deps;
+
+                    if (j2deps.find(curr) != j2deps.end())
+                        curr_deps = j2deps.find(curr)->second;
+
                     id_level++;
                     for(size_t i=0; i< deps.size(); i++)
                     {
                         queue.push(deps.at(i));
                         level.push_back(id_level);
+
+                        curr_deps.push_back(deps.at(i));
                     }
+
+                    j2deps[curr] = curr_deps;
                 }
+            }
+
+            for (auto v : j2deps)
+            {
+                std::vector<std::string> tmp_v = v.second;
+                sort( tmp_v.begin(), tmp_v.end() );
+                tmp_v.erase( unique( tmp_v.begin(), tmp_v.end() ), tmp_v.end() );
+
+                j2deps[v.first] = tmp_v;
             }
 
             // std::map<int, std::string> deque_map;
@@ -325,14 +347,15 @@ int main(int argc, char** argv)
 
                 if(n_deps_node != 0)
                 {
-                    for(int k=k_last; k< n_deps_node + k_last; k++)
+                    auto dep = j2deps[deque.at(j)];
+                    for(int k=0; k < dep.size(); k++)
                     {
-                        int id_k = deque_map[deque.at(k)];
+                        int id_k = deque_map[dep.at(k)];
 
-                        int pos = id+id_k;
+                        int pos = id_k;
                         // std::cout << deque.at(pos) << std::endl;
 
-                        pos = deque_map[deque.at(pos)];
+                        //pos = deque_map[deque.at(pos)];
 
                         // if(pos >= deque.size())
                         //     pos = deque.size();
@@ -340,7 +363,7 @@ int main(int argc, char** argv)
                         EWOPE::Edge edge = {id, pos};
                         edges.push_back(edge);
 
-                        std::cout << "Edge " << id << " -> " << pos << std::endl;
+                        std::cout << "Edge " << id << " -> " << pos << " -- " << deque.at(pos) << std::endl;
                     }
                 }
 

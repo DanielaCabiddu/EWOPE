@@ -36,6 +36,8 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <algorithm>
+#include <climits>
 #include <iostream>
 #include <ostream>
 #include <queue>
@@ -68,9 +70,24 @@ public:
     {
         std::set<int> node_ids;
 
+        for (auto &edge: edges)
+        {
+            node_ids.insert(edge.src);
+            node_ids.insert(edge.dest);
+        }
+
+        std::cout << *node_ids.rbegin() << std::endl;
+
         // resize the vector to hold `n` elements of type `vector<int>`
-        adj_src2dest.resize(n);
-        adj_dest2src.resize(n);
+        adj_src2dest.resize(*node_ids.rbegin()+1);
+        adj_dest2src.resize(*node_ids.rbegin()+1);
+
+        for (int i=0; i < adj_dest2src.size(); i++)
+            if (node_ids.find(i) == node_ids.end())
+            {
+                adj_dest2src.at(i).push_back(INT_MAX);
+                adj_src2dest.at(i).push_back(INT_MAX);
+            }
 
         // add edges to the directed graph
         for (auto &edge: edges)
@@ -79,14 +96,22 @@ public:
             adj_src2dest[edge.src].push_back(edge.dest);
             adj_dest2src[edge.dest].push_back(edge.src);
 
-            node_ids.insert(edge.src);
-            node_ids.insert(edge.dest);
-
             // uncomment the following code for undirected graph
             // adj_src2dest[edge.dest].push_back(edge.src);
         }
 
-        node_formalism.resize(node_ids.size());
+        for (int i=0; i < adj_dest2src.size(); i++)
+        {
+            std::sort( adj_dest2src.at(i).begin(), adj_dest2src.at(i).end() );
+            adj_dest2src.at(i).erase( std::unique( adj_dest2src.at(i).begin(), adj_dest2src.at(i).end() ), adj_dest2src.at(i).end() );
+
+            std::sort( adj_src2dest.at(i).begin(), adj_src2dest.at(i).end() );
+            adj_src2dest.at(i).erase( std::unique( adj_src2dest.at(i).begin(), adj_src2dest.at(i).end() ), adj_src2dest.at(i).end() );
+
+        }
+
+
+        node_formalism.resize(*node_ids.rbegin()+1, "");
 
         std::cout << "====================================================================" << std::endl;
 
@@ -94,6 +119,9 @@ public:
 
         for (unsigned int i=0; i < adj_src2dest.size(); i++ )
         {
+            if (!adj_src2dest.at(i).empty() && adj_src2dest.at(i).at(0) == INT_MAX)
+                continue;
+
             if (adj_src2dest.at(i).empty())
             {
                 inputs.push_back(i);
@@ -133,7 +161,7 @@ public:
 
                         queue.push(depsnode.at(j));
 
-                        std::cout << "Input node: " << j << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
+                        std::cout << "Input node: " << depsnode.at(j) << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
                     }
                     else
                     {
@@ -163,7 +191,7 @@ public:
 
                         node_formalism.at(depsnode.at(j)) = "[" + data + suba;
 
-                        std::cout << "Input node: " << j << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
+                        std::cout << "Input node: " << depsnode.at(j) << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
                     }
                 }
 
