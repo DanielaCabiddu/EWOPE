@@ -57,15 +57,15 @@ void printGraph(Graph const &graph, int n, std::deque<std::string> deps, std::de
     {
         int prev = i+1;
 
-        if (i!=n-1 && graph.adjList[i].size() == 0 && level.at(i) == level.at(prev))
+        if (i!=n-1 && graph.adj_src2dest[i].size() == 0 && level.at(i) == level.at(prev))
         {
             string = "|   " + deps.at(i);
         }
-        else if (i==n-1 && graph.adjList[i].size() == 0)
+        else if (i==n-1 && graph.adj_src2dest[i].size() == 0)
         {
             string = prefix + deps.at(i);
         }
-        else if (graph.adjList[i].size() == 0)
+        else if (graph.adj_src2dest[i].size() == 0)
         {
             string = prefix + deps.at(i);
         }
@@ -80,7 +80,7 @@ void printGraph(Graph const &graph, int n, std::deque<std::string> deps, std::de
 
 
         // print all neighboring vertices of a vertex `i`
-        for (int v: graph.adjList[i])
+        for (int v: graph.adj_src2dest[i])
         {
             std::cout << deps.at(v) << " ";
         }
@@ -103,24 +103,24 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> deps, std::d
         if(i != 0)
         {
             // print all neighboring vertices of a vertex `i`
-            if(graph.adjList[i].size() > 0)
+            if(graph.adj_src2dest[i].size() > 0)
             {
-                for (int v=0; v< graph.adjList[i].size(); v++)
+                for (int v=0; v< graph.adj_src2dest[i].size(); v++)
                 {
-                    if(v >= 0 && graph.adjList[i].size() > 1 && v != graph.adjList[i].size()-1)
+                    if(v >= 0 && graph.adj_src2dest[i].size() > 1 && v != graph.adj_src2dest[i].size()-1)
                     {
-                        std::cout << prefix + deps.at(graph.adjList[i].at(v)) << " + ";
+                        std::cout << prefix + deps.at(graph.adj_src2dest[i].at(v)) << " + ";
                     }
-                    else if(v==0 || v == graph.adjList[i].size()-1)
+                    else if(v==0 || v == graph.adj_src2dest[i].size()-1)
                     {
-                        std::cout << prefix + deps.at(graph.adjList[i].at(v));
+                        std::cout << prefix + deps.at(graph.adj_src2dest[i].at(v));
                     }
                     else
                     {
-                        if(graph.adjList[i].size() > 1)
-                            std::cout << deps.at(graph.adjList[i].at(v)) << " + " ;
+                        if(graph.adj_src2dest[i].size() > 1)
+                            std::cout << deps.at(graph.adj_src2dest[i].at(v)) << " + " ;
                         else
-                            std::cout << deps.at(graph.adjList[i].at(v));
+                            std::cout << deps.at(graph.adj_src2dest[i].at(v));
                     }
                 }
                 std::cout << " ——> " << deps.at(i) << std::endl;
@@ -131,7 +131,7 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> deps, std::d
 
 
 
-//            if(graph.adjList[i].size() != 0)
+//            if(graph.adj_src2dest[i].size() != 0)
 //                std::cout << " ——> " << deps.at(i) << std::endl;
 //            else
 //                std::cout << " INPUT " <<  std::endl;
@@ -140,19 +140,19 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> deps, std::d
         else // se i==0 chiudo └──
         {
             // print all neighboring vertices of a vertex `i`
-            for (int v: graph.adjList[i])
+            for (int v: graph.adj_src2dest[i])
             {
-                if(v == graph.adjList[i].size())
+                if(v == graph.adj_src2dest[i].size())
                     std::cout << "└── " << deps.at(v);
                 else
                 {
-                    if(graph.adjList[i].size() > 1)
+                    if(graph.adj_src2dest[i].size() > 1)
                         std::cout << "└── " << deps.at(v) << " + " ;
                     else
                         std::cout << "└── " << deps.at(v);
                 }
             }
-            if(graph.adjList[i].size() != 0)
+            if(graph.adj_src2dest[i].size() != 0)
                 std::cout << " ——> " << deps.at(i) << std::endl;
             std::cout << std::endl;
         }
@@ -176,18 +176,18 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps)
         std::string string = prefix;
 
         // print all neighboring vertices of a vertex `i`
-        if(graph.adjList[i].size() > 0)
+        if(graph.adj_src2dest[i].size() > 0)
         {
-            for (size_t v=0; v< graph.adjList[i].size(); v++)
+            for (size_t v=0; v< graph.adj_src2dest[i].size(); v++)
             {
-                if(graph.adjList[i].size() == 1)
-                    string += deps.at(graph.adjList[i].at(v));
+                if(graph.adj_src2dest[i].size() == 1)
+                    string += deps.at(graph.adj_src2dest[i].at(v));
                 else
                 {
-                    if(v == graph.adjList[i].size()-1)
-                        string += deps.at(graph.adjList[i].at(v));
+                    if(v == graph.adj_src2dest[i].size()-1)
+                        string += deps.at(graph.adj_src2dest[i].at(v));
                     else
-                        string += deps.at(graph.adjList[i].at(v)) + " + ";
+                        string += deps.at(graph.adj_src2dest[i].at(v)) + " + ";
                 }
             }
 
@@ -211,16 +211,16 @@ void printFormalism(Graph const &graph, int n, std::deque<std::string> &deps)
     std::unordered_map<int, int> a_counters; // Contatori a1, a2, a3... per ciascun nodo
 
     // Costruisci anche la lista inversa (per capire 1:many)
-    std::vector<std::vector<int>> revAdjList(n);
+    std::vector<std::vector<int>> revadj_src2dest(n);
     for (int i = 0; i < n; ++i)
-        for (auto dep : graph.adjList[i])
-            revAdjList[dep].push_back(i);
+        for (auto dep : graph.adj_src2dest[i])
+            revadj_src2dest[dep].push_back(i);
 
     int count_inputnode = 0;
     int count_algnode = 0;
     for (int i = n-1; i >= 0; i--)
     {
-        if(graph.adjList[i].empty()) //se non ha dipendenze, inizializza come dato sorgente
+        if(graph.adj_src2dest[i].empty()) //se non ha dipendenze, inizializza come dato sorgente
         {
             count_inputnode++;
             formal_in[i] = "[D" + std::to_string(count_inputnode) + "]";
@@ -232,8 +232,8 @@ void printFormalism(Graph const &graph, int n, std::deque<std::string> &deps)
     {
         std::string source = "[D";
         std::string output = "";
-        const auto &depsnode = graph.adjList[i];
-        const auto &outs = revAdjList[i];
+        const auto &depsnode = graph.adj_src2dest[i];
+        const auto &outs = revadj_src2dest[i];
 
         //relazione 1:1
         if (depsnode.size()==1)
@@ -300,7 +300,7 @@ void printFormalism(Graph const &graph, int n, std::deque<std::string> &deps)
     }
 
 
-    for(uint i=0;i<formal_in.size();i++)
+    for(unsigned int i=0;i<formal_in.size();i++)
     {
         if(!formal_in[i].empty() && !formal_out[i].empty())
             std::cout << formal_in[i] << " --> " << formal_out[i] << std::endl;
@@ -313,7 +313,7 @@ void printFormalism(Graph const &graph, int n, std::deque<std::string> &deps)
     // for (int i = n-1; i >= 0; i--)
     // {
     //     std::string source = "[D";
-    //     const auto &depsnode = graph.adjList[i];
+    //     const auto &depsnode = graph.adj_src2dest[i];
 
     //     //relazione 1:1
     //     if (depsnode.empty())
@@ -362,7 +362,7 @@ void printFormalism(Graph const &graph, int n, std::deque<std::string> &deps)
     // //for (int i = 0; i < n; ++i)
     // for (int i = n-1; i >= 0; i--)
     // {
-    //     const auto &inputs = graph.adjList[i];
+    //     const auto &inputs = graph.adj_src2dest[i];
     //     if (inputs.size() <= 1) continue;
 
     //     std::string target = "[D" + std::to_string(i + 1) + "]";
@@ -410,7 +410,7 @@ void printFormalism_old(Graph const &graph, int n, std::deque<std::string> &deps
 
     for (int i = 0; i < n; ++i)
     {
-        const auto &depsList = graph.adjList[i];
+        const auto &depsList = graph.adj_src2dest[i];
 
         if (depsList.empty())
         {
@@ -448,7 +448,7 @@ void printFormalism_old(Graph const &graph, int n, std::deque<std::string> &deps
         int out_degree = 0;
         for (int j = 0; j < n; ++j)
         {
-            for (int v : graph.adjList[j])
+            for (int v : graph.adj_src2dest[j])
             {
                 if (v == i) out_degree++;
             }
@@ -483,24 +483,24 @@ void printFormalism_old(Graph const &graph, int n, std::deque<std::string> &deps
 
     //     //sono in un nodo output
     //     //verifico il numero di dipendenze
-    //     if(graph.adjList[i].empty())
+    //     if(graph.adj_src2dest[i].empty())
     //     {
     //         //no dipendenze
     //     }
-    //     else if(graph.adjList[i].size()==1) //1:1
+    //     else if(graph.adj_src2dest[i].size()==1) //1:1
     //     {
     //         //curr ="[D" + std::to_string(n_outnode+1) + "a"+std::to_string(n_outnode+1) +"]";
     //         curr = prev + "a";
     //         string += curr;
     //     }
-    //     else if(graph.adjList[i].size()>1) //many:1
+    //     else if(graph.adj_src2dest[i].size()>1) //many:1
     //     {
     //         //somma dei nodi
-    //         for (size_t v=0; v< graph.adjList[i].size(); v++)
+    //         for (size_t v=0; v< graph.adj_src2dest[i].size(); v++)
     //         {
     //             curr = prev + "a";
 
-    //             if(v == graph.adjList[i].size()-1)
+    //             if(v == graph.adj_src2dest[i].size()-1)
     //                 string += curr;
     //             else
     //                 string += curr + " + ";
@@ -526,18 +526,18 @@ void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps, std::
         std::string string = prefix;
 
         // print all neighboring vertices of a vertex `i`
-        if(graph.adjList[i].size() > 0)
+        if(graph.adj_src2dest[i].size() > 0)
         {
-            for (size_t v=0; v< graph.adjList[i].size(); v++)
+            for (size_t v=0; v< graph.adj_src2dest[i].size(); v++)
             {
-                if(graph.adjList[i].size() == 1)
-                    string += deps.at(graph.adjList[i].at(v));
+                if(graph.adj_src2dest[i].size() == 1)
+                    string += deps.at(graph.adj_src2dest[i].at(v));
                 else
                 {
-                    if(v == graph.adjList[i].size()-1)
-                        string += deps.at(graph.adjList[i].at(v));
+                    if(v == graph.adj_src2dest[i].size()-1)
+                        string += deps.at(graph.adj_src2dest[i].at(v));
                     else
-                        string += deps.at(graph.adjList[i].at(v)) + " + ";
+                        string += deps.at(graph.adj_src2dest[i].at(v)) + " + ";
                 }
             }
 
@@ -567,32 +567,32 @@ void printGraph2_old(Graph const &graph, int n, std::deque<std::string> &deps)
             prefix = " |-- ";
 
             // print all neighboring vertices of a vertex `i`
-            if(graph.adjList[i].size() > 0)
+            if(graph.adj_src2dest[i].size() > 0)
             {
-                for (size_t v=0; v< graph.adjList[i].size(); v++)
+                for (size_t v=0; v< graph.adj_src2dest[i].size(); v++)
                 {
-                    if(v >= 0 && graph.adjList[i].size() > 1) // && v != graph.adjList[i].size()-1)
+                    if(v >= 0 && graph.adj_src2dest[i].size() > 1) // && v != graph.adj_src2dest[i].size()-1)
                     {
-                        if(v == graph.adjList[i].size()-1)
-                            string += prefix + deps.at(graph.adjList[i].at(v));
+                        if(v == graph.adj_src2dest[i].size()-1)
+                            string += prefix + deps.at(graph.adj_src2dest[i].at(v));
                         else
-                            string += prefix + deps.at(graph.adjList[i].at(v)) + " + ";
-                        //std::cout << prefix + deps.at(graph.adjList[i].at(v)) << " + ";
+                            string += prefix + deps.at(graph.adj_src2dest[i].at(v)) + " + ";
+                        //std::cout << prefix + deps.at(graph.adj_src2dest[i].at(v)) << " + ";
                     }
-                    else if(v==0 || v == graph.adjList[i].size()-1)
+                    else if(v==0 || v == graph.adj_src2dest[i].size()-1)
                     {
-                        //string = deps.at(graph.adjList[i].at(v));
-                        string = prefix + deps.at(graph.adjList[i].at(v));
-                        //std::cout << prefix + deps.at(graph.adjList[i].at(v));
+                        //string = deps.at(graph.adj_src2dest[i].at(v));
+                        string = prefix + deps.at(graph.adj_src2dest[i].at(v));
+                        //std::cout << prefix + deps.at(graph.adj_src2dest[i].at(v));
                     }
                     else
                     {
-                        if(graph.adjList[i].size() > 1)
-                            string += deps.at(graph.adjList[i].at(v)) + " + " ;
-                        //std::cout << deps.at(graph.adjList[i].at(v)) << " + " ;
+                        if(graph.adj_src2dest[i].size() > 1)
+                            string += deps.at(graph.adj_src2dest[i].at(v)) + " + " ;
+                        //std::cout << deps.at(graph.adj_src2dest[i].at(v)) << " + " ;
                         else
-                            string = deps.at(graph.adjList[i].at(v));
-                        //std::cout << deps.at(graph.adjList[i].at(v));
+                            string = deps.at(graph.adj_src2dest[i].at(v));
+                        //std::cout << deps.at(graph.adj_src2dest[i].at(v));
                     }
                 }
                 if(string.find("in/") != std::string::npos)
@@ -605,17 +605,17 @@ void printGraph2_old(Graph const &graph, int n, std::deque<std::string> &deps)
         {
             prefix = "└── ";
 
-            if(graph.adjList[i].size() > 0)
+            if(graph.adj_src2dest[i].size() > 0)
             {
                 // print all neighboring vertices of a vertex `i`
-                for (size_t v: graph.adjList[i])
+                for (size_t v: graph.adj_src2dest[i])
                 {
-                    if(v == graph.adjList[i].size())
+                    if(v == graph.adj_src2dest[i].size())
                         string = prefix + deps.at(v);
                     //std::cout << "└── " << deps.at(v);
                     else
                     {
-                        if(graph.adjList[i].size() > 1)
+                        if(graph.adj_src2dest[i].size() > 1)
                             string = prefix + deps.at(v) + " + ";
                         //std::cout << "└── " << deps.at(v) << " + " ;
                         else
@@ -651,28 +651,28 @@ void printGraph2_old(Graph const &graph, int n, std::deque<std::string> &deps, s
             prefix = "├── ";
 
             // print all neighboring vertices of a vertex `i`
-            if(graph.adjList[i].size() > 0)
+            if(graph.adj_src2dest[i].size() > 0)
             {
-                for (size_t v=0; v< graph.adjList[i].size(); v++)
+                for (size_t v=0; v< graph.adj_src2dest[i].size(); v++)
                 {
-                    if(v >= 0 && graph.adjList[i].size() > 1 && v != graph.adjList[i].size()-1)
+                    if(v >= 0 && graph.adj_src2dest[i].size() > 1 && v != graph.adj_src2dest[i].size()-1)
                     {
-                        string = prefix + deps.at(graph.adjList[i].at(v)) + " + ";
-                        //std::cout << prefix + deps.at(graph.adjList[i].at(v)) << " + ";
+                        string = prefix + deps.at(graph.adj_src2dest[i].at(v)) + " + ";
+                        //std::cout << prefix + deps.at(graph.adj_src2dest[i].at(v)) << " + ";
                     }
-                    else if(v==0 || v == graph.adjList[i].size()-1)
+                    else if(v==0 || v == graph.adj_src2dest[i].size()-1)
                     {
-                        string = prefix + deps.at(graph.adjList[i].at(v));
-                        //std::cout << prefix + deps.at(graph.adjList[i].at(v));
+                        string = prefix + deps.at(graph.adj_src2dest[i].at(v));
+                        //std::cout << prefix + deps.at(graph.adj_src2dest[i].at(v));
                     }
                     else
                     {
-                        if(graph.adjList[i].size() > 1)
-                            string = deps.at(graph.adjList[i].at(v)) + " + " ;
-                            //std::cout << deps.at(graph.adjList[i].at(v)) << " + " ;
+                        if(graph.adj_src2dest[i].size() > 1)
+                            string = deps.at(graph.adj_src2dest[i].at(v)) + " + " ;
+                            //std::cout << deps.at(graph.adj_src2dest[i].at(v)) << " + " ;
                         else
-                            string = deps.at(graph.adjList[i].at(v));
-                            //std::cout << deps.at(graph.adjList[i].at(v));
+                            string = deps.at(graph.adj_src2dest[i].at(v));
+                            //std::cout << deps.at(graph.adj_src2dest[i].at(v));
                     }
                 }
                 if(string.find("in/") != std::string::npos)
@@ -686,17 +686,17 @@ void printGraph2_old(Graph const &graph, int n, std::deque<std::string> &deps, s
         {
             prefix = "└── ";
 
-            if(graph.adjList[i].size() > 0)
+            if(graph.adj_src2dest[i].size() > 0)
             {
                 // print all neighboring vertices of a vertex `i`
-                for (size_t v: graph.adjList[i])
+                for (size_t v: graph.adj_src2dest[i])
                 {
-                    if(v == graph.adjList[i].size())
+                    if(v == graph.adj_src2dest[i].size())
                         string = prefix + deps.at(v);
                         //std::cout << "└── " << deps.at(v);
                     else
                     {
-                        if(graph.adjList[i].size() > 1)
+                        if(graph.adj_src2dest[i].size() > 1)
                             string = prefix + deps.at(v) + " + ";
                             //std::cout << "└── " << deps.at(v) << " + " ;
                         else

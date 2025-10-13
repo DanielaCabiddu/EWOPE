@@ -53,22 +53,24 @@ class Graph
 {
 public:
     // a vector of vectors to represent an adjacency list
-    std::vector<std::vector<int>> adjList;
+    std::vector<std::vector<int>> adj_src2dest;
+    std::vector<std::vector<int>> adj_dest2src;
 
     // Graph Constructor
     Graph(std::vector<Edge> const &edges, int n)
     {
         // resize the vector to hold `n` elements of type `vector<int>`
-        adjList.resize(n);
+        adj_src2dest.resize(n);
 
         // add edges to the directed graph
         for (auto &edge: edges)
         {
             // insert at the end
-            adjList[edge.src].push_back(edge.dest);
+            adj_src2dest[edge.src].push_back(edge.dest);
+            adj_dest2src[edge.dest].push_back(edge.src);
 
             // uncomment the following code for undirected graph
-            // adjList[edge.dest].push_back(edge.src);
+            // adj_src2dest[edge.dest].push_back(edge.src);
         }
     }
 
