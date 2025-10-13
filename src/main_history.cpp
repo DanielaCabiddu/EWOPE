@@ -300,44 +300,63 @@ int main(int argc, char** argv)
                 }
             }
 
+            // std::map<int, std::string> deque_map;
+            std::map<std::string, int> deque_map;
+
+            for(int j=0; j< deque.size(); j++)
+            {
+                if (deque_map.find(deque.at(j)) == deque_map.end())
+                    deque_map[deque.at(j)] = j;
+            }
+
             int k_last = 1;
             std::vector<EWOPE::Edge> edges;
             std::cout << "Creating graph ..." << std::endl;
             for(int j=0; j< deque.size(); j++)
             {
+                int id = deque_map[deque.at(j)];
+
                 int n_deps_node = n_deps.at(j);
 
                 std::cout << "DEQUE: " << deque.at(j) << "; ";
                 std::cout << "LEVEL: " << level.at(j) << "; ";
                 std::cout << "DEPS: " << n_deps_node << "; ";
-                std::cout << "INDEX_NODE: " << j << std::endl;
+                std::cout << "INDEX_NODE: " << id << std::endl;
 
                 if(n_deps_node != 0)
                 {
                     for(int k=k_last; k< n_deps_node + k_last; k++)
                     {
-                        int pos = j+k;
+                        int id_k = deque_map[deque.at(k)];
 
-                        if(pos >= deque.size())
-                            pos = deque.size();
+                        int pos = id+id_k;
+                        // std::cout << deque.at(pos) << std::endl;
 
-                        EWOPE::Edge edge = {j, pos};
+                        pos = deque_map[deque.at(pos)];
+
+                        // if(pos >= deque.size())
+                        //     pos = deque.size();
+
+                        EWOPE::Edge edge = {id, pos};
                         edges.push_back(edge);
+
+                        std::cout << "Edge " << id << " -> " << pos << std::endl;
                     }
                 }
 
-                k_last = k_last + n_deps.at(j) - 1;
+                k_last = k_last + n_deps.at(id) - 1;
             }
-            std::cout << "Creating graph ... COMPLETED." << std::endl;
-            std::cout << std::endl;
 
             // construct graph
-            EWOPE::Graph graph(edges, edges.size()+1);
+            EWOPE::Graph graph(edges, deque_map.size());
+
+            std::cout << "Creating graph ... COMPLETED." << std::endl;
+            std::cout << std::endl;
 
             // print adjacency list representation of a graph
             printGraph2(graph, edges.size()+1, deque);
             std::cout << std::endl;
-            printFormalism(graph, edges.size()+1, deque);
+            // printFormalism(graph, edges.size()+1, deque);
         }
 
         std::cout << std::endl;

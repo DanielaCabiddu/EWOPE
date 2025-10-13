@@ -36,9 +36,14 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <iostream>
+#include <ostream>
+#include <queue>
 #include <string>
 #include <vector>
 #include <deque>
+#include <set>
+#include <map>
 
 namespace EWOPE
 {
@@ -56,11 +61,16 @@ public:
     std::vector<std::vector<int>> adj_src2dest;
     std::vector<std::vector<int>> adj_dest2src;
 
+    std::vector<std::string> node_formalism;
+
     // Graph Constructor
     Graph(std::vector<Edge> const &edges, int n)
     {
+        std::set<int> node_ids;
+
         // resize the vector to hold `n` elements of type `vector<int>`
         adj_src2dest.resize(n);
+        adj_dest2src.resize(n);
 
         // add edges to the directed graph
         for (auto &edge: edges)
@@ -69,9 +79,105 @@ public:
             adj_src2dest[edge.src].push_back(edge.dest);
             adj_dest2src[edge.dest].push_back(edge.src);
 
+            node_ids.insert(edge.src);
+            node_ids.insert(edge.dest);
+
             // uncomment the following code for undirected graph
             // adj_src2dest[edge.dest].push_back(edge.src);
         }
+
+        node_formalism.resize(node_ids.size());
+
+        std::cout << "====================================================================" << std::endl;
+
+        std::vector<int> inputs;
+
+        for (unsigned int i=0; i < adj_src2dest.size(); i++ )
+        {
+            if (adj_src2dest.at(i).empty())
+            {
+                inputs.push_back(i);
+                node_formalism.at(i) = "[D" + std::to_string(inputs.size()) + "]";
+
+                std::cout << "Input node: " << i << " :: " << node_formalism.at(i) << std::endl;
+
+            }
+        }
+
+        int counter_a = 1;
+        int counter_d = 1;
+
+        for (unsigned int i=0; i < inputs.size(); i++ )
+        {
+            std::queue<int> queue;
+            queue.push(inputs.at(i));
+
+            while (!queue.empty())
+            {
+                int node_id = queue.front();
+                queue.pop();
+
+                const std::vector<int> depsnode = adj_dest2src[node_id];
+
+                if (depsnode.empty())
+                    continue;
+
+                for (size_t j = 0; j < depsnode.size(); ++j)
+                {
+                    if (node_formalism.at(depsnode.at(j)).length() == 0)
+                    {
+                        if (depsnode.size() == 1)
+                            counter_a++;
+
+                        node_formalism.at(depsnode.at(j)) = "[" + node_formalism.at(node_id) + "a" + std::to_string(counter_a) + "]";
+
+                        queue.push(depsnode.at(j));
+
+                        std::cout << "Input node: " << j << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
+                    }
+                    else
+                    {
+                        std::vector<int> depsnode2 = adj_src2dest[depsnode.at(j)];
+
+                        bool ready = true;
+
+                        for (int k : depsnode2)
+                        {
+                            if (node_formalism.at(k).length() == 0)
+                            {
+                                ready = false;
+                                break;
+                            }
+                        }
+
+                        if (!ready)
+                            continue;
+
+                        std::string suba = node_formalism.at(depsnode.at(j)).substr(node_formalism.at(depsnode.at(j)).find_last_of("a"));
+                        std::string data;
+
+                        for (int k : depsnode2)
+                        {
+                            data += node_formalism.at(k);
+                        }
+
+                        node_formalism.at(depsnode.at(j)) = "[" + data + suba;
+
+                        std::cout << "Input node: " << j << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
+                    }
+                }
+
+                if (!adj_src2dest.at(node_id).empty() && depsnode.size() == 1)
+                {
+                    node_formalism.at(node_id) = "[" + node_formalism.at(node_id) + "|" + std::to_string(counter_d++) + "]";
+                }
+            }
+        }
+
+        std::cout << "====================================================================" << std::endl;
+
+        for (std::string s : node_formalism)
+            std::cout << s << std::endl;
     }
 
     void printGraph(Graph const &graph, int n, std::deque<std::string> deps);
