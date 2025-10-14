@@ -47,6 +47,8 @@
 #include <set>
 #include <map>
 
+#include <fstream>
+
 namespace EWOPE
 {
 
@@ -237,6 +239,32 @@ public:
             if (s.length() > 0)
             std::cout << i << " ::::: " << s << std::endl;
         }
+
+        exportToGraphviz(adj_src2dest,node_formalism, "test.dot");
+    }
+
+    void exportToGraphviz(const std::vector<std::vector<int>>& adj_src2dest,
+                          const std::vector<std::string>& node_formalism,
+                          const std::string& filename)
+    {
+        std::ofstream out(filename);
+        out << "digraph G {\n";  // or "graph G {" for undirected graphs
+
+        // define nodes
+        for (size_t i = 0; i < node_formalism.size(); ++i) {
+            if (node_formalism[i].length() > 0)
+                out << "  " << i << " [label=\"" << node_formalism[i] << "\"];\n";
+        }
+
+        // define edges
+        for (size_t i = 0; i < adj_src2dest.size(); ++i) {
+            for (int dest : adj_src2dest[i]) {
+                if (dest != INT_MAX && node_formalism[i].length() > 0 && node_formalism[dest].length() > 0)
+                    out << "  " << i << " -> " << dest << ";\n";
+            }
+        }
+
+        out << "}\n";
     }
 
     void printGraph(Graph const &graph, int n, std::deque<std::string> deps);
