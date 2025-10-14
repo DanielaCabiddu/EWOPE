@@ -363,6 +363,8 @@ int main(int argc, char** argv)
                         EWOPE::Edge edge = {id, pos};
                         edges.push_back(edge);
 
+                        if (pos == 12)
+
                         std::cout << "Edge " << id << " -> " << pos << " -- " << deque.at(pos) << std::endl;
                     }
                 }

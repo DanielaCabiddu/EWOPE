@@ -70,6 +70,7 @@ public:
     {
         std::set<int> node_ids;
 
+
         for (auto &edge: edges)
         {
             node_ids.insert(edge.src);
@@ -81,6 +82,8 @@ public:
         // resize the vector to hold `n` elements of type `vector<int>`
         adj_src2dest.resize(*node_ids.rbegin()+1);
         adj_dest2src.resize(*node_ids.rbegin()+1);
+
+        std::vector<bool> is_pipe (*node_ids.rbegin()+1, false);
 
         for (int i=0; i < adj_dest2src.size(); i++)
             if (node_ids.find(i) == node_ids.end())
@@ -117,6 +120,8 @@ public:
 
         std::vector<int> inputs;
 
+        //inizializzo il formalismo per i nodi sorgente
+        //check bottom-up (sopra il nodo node_id)
         for (unsigned int i=0; i < adj_src2dest.size(); i++ )
         {
             if (!adj_src2dest.at(i).empty() && adj_src2dest.at(i).at(0) == INT_MAX)
@@ -132,33 +137,35 @@ public:
             }
         }
 
-        int counter_a = 1;
-        int counter_d = 1;
+        int counter_a = 0;
 
+        //Ciclo sugli input
         for (unsigned int i=0; i < inputs.size(); i++ )
         {
-            std::queue<int> queue;
+            std::queue<int> queue; //creo una coda per ciclare sugli input
             queue.push(inputs.at(i));
 
             while (!queue.empty())
             {
-                int node_id = queue.front();
+                int node_id = queue.front(); //id input
                 queue.pop();
 
+                //estraggo le dipendenze top-down del node_id (al di sotto di node_id)
                 const std::vector<int> depsnode = adj_dest2src[node_id];
 
+                //controllo se non ci sono dipendenze: errore! vai avanti
                 if (depsnode.empty())
                     continue;
 
+                //Ciclo sulle dipendenze del node_id ed individuo le relazioni
                 for (size_t j = 0; j < depsnode.size(); ++j)
                 {
                     if (node_formalism.at(depsnode.at(j)).length() == 0)
                     {
-                        if (depsnode.size() == 1)
+                        if (j==0)
                             counter_a++;
 
                         node_formalism.at(depsnode.at(j)) = "[" + node_formalism.at(node_id) + "a" + std::to_string(counter_a) + "]";
-
                         queue.push(depsnode.at(j));
 
                         std::cout << "Input node: " << depsnode.at(j) << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
@@ -184,9 +191,16 @@ public:
                         std::string suba = node_formalism.at(depsnode.at(j)).substr(node_formalism.at(depsnode.at(j)).find_last_of("a"));
                         std::string data;
 
+                        //int count_k = 0;
                         for (int k : depsnode2)
                         {
-                            data += node_formalism.at(k);
+                            data += node_formalism.at(k) + " ";
+
+                            // count_k++;
+                            // if(count_k == depsnode2.size()-1)
+                            //     data += node_formalism.at(k);
+                            // else
+                            //     data += node_formalism.at(k)+" U ";
                         }
 
                         node_formalism.at(depsnode.at(j)) = "[" + data + suba;
@@ -195,17 +209,34 @@ public:
                     }
                 }
 
-                if (!adj_src2dest.at(node_id).empty() && depsnode.size() == 1)
+                bool pipe = false;
+                int counter_d = 1;
+
+                for (size_t j = 0; j < depsnode.size(); ++j)
                 {
-                    node_formalism.at(node_id) = "[" + node_formalism.at(node_id) + "|" + std::to_string(counter_d++) + "]";
+                    if (depsnode.size() > 1 && is_pipe.at(depsnode.at(j)) == false)
+                    {
+                        node_formalism.at(depsnode.at(j)) = "[" + node_formalism.at(depsnode.at(j)) + "|" + std::to_string(counter_d++) + "]";
+                        std::cout << "Renamed Input node: " << depsnode.at(j) << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
+                        pipe = true;
+
+                        is_pipe.at(depsnode.at(j)) = true;
+                    }
                 }
+
+                // if (pipe == true)
+                //     counter_a--;
             }
         }
 
         std::cout << "====================================================================" << std::endl;
 
-        for (std::string s : node_formalism)
-            std::cout << s << std::endl;
+        for (int i =0; i < node_formalism.size(); i++)
+        {
+            std::string s = node_formalism.at(i);
+            if (s.length() > 0)
+            std::cout << i << " ::::: " << s << std::endl;
+        }
     }
 
     void printGraph(Graph const &graph, int n, std::deque<std::string> deps);
