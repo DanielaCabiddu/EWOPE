@@ -7,7 +7,7 @@
         "-P -p . --tri --polygon ./in/geometry/sec_xz.xyz --opt a0.01 --setz -1.0 --obj --rotaxis X --rotangle 270 "
     ],
     "dependencies": [
-        "in/geometry/sec_xz.xyz"
+        "W1/in/geometry/sec_xz.xyz"
     ],
     "geospatialdata": {
         "name": "sec_xz",

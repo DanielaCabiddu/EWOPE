@@ -7,7 +7,7 @@
         "-C -p . "
     ],
     "dependencies": [
-        "in/data/samples_sec4000.csv"
+        "W1/in/data/samples_sec4000.csv"
     ],
     "data": [
         {
