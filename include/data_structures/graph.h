@@ -84,7 +84,7 @@ public:
             node_ids.insert(edge.dest);
         }
 
-        std::cout << *node_ids.rbegin() << std::endl;
+        //std::cout << *node_ids.rbegin() << std::endl;
 
         // resize the vector to hold `n` elements of type `vector<int>`
         adj_src2dest.resize(*node_ids.rbegin()+1);
@@ -119,7 +119,9 @@ public:
 
         node_formalism.resize(*node_ids.rbegin()+1, "");
 
-        std::cout << "====================================================================" << std::endl;
+        std::cout << std::endl;
+        std::cout << "===============================================================" << std::endl;
+        std::cout << std::endl;
 
         std::vector<int> inputs;
 
@@ -135,7 +137,7 @@ public:
                 inputs.push_back(i);
                 node_formalism.at(i) = "[D" + std::to_string(inputs.size()) + "]";
 
-                std::cout << "Input node: " << i << " :: " << node_formalism.at(i) << std::endl;
+                //std::cout << "Input node: " << i << " :: " << node_formalism.at(i) << std::endl;
 
             }
         }
@@ -171,7 +173,7 @@ public:
                         node_formalism.at(depsnode.at(j)) = "[" + node_formalism.at(node_id) + "a" + std::to_string(counter_a) + "]";
                         queue.push(depsnode.at(j));
 
-                        std::cout << "Input node: " << depsnode.at(j) << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
+                        //std::cout << "Input node: " << depsnode.at(j) << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
                     }
                     else
                     {
@@ -208,7 +210,7 @@ public:
 
                         node_formalism.at(depsnode.at(j)) = "[" + data + suba;
 
-                        std::cout << "Input node: " << depsnode.at(j) << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
+                        //std::cout << "Input node: " << depsnode.at(j) << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
                     }
                 }
 
@@ -220,7 +222,7 @@ public:
                     if (depsnode.size() > 1 && is_pipe.at(depsnode.at(j)) == false)
                     {
                         node_formalism.at(depsnode.at(j)) = "[" + node_formalism.at(depsnode.at(j)) + "|" + std::to_string(counter_d++) + "]";
-                        std::cout << "Renamed Input node: " << depsnode.at(j) << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
+                        //std::cout << "Renamed Input node: " << depsnode.at(j) << " :: " << node_formalism.at(depsnode.at(j)) << std::endl;
                         pipe = true;
 
                         is_pipe.at(depsnode.at(j)) = true;
@@ -232,13 +234,34 @@ public:
             }
         }
 
-        std::cout << "====================================================================" << std::endl;
-
+        std::cout << "INDEX_DATANODE ::::: NODE_FORMALISM" << std::endl;
         for (int i =0; i < node_formalism.size(); i++)
         {
             std::string s = node_formalism.at(i);
             if (s.length() > 0)
-            std::cout << i << " ::::: " << s << std::endl;
+                std::cout << i << " ::::: " << s << std::endl;
+        }
+        std::cout << std::endl;
+
+        std::cout << "ALGNODE ::::: COMMAND" << std::endl;
+        for (int i =0; i < command_map.size(); i++)
+        {
+            if(!node_formalism.at(i).empty() && !command_map.at(i).empty())
+            {
+                //Cleaning string for print algorithm notation
+                std::string alg="";
+                if(node_formalism.at(i).find_last_of("a"))
+                    alg = node_formalism.at(i).substr(node_formalism.at(i).find_last_of("a"), node_formalism.at(i).find_last_of("a")+1);
+                if(node_formalism.at(i).find_last_of("]"))
+                    alg = alg.substr(0, alg.find_last_of("]"));
+                if(node_formalism.at(i).find_last_of("|"))
+                    alg = alg.substr(0, alg.find_last_of("|"));
+
+                if(node_formalism.at(i).find_last_of("]"))
+                    alg = alg.substr(0, alg.find_last_of("]"));
+
+                std::cout << alg << " ::::: " << command_map.at(i) << std::endl;
+            }
         }
 
         exportToGraphviz(adj_src2dest,node_formalism, "test.dot");
