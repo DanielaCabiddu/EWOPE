@@ -247,10 +247,10 @@ int main(int argc, char** argv)
 
 
             // construct graph
-            EWOPE::Graph graph(edges, edges.size()+1);
+            //EWOPE::Graph graph(edges, edges.size()+1);
 
             // print adjacency list representation of a graph
-            printGraph2(graph, edges.size()+1, deque, deque_com);
+            //printGraph2(graph, edges.size()+1, deque, deque_com);
 
         }
 
@@ -322,13 +322,16 @@ int main(int argc, char** argv)
                 j2deps[v.first] = tmp_v;
             }
 
-            // std::map<int, std::string> deque_map;
-            std::map<std::string, int> deque_map;
+            std::map<std::string, int> deque_map; //map from file to id
+            std::map<int, std::string> deque_id2map; //map from id to file
 
             for(int j=0; j< deque.size(); j++)
             {
                 if (deque_map.find(deque.at(j)) == deque_map.end())
+                {
                     deque_map[deque.at(j)] = j;
+                    deque_id2map[j] = deque.at(j);
+                }
             }
 
             int k_last = 1;
@@ -363,8 +366,6 @@ int main(int argc, char** argv)
                         EWOPE::Edge edge = {id, pos};
                         edges.push_back(edge);
 
-                        if (pos == 12)
-
                         std::cout << "Edge " << id << " -> " << pos << " -- " << deque.at(pos) << std::endl;
                     }
                 }
@@ -373,19 +374,23 @@ int main(int argc, char** argv)
             }
 
             // construct graph
-            EWOPE::Graph graph(edges, deque_map.size());
-
-            std::cout << "Creating graph ... COMPLETED." << std::endl;
+            //EWOPE::Graph graph(edges, deque_map.size());
+            EWOPE::Graph graph(edges, deque_id2map);
+            std::cout << "=== Creating EWOPE-Graph ... COMPLETED." << std::endl;
             std::cout << std::endl;
+
 
             // print adjacency list representation of a graph
-            printGraph2(graph, edges.size()+1, deque);
-            std::cout << std::endl;
+            std::cout << "=== Printing computational history from file: " << setJSON.getValue() << std::endl;
+                    std::cout << std::endl;
+            printHistory(graph);
+
+            //printGraph2(graph, edges.size()+1, deque);
             // printFormalism(graph, edges.size()+1, deque);
         }
 
         std::cout << std::endl;
-        std::cout << "Printing history of JSON: " << setJSON.getValue() << " COMPLETED." << std::endl;
+        std::cout << "=== Printing computational history from file: " << setJSON.getValue() << " COMPLETED." << std::endl;
 
 
     }

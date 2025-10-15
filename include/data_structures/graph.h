@@ -66,12 +66,15 @@ public:
     std::vector<std::vector<int>> adj_dest2src;
 
     std::vector<std::string> node_formalism;
+    std::map<int, std::string> node_map;
 
     // Graph Constructor
-    Graph(std::vector<Edge> const &edges, int n)
+    //Graph(std::vector<Edge> const &edges, int n)
+    Graph(std::vector<Edge> const &edges, const std::map<int, std::string> &deque_id2map)
     {
-        std::set<int> node_ids;
+        node_map = deque_id2map;
 
+        std::set<int> node_ids;
 
         for (auto &edge: edges)
         {
@@ -100,9 +103,6 @@ public:
             // insert at the end
             adj_src2dest[edge.src].push_back(edge.dest);
             adj_dest2src[edge.dest].push_back(edge.src);
-
-            // uncomment the following code for undirected graph
-            // adj_src2dest[edge.dest].push_back(edge.src);
         }
 
         for (int i=0; i < adj_dest2src.size(); i++)
@@ -114,7 +114,6 @@ public:
             adj_src2dest.at(i).erase( std::unique( adj_src2dest.at(i).begin(), adj_src2dest.at(i).end() ), adj_src2dest.at(i).end() );
 
         }
-
 
         node_formalism.resize(*node_ids.rbegin()+1, "");
 
@@ -267,18 +266,7 @@ public:
         out << "}\n";
     }
 
-    void printGraph(Graph const &graph, int n, std::deque<std::string> deps);
-    void printGraph2(Graph const &graph, int n, std::deque<std::string> deps, std::deque<int> level);
-
-    void printFormalism(Graph const &graph, int n, std::deque<std::string> &deps);
-
-
-    void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps);
-    void printGraph2(Graph const &graph, int n, std::deque<std::string> &deps, std::deque<std::string> &com);
-
-    void printGraph2_old(Graph const &graph, int n, std::deque<std::string> &deps, std::deque<std::string> &com);
-
-    void printGraph2_old(Graph const &graph, int n, std::deque<std::string> &deps);
+    void printHistory (Graph const &graph);
 };
 
 }
