@@ -61,7 +61,10 @@ using namespace TCLAP;
 int main(int argc, char** argv)
 {
     std::cout << std::endl;
-    std::cout << "=== STARTING EWOPE-HISTORY ..." << std::endl;
+    std::cout << "============================================================" << std::endl;
+    std::cout << "================== STARTING EWOPE-HISTORY ==================" << std::endl;
+    std::cout << "============================================================" << std::endl;
+    std::cout << std::endl;
 
     std::string app_name = "history"; //app name
 
@@ -113,8 +116,8 @@ int main(int argc, char** argv)
         // if(setJSON.getValue().find("out/") != std::string::npos)
         //     root_project = setJSON.getValue().substr(0, setJSON.getValue().find("out/"));
 
-        std::cout << std::endl;
-        std::cout << "### JSON GENERAL FEATURES ..." << std::endl;
+        //std::cout << std::endl;
+        //std::cout << "### JSON GENERAL FEATURES ..." << std::endl;
         // std::cout << "JSON file root: " << root_project << std::endl;
         std::cout << std::endl;
 
@@ -162,7 +165,7 @@ int main(int argc, char** argv)
 
         if(setForwardInfo.isSet())
         {
-            std::cout << "===============================================================" << std::endl;
+            std::cout << "============================================================" << std::endl;
             std::cout << "=== EWOPE Graph and forward history ..." << std::endl;
 
             std::deque<int> n_deps, level;
@@ -234,7 +237,7 @@ int main(int argc, char** argv)
             }
 
             std::cout << std::endl;
-            std::cout << "===============================================================" << std::endl;
+            std::cout << "============================================================" << std::endl;
             std::cout << "=== Starting to create maps ..." << std::endl;
 
             std::map<std::string, int> deque_map; //map from file to id
@@ -252,7 +255,7 @@ int main(int argc, char** argv)
             }
 
             std::cout << std::endl;
-            std::cout << "===============================================================" << std::endl;
+            std::cout << "============================================================" << std::endl;
             std::cout << "=== Creating EWOPE-Graph ..." << std::endl;
 
             int k_last = 1;
@@ -299,15 +302,11 @@ int main(int argc, char** argv)
             std::cout << "=== Creating EWOPE-Graph ... COMPLETED." << std::endl;
             std::cout << std::endl;
 
-
-            // print adjacency list representation of a graph
-            std::cout << "=== Printing computational history from file: " << setJSON.getValue() << std::endl;
             std::cout << std::endl;
-
-            std::cout << std::endl;
-            std::cout << "===============================================================" << std::endl;
+            std::cout << "============================================================" << std::endl;
             std::cout << "=== Printing Computational Workflow history ..." << std::endl;
             std::cout << "=== Workflow directory: " << workflowDir.getValue() << std::endl;
+            std::cout << "=== JSON file: " << setJSON.getValue() << std::endl;
             std::cout << std::endl;
 
             if(setMoreInfo.isSet())
