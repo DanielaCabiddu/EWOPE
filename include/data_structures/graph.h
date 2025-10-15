@@ -67,12 +67,14 @@ public:
 
     std::vector<std::string> node_formalism;
     std::map<int, std::string> node_map;
+    std::map<int, std::string> command_map;
 
     // Graph Constructor
     //Graph(std::vector<Edge> const &edges, int n)
-    Graph(std::vector<Edge> const &edges, const std::map<int, std::string> &deque_id2map)
+    Graph(std::vector<Edge> const &edges, const std::map<int, std::string> &deque_id2map, const std::map<int, std::string> &deque_id2com)
     {
         node_map = deque_id2map;
+        command_map = deque_id2com;
 
         std::set<int> node_ids;
 
@@ -266,7 +268,7 @@ public:
         out << "}\n";
     }
 
-    void printHistory (Graph const &graph);
+    void printHistory (Graph const &graph, bool print_command = false);
 };
 
 }

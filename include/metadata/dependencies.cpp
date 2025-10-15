@@ -54,7 +54,7 @@ std::vector<std::string> get_from_JSON (const std::string &JSONfilename, const s
         curLine++;
         if (line.find(search, 0) != std::string::npos)
         {
-            std::cout << "### Found: " << search << " at line: " << curLine << std::endl;
+            //std::cout << "### Found: " << search << " at line: " << curLine << std::endl;
             //std::cout << line << std::endl;
             break;
         }
@@ -68,7 +68,7 @@ std::vector<std::string> get_from_JSON (const std::string &JSONfilename, const s
             line.erase(remove(line.begin(), line.end(), ' '), line.end());
             line.erase(remove(line.begin(), line.end(), '"'), line.end());
             line.erase(remove(line.begin(), line.end(), ','), line.end());
-            std::cout << "found: " << line << std::endl;
+            //std::cout << "found: " << line << std::endl;
             //cout << "found: " << line << " - line: " << itLine << endl;
             deps.push_back(line);
         }
@@ -77,7 +77,7 @@ std::vector<std::string> get_from_JSON (const std::string &JSONfilename, const s
     }
     file_in.close();
 
-    std::cout << "Loading xyz file: " << JSONfilename << " ... COMPLETED." << std::endl;
+    //std::cout << "Loading xyz file: " << JSONfilename << " ... COMPLETED." << std::endl;
     return deps;
 }
 

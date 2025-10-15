@@ -40,7 +40,11 @@
 namespace EWOPE
 {
 
-void printHistory(Graph const &graph)
+///
+/// \brief printHistory: print computational history starting from graph
+/// \param graph
+///
+void printHistory(Graph const &graph, bool print_command)
 {
     std::string root = "WORKFLOW";
     std::cout << root << std::endl;
@@ -52,10 +56,10 @@ void printHistory(Graph const &graph)
     {
         std::string prefix = (id != 0) ? "|-- " : "|__ ";
         std::string string = prefix;
+        std::string command = "";
 
         id--;
 
-        //std::vector<int> deps = graph.adj_dest2src[it->first]; //deps sotto al nodo
         std::vector<int> deps = graph.adj_src2dest[it->first]; //deps sopra al nodo
         if(!deps.empty())
         {
@@ -76,13 +80,22 @@ void printHistory(Graph const &graph)
                 }
                 id_dep++;
             }
-
+            command += graph.command_map.find(it->first)->second;
         }
-        string += " ---> ";
+        string += " --> ";
+        std::string string_tmp = string;
         string += it->second;
 
         if(!deps.empty())
+        {
             std::cout << string << std::endl;
+            if(print_command)
+                std::cout << "\033[34m" << std::setfill(' ') << std::right << std::setw(string_tmp.length()) << " --> " << command << "\033[0m" << std::endl;
+        }
+        string_tmp.clear();
+
+
+            //std::cout << std::setfill(' ') << std::right << std::setw(string.length()+3) << " --> " << command << std::endl;
     }
 }
 

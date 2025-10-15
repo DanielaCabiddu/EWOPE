@@ -61,8 +61,7 @@ using namespace TCLAP;
 int main(int argc, char** argv)
 {
     std::cout << std::endl;
-    std::cout << "########### STARTING EWOPE-HISTORY ..." << std::endl;
-    std::cout << std::endl;
+    std::cout << "=== STARTING EWOPE-HISTORY ..." << std::endl;
 
     std::string app_name = "history"; //app name
 
@@ -100,8 +99,7 @@ int main(int argc, char** argv)
             exit(1);
         }
 
-        std::cout << "Loading file ... " << setJSON.getValue() << std::endl;
-        std::cout << std::endl;
+        std::cout << "=== Loading file ... " << setJSON.getValue() << std::endl;
 
         std::string root_project = "";
 
@@ -162,105 +160,13 @@ int main(int argc, char** argv)
 
         }
 
-
-        if(setForwardInfo.isSet() && setMoreInfo.isSet())
+        if(setForwardInfo.isSet())
         {
+            std::cout << "===============================================================" << std::endl;
+            std::cout << "=== EWOPE Graph and forward history ..." << std::endl;
+
             std::deque<int> n_deps, level;
             std::deque<std::string> deque, deque_com;
-            std::queue<std::string> queue;
-
-            if (workflowDir.isSet())
-            {
-                filesystem::path rel_path = filesystem::relative(setJSON.getValue(), workflowDir.getValue());
-                std::cout << "JSON file: " << rel_path << std::endl;
-                queue.push(rel_path.string());
-            }
-            else
-                queue.push(setJSON.getValue());
-
-            int id_level = 0;
-            level.push_back(id_level);
-
-
-            while (!queue.empty())
-            {
-                std::string curr = queue.front();
-                std::string curr_com;
-
-                //if(filesystem::exists(root_project + curr) )
-                if(curr.find(".json") != std::string::npos)
-                    curr_com = get_from_JSON(curr,"commands").at(0);
-                //curr_com = getCom_from_JSON(root_project + curr).at(0);
-
-                queue.pop();
-                //queue_com.pop();
-                deque.push_back(curr);
-                deque_com.push_back(curr_com);
-
-                deps.clear();
-                if(curr.find(".json") != std::string::npos)
-                    deps = get_from_JSON(root_project + curr, "dependencies");
-
-                n_deps.push_back(deps.size());
-
-                if(deps.size() > 0)
-                {
-                    id_level++;
-                    for(size_t i=0; i< deps.size(); i++)
-                    {
-                        queue.push(deps.at(i));
-                        level.push_back(id_level);
-                    }
-                }
-            }
-
-            int k_last = 1;
-            std::vector<EWOPE::Edge> edges;
-            std::cout << "Creating graph ..." << std::endl;
-            for(int j=0; j< deque.size(); j++)
-            {
-                int n_deps_node = n_deps.at(j);
-
-                std::cout << "DEQUE: " << deque.at(j) << "; ";
-                std::cout << "LEVEL: " << level.at(j) << "; ";
-                std::cout << "DEPS: " << n_deps_node << "; ";
-                std::cout << "INDEX_NODE: " << j << std::endl;
-
-                if(n_deps_node != 0)
-                {
-                    for(int k=k_last; k< n_deps_node + k_last; k++)
-                    {
-                        int pos = j+k;
-
-                        if(pos >= deque.size())
-                            pos = deque.size();
-
-                        EWOPE::Edge edge = {j, pos};
-                        edges.push_back(edge);
-                    }
-                }
-
-                k_last = k_last + n_deps.at(j) - 1;
-            }
-            std::cout << "Creating graph ... COMPLETED." << std::endl;
-            std::cout << std::endl;
-
-
-            // construct graph
-            //EWOPE::Graph graph(edges, edges.size()+1);
-
-            // print adjacency list representation of a graph
-            //printGraph2(graph, edges.size()+1, deque, deque_com);
-
-        }
-
-
-        if(setForwardInfo.isSet() && !setMoreInfo.isSet())
-        {
-
-            std::cout << std::endl << "FORWARD -----------------------------------------" << std::endl << std::endl;
-            std::deque<int> n_deps, level;
-            std::deque<std::string> deque;
             std::queue<std::string> queue;
 
             std::map<std::string, std::vector<std::string>> j2deps;
@@ -282,9 +188,14 @@ int main(int argc, char** argv)
             while (!queue.empty())
             {
                 std::string curr = queue.front();
-                // std::cout << " curr ---> " << curr << std::endl;
+                std::string curr_com;
+
+                if(curr.find(".json") != std::string::npos)
+                    curr_com = get_from_JSON(root_project + curr,"commands").at(0);
+
                 queue.pop();
                 deque.push_back(curr);
+                deque_com.push_back(curr_com);
 
                 deps.clear();
                 if(curr.find(".json") != std::string::npos)
@@ -322,8 +233,13 @@ int main(int argc, char** argv)
                 j2deps[v.first] = tmp_v;
             }
 
+            std::cout << std::endl;
+            std::cout << "===============================================================" << std::endl;
+            std::cout << "=== Starting to create maps ..." << std::endl;
+
             std::map<std::string, int> deque_map; //map from file to id
             std::map<int, std::string> deque_id2map; //map from id to file
+            std::map<int, std::string> deque_command_map; //map from id to file
 
             for(int j=0; j< deque.size(); j++)
             {
@@ -331,12 +247,16 @@ int main(int argc, char** argv)
                 {
                     deque_map[deque.at(j)] = j;
                     deque_id2map[j] = deque.at(j);
+                    deque_command_map[j] = deque_com.at(j);
                 }
             }
 
+            std::cout << std::endl;
+            std::cout << "===============================================================" << std::endl;
+            std::cout << "=== Creating EWOPE-Graph ..." << std::endl;
+
             int k_last = 1;
             std::vector<EWOPE::Edge> edges;
-            std::cout << "Creating graph ..." << std::endl;
             for(int j=0; j< deque.size(); j++)
             {
                 int id = deque_map[deque.at(j)];
@@ -366,7 +286,7 @@ int main(int argc, char** argv)
                         EWOPE::Edge edge = {id, pos};
                         edges.push_back(edge);
 
-                        std::cout << "Edge " << id << " -> " << pos << " -- " << deque.at(pos) << std::endl;
+                        //std::cout << "Edge " << id << " -> " << pos << " -- " << deque.at(pos) << std::endl;
                     }
                 }
 
@@ -375,18 +295,25 @@ int main(int argc, char** argv)
 
             // construct graph
             //EWOPE::Graph graph(edges, deque_map.size());
-            EWOPE::Graph graph(edges, deque_id2map);
+            EWOPE::Graph graph(edges, deque_id2map, deque_command_map);
             std::cout << "=== Creating EWOPE-Graph ... COMPLETED." << std::endl;
             std::cout << std::endl;
 
 
             // print adjacency list representation of a graph
             std::cout << "=== Printing computational history from file: " << setJSON.getValue() << std::endl;
-                    std::cout << std::endl;
-            printHistory(graph);
+            std::cout << std::endl;
 
-            //printGraph2(graph, edges.size()+1, deque);
-            // printFormalism(graph, edges.size()+1, deque);
+            std::cout << std::endl;
+            std::cout << "===============================================================" << std::endl;
+            std::cout << "=== Printing Computational Workflow history ..." << std::endl;
+            std::cout << "=== Workflow directory: " << workflowDir.getValue() << std::endl;
+            std::cout << std::endl;
+
+            if(setMoreInfo.isSet())
+                printHistory(graph, true);
+            else
+                printHistory(graph, false);
         }
 
         std::cout << std::endl;
