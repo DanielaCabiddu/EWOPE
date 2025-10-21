@@ -350,27 +350,34 @@ void Graph::exportToGraphviz(const std::string& filename, const int type, const 
         }
     }
 
-    // define edges
+    // define edges as double edges with intermediate node
     for (size_t i = 0; i < adj_src2dest.size(); ++i) {
         for (int dest : adj_src2dest[i]) {
-            if (dest != INT_MAX && node_formalism[i].length() > 0 && node_formalism[dest].length() > 0)
-                //out << "  " << i << " -> " << dest << ";\n";
-            {
-                //Cleaning string for print algorithm notation
-                std::string alg="";
-                if(node_formalism.at(i).find_last_of("a"))
-                    alg = node_formalism.at(i).substr(node_formalism.at(i).find_last_of("a"), node_formalism.at(i).find_last_of("a")+1);
-                if(node_formalism.at(i).find_last_of("]"))
-                    alg = alg.substr(0, alg.find_last_of("]"));
-                if(node_formalism.at(i).find_last_of("|"))
-                    alg = alg.substr(0, alg.find_last_of("|"));
+            if (dest != INT_MAX && !node_formalism[i].empty() && !node_formalism[dest].empty()) {
+                // Cleaning string for edge label
+                std::string alg = "";
+                std::string node_str = node_formalism[i];
 
-                if(node_formalism.at(i).find_last_of("]"))
-                    alg = alg.substr(0, alg.find_last_of("]"));
+                // extract substring similar to your original code
+                size_t pos_a = node_str.find_last_of('a');
+                if (pos_a != std::string::npos) alg = node_str.substr(pos_a);
+                size_t pos_pipe = alg.find_last_of('|');
+                if (pos_pipe != std::string::npos) alg = alg.substr(0, pos_pipe);
+                size_t pos_bracket = alg.find_last_of(']');
+                if (pos_bracket != std::string::npos) alg = alg.substr(0, pos_bracket);
 
-                out << "  " << i << " -> " << dest << " [label=\"" << alg << "\"];\n";
+                // create a unique intermediate node id
+                static int intermediate_node_counter = 1000000; // start from a large number to avoid conflicts
+                int intermediate_node = intermediate_node_counter++;
+
+                // define the intermediate node
+                out << "  " << intermediate_node << " [label=\"" << alg
+                    << "\", style=filled, fillcolor=yellow, color=black, shape=ellipse, style=\"filled,dotted\", fontsize=10];\n";
+
+                // connect original source -> intermediate -> destination
+                out << "  " << i << " -> " << intermediate_node << " [color=black];\n";
+                out << "  " << intermediate_node << " -> " << dest << " [color=black];\n";
             }
-
         }
     }
 
