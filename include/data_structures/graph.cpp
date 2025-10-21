@@ -308,6 +308,7 @@ void Graph::exportToGraphviz(const std::string& filename, const int type, const 
     std::ofstream out(filename);
     out << "digraph G {\n";  // or "graph G {" for undirected graphs
     out << "  node [style=filled, fillcolor=white];\n";
+    out << "  edge [color=\"#CCCC00\", penwidth=2];\n";  // yellow dotted edges
 
     // define nodes
     for (size_t i = 0; i < node_formalism.size(); ++i) {
