@@ -233,7 +233,7 @@ Graph::Graph(std::vector<Edge> const &edges, const std::map<int, std::string> &d
         }
     }
 
-    exportToGraphviz("test.dot");
+    // exportToGraphviz("test.dot");
 }
 
 ///
@@ -297,11 +297,13 @@ void Graph::printHistory(bool print_command)
             //std::cout << std::setfill(' ') << std::right << std::setw(string.length()+3) << " --> " << command << std::endl;
     }
 
-    exportToGraphviz("history.dot", visited_nodes);
+    exportToGraphviz("history_formalism.dot", 0, visited_nodes);
+    exportToGraphviz("history_ids.dot", 1, visited_nodes);
+    exportToGraphviz("history_filenames.dot", 2, visited_nodes);
 }
 
 inline
-void Graph::exportToGraphviz(const std::string& filename, const std::vector<bool> &highlight_nodes)
+void Graph::exportToGraphviz(const std::string& filename, const int type, const std::vector<bool> &highlight_nodes)
 {
     std::ofstream out(filename);
     out << "digraph G {\n";  // or "graph G {" for undirected graphs
@@ -315,12 +317,34 @@ void Graph::exportToGraphviz(const std::string& filename, const std::vector<bool
             std::replace(label.begin(), label.end(), ' ', '\n');
 
             if (i < highlight_nodes.size() && highlight_nodes[i]) {
-                out << "  " << i << " [label=\"" << label
+
+                if (type == 0)
+                    out << "  " << i << " [label=\"" << label
                     // << "\", fillcolor=red, fontcolor=white];\n";
-                 << "\", fontcolor=black];\n";
+                        << "\", fontcolor=black];\n";
+                else
+                    if (type == 1)
+                        out << "  " << i << " [label=\"" << i
+                        // << "\", fillcolor=red, fontcolor=white];\n";
+                            << "\", fontcolor=black];\n";
+                    else
+                        out << "  " << i << " [label=\"" << node_map[i]
+                        << "\", fillcolor=white];\n";
             } else {
-                out << "  " << i << " [label=\"" << label
-                    << "\", fillcolor=white];\n";
+                if (type == 0)
+                    out << "  " << i << " [label=\"" << label
+                        << "\", fillcolor=white];\n";
+                else
+                    if (type == 1)
+                        out << "  " << i << " [label=\"" << i
+                            << "\", fillcolor=white];\n";
+                    else
+                    {
+                        std::string filename = node_map[i];
+                        std::replace(filename.begin(), filename.end(), '\\', '/');
+                        out << "  " << i << " [label=\"" << filename
+                            << "\", fillcolor=white];\n";
+                    }
             }
         }
     }

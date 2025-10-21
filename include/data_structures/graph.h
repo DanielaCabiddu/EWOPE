@@ -73,7 +73,10 @@ public:
     //Graph(std::vector<Edge> const &edges, int n)
     Graph(std::vector<Edge> const &edges, const std::map<int, std::string> &deque_id2map, const std::map<int, std::string> &deque_id2com);
 
-    void exportToGraphviz(const std::string& filename, const std::vector<bool> &highlight_nodes = {});
+    // type = 0: formalism
+    // type = 1: ids
+    // type = 2: filenames
+    void exportToGraphviz(const std::string& filename, const int type, const std::vector<bool> &highlight_nodes = {});
 
     void printHistory (bool print_command = false);
 };
