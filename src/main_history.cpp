@@ -310,9 +310,9 @@ int main(int argc, char** argv)
             std::cout << std::endl;
 
             if(setMoreInfo.isSet())
-                printHistory(graph, true);
+                graph.printHistory(true);
             else
-                printHistory(graph, false);
+                graph.printHistory(false);
         }
 
         std::cout << std::endl;
