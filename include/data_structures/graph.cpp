@@ -294,23 +294,35 @@ void Graph::printHistory(bool print_command)
                 std::cout << "\033[34m" << std::setfill(' ') << std::right << std::setw(string_tmp.length()) << " --> " << command << "\033[0m" << std::endl;
         }
         string_tmp.clear();
-
-        exportToGraphviz("history.dot");
-
             //std::cout << std::setfill(' ') << std::right << std::setw(string.length()+3) << " --> " << command << std::endl;
     }
+
+    exportToGraphviz("history.dot", visited_nodes);
 }
 
 inline
-void Graph::exportToGraphviz(const std::string& filename)
+void Graph::exportToGraphviz(const std::string& filename, const std::vector<bool> &highlight_nodes)
 {
     std::ofstream out(filename);
     out << "digraph G {\n";  // or "graph G {" for undirected graphs
+    out << "  node [style=filled, fillcolor=white];\n";
 
     // define nodes
     for (size_t i = 0; i < node_formalism.size(); ++i) {
-        if (node_formalism[i].length() > 0)
-            out << "  " << i << " [label=\"" << node_formalism[i] << "\"];\n";
+        if (!node_formalism[i].empty()) {
+            // Replace spaces with '\n' for multi-line labels
+            std::string label = node_formalism[i];
+            std::replace(label.begin(), label.end(), ' ', '\n');
+
+            if (i < highlight_nodes.size() && highlight_nodes[i]) {
+                out << "  " << i << " [label=\"" << label
+                    // << "\", fillcolor=red, fontcolor=white];\n";
+                 << "\", fontcolor=black];\n";
+            } else {
+                out << "  " << i << " [label=\"" << label
+                    << "\", fillcolor=white];\n";
+            }
+        }
     }
 
     // define edges
