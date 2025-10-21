@@ -370,7 +370,6 @@ void Graph::exportToGraphviz(const std::string& filename, const int type, const 
 
                 out << "  " << i << " -> " << dest << " [label=\"" << alg << "\"];\n";
             }
-
         }
     }
 
