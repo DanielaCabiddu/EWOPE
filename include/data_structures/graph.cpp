@@ -303,7 +303,7 @@ void Graph::printHistory(bool print_command)
 }
 
 inline
-void Graph::exportToGraphviz(const std::string& filename, const int type, const std::vector<bool> &highlight_nodes)
+    void Graph::exportToGraphviz(const std::string& filename, const int type, const std::vector<bool> &highlight_nodes)
 {
     std::ofstream out(filename);
     out << "digraph G {\n";  // or "graph G {" for undirected graphs
@@ -317,35 +317,45 @@ void Graph::exportToGraphviz(const std::string& filename, const int type, const 
             std::string label = node_formalism[i];
             std::replace(label.begin(), label.end(), ' ', '\n');
 
-            if (i < highlight_nodes.size() && highlight_nodes[i]) {
+            // Determine color scheme based on adjacency and highlighting
+            std::string fillcolor = "white";
+            std::string fontcolor = "black";
 
+            if (!adj_src2dest.at(i).empty()) {
+                // Node has no outgoing edges → black node, white text
+                fillcolor = "black";
+                fontcolor = "white";
+            }
+
+            if (i < highlight_nodes.size() && highlight_nodes[i]) {
                 if (type == 0)
                     out << "  " << i << " [label=\"" << label
-                    // << "\", fillcolor=red, fontcolor=white];\n";
-                        << "\", fontcolor=black];\n";
+                        << "\", fillcolor=" << fillcolor
+                        << ", fontcolor=" << fontcolor << "];\n";
+                else if (type == 1)
+                    out << "  " << i << " [label=\"" << i
+                        << "\", fillcolor=" << fillcolor
+                        << ", fontcolor=" << fontcolor << "];\n";
                 else
-                    if (type == 1)
-                        out << "  " << i << " [label=\"" << i
-                        // << "\", fillcolor=red, fontcolor=white];\n";
-                            << "\", fontcolor=black];\n";
-                    else
-                        out << "  " << i << " [label=\"" << node_map[i]
-                        << "\", fillcolor=white];\n";
+                    out << "  " << i << " [label=\"" << node_map[i]
+                        << "\", fillcolor=" << fillcolor
+                        << ", fontcolor=" << fontcolor << "];\n";
             } else {
                 if (type == 0)
                     out << "  " << i << " [label=\"" << label
-                        << "\", fillcolor=white];\n";
-                else
-                    if (type == 1)
-                        out << "  " << i << " [label=\"" << i
-                            << "\", fillcolor=white];\n";
-                    else
-                    {
-                        std::string filename = node_map[i];
-                        std::replace(filename.begin(), filename.end(), '\\', '/');
-                        out << "  " << i << " [label=\"" << filename
-                            << "\", fillcolor=white];\n";
-                    }
+                        << "\", fillcolor=" << fillcolor
+                        << ", fontcolor=" << fontcolor << "];\n";
+                else if (type == 1)
+                    out << "  " << i << " [label=\"" << i
+                        << "\", fillcolor=" << fillcolor
+                        << ", fontcolor=" << fontcolor << "];\n";
+                else {
+                    std::string filename = node_map[i];
+                    std::replace(filename.begin(), filename.end(), '\\', '/');
+                    out << "  " << i << " [label=\"" << filename
+                        << "\", fillcolor=" << fillcolor
+                        << ", fontcolor=" << fontcolor << "];\n";
+                }
             }
         }
     }
@@ -383,6 +393,7 @@ void Graph::exportToGraphviz(const std::string& filename, const int type, const 
 
     out << "}\n";
 }
+
 
 }
 
