@@ -35,6 +35,7 @@
 
 #include "graph.h"
 
+#include <iomanip>
 #include <iostream>
 
 namespace EWOPE
@@ -308,14 +309,18 @@ inline
     std::ofstream out(filename);
     out << "digraph G {\n";  // or "graph G {" for undirected graphs
     out << "  node [style=filled, fillcolor=white];\n";
-    out << "  edge [color=\"#CCCC00\", penwidth=2];\n";  // yellow dotted edges
+    out << "  edge [penwidth=2];\n";  // yellow dotted edges
+
+    static int intermediate_node_counter = 1000000; // start from a large number to avoid conflicts
+
+    std::vector<std::pair<int, int>> intermediate_nodes; // to store intermediate nodes for edges
 
     // define nodes
     for (size_t i = 0; i < node_formalism.size(); ++i) {
         if (!node_formalism[i].empty()) {
             // Replace spaces with '\n' for multi-line labels
             std::string label = node_formalism[i];
-            std::replace(label.begin(), label.end(), ' ', '\n');
+            // std::replace(label.begin(), label.end(), ' ', '\n');
 
             // Determine color scheme based on adjacency and highlighting
             std::string fillcolor = "white";
@@ -329,8 +334,8 @@ inline
 
             if (i < highlight_nodes.size() && highlight_nodes[i]) {
                 if (type == 0)
-                    out << "  " << i << " [label=\"" << label
-                        << "\", fillcolor=" << fillcolor
+                    out << "  " << i << " ["
+                        << " fillcolor=" << fillcolor
                         << ", fontcolor=" << fontcolor << "];\n";
                 else if (type == 1)
                     out << "  " << i << " [label=\"" << i
@@ -342,8 +347,8 @@ inline
                         << ", fontcolor=" << fontcolor << "];\n";
             } else {
                 if (type == 0)
-                    out << "  " << i << " [label=\"" << label
-                        << "\", fillcolor=" << fillcolor
+                    out << "  " << i << " ["
+                        << " fillcolor=" << fillcolor
                         << ", fontcolor=" << fontcolor << "];\n";
                 else if (type == 1)
                     out << "  " << i << " [label=\"" << i
@@ -357,6 +362,15 @@ inline
                         << ", fontcolor=" << fontcolor << "];\n";
                 }
             }
+
+            // create a unique intermediate node id
+            int intermediate_node = intermediate_node_counter++;
+
+            // define the intermediate node
+            out << "  " << intermediate_node << " [label=\"" << label
+                << "\", shape=none, style=\"\", fillcolor=none, fontsize=10];\n";
+
+            intermediate_nodes.push_back({i, intermediate_node});
         }
     }
 
@@ -377,7 +391,6 @@ inline
                 if (pos_bracket != std::string::npos) alg = alg.substr(0, pos_bracket);
 
                 // create a unique intermediate node id
-                static int intermediate_node_counter = 1000000; // start from a large number to avoid conflicts
                 int intermediate_node = intermediate_node_counter++;
 
                 // define the intermediate node
@@ -389,6 +402,19 @@ inline
                 out << "  " << intermediate_node << " -> " << dest << " [color=black];\n";
             }
         }
+    }
+
+    // group each label node with its original node at the same rank
+    for (const auto& pair : intermediate_nodes) {
+        int original_node = pair.first;
+        int intermediate_node = pair.second;
+
+        // put both nodes at the same rank (horizontal alignment)
+        out << "  { rank=same; " << original_node << "; " << intermediate_node << "; }\n";
+
+        // invisible edge to force layout proximity (no visible arrow)
+        out << "  " << intermediate_node << " -> " << original_node
+            << " [style=invis, weight=10];\n";
     }
 
     out << "}\n";
