@@ -1,9 +1,11 @@
 {
     "commands": [
-        "-O -p . -m ./W1/out/geometry/surf/sec_xz.obj --abs -y -1.0 --obj "
+        "-p . -m ./W1/out/geometry/surf/sec_xz.obj --por ./W1/out/compute/phi_DIR2D_sec_xz/_varspace/_stats/phi_mean.json --perm ./W2/out/compute/cat_DIR2D_sec_xz/_stats/best.json"
     ],
     "dependencies": [
-        "W1/out/geometry/surf/sec_xz.json"
+        "W1/out/geometry/surf/sec_xz.json",
+        "W1/out/compute/phi_DIR2D_sec_xz/_varspace/_stats/phi_mean.json",
+        "W2/out/compute/cat_DIR2D_sec_xz/_stats/best.json"
     ],
     "geospatialdata": {
         "name": "sec_xz",
@@ -34,5 +36,12 @@
         "type": "delta",
         "direction": "Y",
         "value": 1.0
+    },
+    "format": {
+    	"mesh": "ugi",
+    	"variable": [
+    		"permeability",
+    		"porosity"
+    	]
     }
 }
