@@ -56,12 +56,18 @@ Such a folder contains all input data and output metadata used in our case study
 
 ## Citing us
 ```bibtex
-@unpublished{miola2025ewoPe,
-  author       = {Marianna Miola and Daniela Cabiddu and Simone Pittaluga and Micaela Raviola and Marino Vetuschi Zuccolini},
-  title        = {{EWoPe: a light Embeddable WOrkflow PErsistence tool for geoscientific pipeline reproducibility}},
-  year         = {2025},
-  note         = {Manuscript under review in *Computers \& Geosciences*},
-  url          = {https://github.com/DanielaCabiddu/EWOPE}
+{
+@article{MIOLA2026106099,
+title = {EWoPe: A light Embeddable WOrkflow PErsistence tool for geoscientific pipeline reproducibility},
+journal = {Computers & Geosciences},
+volume = {209},
+pages = {106099},
+year = {2026},
+issn = {0098-3004},
+doi = {https://doi.org/10.1016/j.cageo.2025.106099},
+url = {https://www.sciencedirect.com/science/article/pii/S0098300425002493},
+author = {Marianna Miola and Daniela Cabiddu and Simone Pittaluga and Micaela Raviola and Marino {Vetuschi Zuccolini}},
+keywords = {Scientific workflows, Workflow persistence, Provenance tracking, Metadata, Geoscientific modeling, Computational reproducibility}
 }
 ```
 
