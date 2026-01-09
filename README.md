@@ -49,7 +49,6 @@ Our application is described in the paper (see Section 5).
 To replicate paper results testing history functionality (see Section 6.3), please run the executable ```_EWOPE_history_```, as described in the README located in the [**examples**](https://github.com/DanielaCabiddu/EWOPE/tree/main/examples) folder. 
 Such a folder contains all input data and output metadata used in our case study.
 
-
 ## Contributors
 - Daniela Cabiddu (CNR-IMATI, Genova, Italy), email: daniela.cabiddu@cnr.it
 - Marianna Miola (CNR-IMATI, Genova, Italy), email: marianna.miola@cnr.it
@@ -72,10 +71,8 @@ keywords = {Scientific workflows, Workflow persistence, Provenance tracking, Met
 ```
 
 ## Acknowledgment
-The work is developed under the Ph.D. Research Project in Earth and Environmental Science and Technology, supported by PON "Ricerca e Innovazione" 2014-2020, Asse IV "Istruzione e ricerca per il recupero", Azione IV.5 "Dottorati su tematiche Green" DM 1061/2021. 
+The work is developed under the Ph.D. Research Project in Science and Technologies for Earth and Environment, supported by the Italian Ministry of University and Research under the National Operational Programme NOP “Research and Innovation” 2014-2020, “Education and research for recovery – REACT-EU”, Axis IV - Action IV.5 “PhD programmes on green topics” Ministerial Decree no. 1061, 10 August 2021.
 
-Marianna Miola acknowledges the Italian National Biodiversity Future Center (NBFC) - National Recovery and Resilience Plan (NRRP) funded by the European Union - NextGenerationEU (project code CN 00000033).
+Marianna Miola acknowledges the support of the National Recovery and Resilience Plan (NRRP), Mission 4 Component 2 Investment 1.4 - Call for tender no. 3138 of 16 December 2021, rectified by Decree no. 3175 of 18 December 2021 of Italian Ministry of University and Research funded by the European Union-NextGenerationEU; Award Number: Project code CN 00000033, Concession Decree no. 1034 of 17 June 2022 adopted by the Italian Ministry of University and Research, CUP B83C22002930006, Project title “National Biodiversity Future Center - NBFC”.
 
-Daniela Cabiddu, Simone Pittaluga and Marino Vetuschi Zuccolini are members of the RAISE Innovation Ecosystem, funded by the European Union - NextGenerationEU and by the Ministry of University and Research (MUR), National Recovery and Resilience Plan (NRRP), Mission 4, Component 2, Investment 1.5, project ``RAISE - Robotics and AI for Socio-economic Empowerment'' (ECS00000035).
-
-This research was partially funded by the projects and initiatives mentioned above.
+Daniela Cabiddu, Simone Pittaluga and Marino Vetuschi Zuccolini are members of the RAISE Innovation Ecosystem, funded by the European Union - NextGenerationEU and by the Ministry of University and Research (MUR), National Recovery and Resilience Plan (NRRP), Mission 4, Component 2, Investment 1.5, project “RAISE - Robotics and AI for Socio-economic Empowerment” (ECS00000035).
